@@ -33,9 +33,7 @@ Follow these steps to get involved:
 
 We are a group of students passionate about fostering collaboration:
 
-    Hruthika Reddy
-    Harshitha-Y30
-    Yamuna Yaparla
+    
 
 📜 License
 
