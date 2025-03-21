@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Campus Collab</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="styles/home.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Welcome to Campus Collab</h1>
+        <p>Connect with mentors and explore exciting projects</p>
+
+        <div id="search-container">
+            <input type="text" id="search-bar" placeholder="Search for projects or mentors...">
+            <div id="search-results"></div>
+            <div class="loading">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.style.opacity = "1";
+        });
+
+        $(document).ready(function() {
+            $("#search-bar").on("input", function() {
+                let query = $(this).val().trim().toLowerCase();
+                if (query.length > 0) {
+                    $(".loading").show();
+                    $.ajax({
+                        url: "Campus-Collab/Backend/search.php",
+                        method: "POST",
+                        data: { search: query },
+                        success: function(response) {
+                            $(".loading").hide();
+                            $("#search-results").html(response).fadeIn();
+                        }
+                    });
+                } else {
+                    $(".loading").hide();
+                    $("#search-results").fadeOut();
+                }
+            });
+
+            $(document).on("click", ".search-item", function() {
+                let type = $(this).data("type");
+                let id = $(this).data("id");
+                window.location.href = type + ".php?id=" + id;
+            });
+        });
+    </script>
+</body>
+</html>

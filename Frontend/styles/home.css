@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f4f4;
+}
+
+#container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+#container:hover {
+    transform: scale(1.02);
+}
+
+h1 {
+    color: #1b62e6;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#search-container {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+#search-bar:focus {
+    box-shadow: 0 0 10px rgba(27, 98, 230, 0.8);
+}
+
+#search-results {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    overflow: hidden;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.result-category {
+    padding: 10px;
+    font-weight: bold;
+    background: #ddd;
+    text-align: left;
+}
+
+.search-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+.search-item:hover {
+    background: #f1f1f1;
+}
+
+.search-item i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #1b62e6;
+}
+
+.loading {
+    display: none;
+    margin-top: 10px;
+}
+
+.loading span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #1b62e6;
+    border-radius: 50%;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+.loading span:nth-child(2) { animation-delay: 0.2s; }
+.loading span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
