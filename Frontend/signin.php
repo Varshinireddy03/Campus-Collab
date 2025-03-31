@@ -13,7 +13,7 @@
     <div class="container">
         <!-- Login Form -->
         <div class="form-box login">
-            <form action="http://localhost:82/mysite/Campus-Collab/Backend/login.php  
+            <form action="http://localhost:82/mysite/Campus-Collab/Backend/register.php  
 " method="POST">
                 <h1>Login</h1>
                 <div class="input-box">

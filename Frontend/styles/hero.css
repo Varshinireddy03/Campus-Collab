@@ -1,33 +1,92 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
 
+/* Hero Section */
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 30px;
+  margin-right: 80px;
+  width: 100%;
+  height: 100vh;
+}
 
-.hero-content{
-  width:100%;
-  display:flex;
-  justify-content: center;
-  align-items:center;
+/* Left Side - Hero Text */
+.hero-info {
+  display: flex;
   flex-direction: column;
-  height:100vh;
+  justify-content: center;
+  max-width: 50%;
 }
-.highlight{
-  color:rgb(27, 98, 230);
+
+.hero-info h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
-.hero-content h1{
-  margin-bottom:20px;
+
+.highlight {
+  color: rgb(27, 98, 230);
 }
-.hero-content p{
-  margin-bottom:20px;
+
+.hero-info p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
 }
-.hero-content button{
-  background-color:rgb(27, 98, 230);
-  padding:10px 10px;
-  border-radius:20px;
-  color:white;
-  font-weight:bold;
-  border:none;
+
+/* Button Styling */
+.get-started-button {
+  background: linear-gradient(30deg, rgb(27, 98, 230), cornflowerblue);
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
 }
+
+.get-started-button:hover {
+  opacity: 0.9;
+}
+
 .loginlink {
-  text-decoration: none;  /* Removes underline */
-  color: white;           /* Sets text color to white */
-  font-weight: bold;      /* Makes text bold */
-  font-size: 16px;        /* Adjusts text size */
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Right Side - Hero Image */
+.hero-img {
+  max-width: 50%;
+}
+
+.collab-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+  }
+
+  .hero-info, .hero-img {
+    max-width: 100%;
+  }
+
+  .collab-image {
+    max-width: 80%;
+    margin-top: 20px;
+  }
 }
