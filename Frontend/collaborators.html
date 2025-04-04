@@ -730,6 +730,26 @@
                     alert('Task creation modal would open here in a full implementation');
                 });
             }
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const projectCards = document.querySelectorAll('.project-card');
+
+                projectCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const languages = card.querySelector('.project-languages').textContent.toLowerCase();
+
+                    if (title.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else if (description.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else if (languages.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
 
             // Initial render
             renderTasks();

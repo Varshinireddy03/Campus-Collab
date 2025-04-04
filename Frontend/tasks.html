@@ -320,10 +320,12 @@
         }
 
         /* Hamburger button */
-         .hamburger-below {
+        .hamburger-below {
             position: fixed;
-            left: 0; /* Positioned at the left edge */
-            top: calc(var(--navbar-height) - 0rem); /* Below the navbar */
+            left: 0;
+            /* Positioned at the left edge */
+            top: calc(var(--navbar-height) - 0rem);
+            /* Below the navbar */
             background: var(--primary);
             border: none;
             width: 40px;
@@ -331,7 +333,8 @@
             border-radius: 50%;
             color: white;
             cursor: pointer;
-            z-index: 1001; /* Above sidebar but below modal potentially */
+            z-index: 1001;
+            /* Above sidebar but below modal potentially */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -576,32 +579,50 @@
                 max-width: 200px;
             }
 
-             .sidebar.active+.main-content {
-                 margin-left: 0; /* Remove margin shift on smaller screens */
-             }
+            .sidebar.active+.main-content {
+                margin-left: 0;
+                /* Remove margin shift on smaller screens */
+            }
 
-             .main-content {
-                 padding: 1.5rem;
-             }
-         }
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
 
-         @media (max-width: 576px) {
-             .navbar {
-                 flex-wrap: wrap;
-                 height: auto;
-                 padding: 0.75rem;
-                 gap: 0.75rem;
-             }
-             .logo { order: 1; }
-             .search-box { order: 3; width: 100%; max-width: none; min-width: auto; }
-             .nav-actions { order: 2; margin-left: auto; }
-             .modal { width: 95%; }
-             .projects-grid {
-                 grid-template-columns: 1fr;
-             }
+        @media (max-width: 576px) {
+            .navbar {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 0.75rem;
+                gap: 0.75rem;
+            }
+
+            .logo {
+                order: 1;
+            }
+
+            .search-box {
+                order: 3;
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+            }
+
+            .nav-actions {
+                order: 2;
+                margin-left: auto;
+            }
+
+            .modal {
+                width: 95%;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-     <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="settings.css">
 </head>
 
 <body>
@@ -614,8 +635,6 @@
         <input type="text" class="search-box" id="searchInput" placeholder="Search projects, courses, people...">
 
         <div class="nav-actions">
-             <button class="create-button" id="openModalBtn"> <span class="plus-icon">+</span> Create
-            </button>
 
             <div class="profile-container">
                 <button class="profile-btn">
@@ -633,7 +652,7 @@
                         <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
                         <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
                         <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
-                         <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
+                        <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
                         <div class="dropdown-divider"></div>
                         <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
@@ -655,25 +674,25 @@
             <li><a href="events.html" target="_blank"><i class="fas fa-calendar-alt"></i> <span>Events</span></a></li>
             <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span>Leaderboard</span></a></li>
             <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span>Mentorship</span></a></li>
-             <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span>Tasks</span></a></li>
+            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span>Tasks</span></a></li>
             <li><a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
         </ul>
     </div>
 
     <div class="main-content" id="main-content">
         <h1 class="headline">My Tasks</h1>
-        
+
         <div class="task-filters">
             <button class="filter-btn active" data-filter="all">All Tasks</button>
             <button class="filter-btn" data-filter="active">Active</button>
             <button class="filter-btn" data-filter="completed">Completed</button>
             <button class="filter-btn" data-filter="pending">Pending</button>
         </div>
-        
+
         <div class="projects-grid" id="projectsGrid">
             <!-- Project cards will be dynamically inserted here -->
         </div>
-        
+
         <div class="empty-state" id="emptyState" style="display: none;">
             <i class="fas fa-tasks"></i>
             <h3>No Tasks Found</h3>
@@ -684,6 +703,42 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            // Search functionality
+            const searchInput = document.getElementById("searchInput");
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase();
+                    console.log("Searching for:", searchTerm);
+                    // Add specific search logic for tasks here
+                });
+            }
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const projectCards = document.querySelectorAll('.project-card');
+
+                projectCards.forEach(card => {
+                    const title = card.querySelector('.project-title').textContent.toLowerCase();
+                    const description = card.querySelector('.project-description').textContent.toLowerCase();
+                    const course = card.querySelector('.project-course').textContent.toLowerCase();
+
+                    // Get all collaborator names
+                    const collaborators = Array.from(card.querySelectorAll('.collaborator-avatar'))
+                        .map(avatar => avatar.getAttribute('title').toLowerCase())
+                        .join(' ');
+
+                    if (title.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else if (description.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else if (course.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else if (collaborators.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
             const settings = JSON.parse(localStorage.getItem('settings')) || {};
             // Check if user is logged in
             const user = JSON.parse(localStorage.getItem('user')) || {
@@ -714,7 +769,7 @@
                 sidebar.classList.toggle("active");
             });
 
-             // Highlight active sidebar link (Robust check)
+            // Highlight active sidebar link (Robust check)
             const currentPath = window.location.pathname.split('/').pop();
             const sidebarLinks = document.querySelectorAll(".sidebar ul li a");
 
@@ -726,9 +781,9 @@
                     link.classList.add("active");
                 }
                 // Handle case where homepage.html might be the root or index
-                 else if (currentPath === '' && linkPath === 'homepage.html') {
-                     link.classList.add("active");
-                 }
+                else if (currentPath === '' && linkPath === 'homepage.html') {
+                    link.classList.add("active");
+                }
             });
 
             // Sample projects data
@@ -813,16 +868,16 @@
             function renderProjects(filter = 'all') {
                 const projectsGrid = document.getElementById('projectsGrid');
                 const emptyState = document.getElementById('emptyState');
-                
+
                 // Clear existing projects
                 projectsGrid.innerHTML = '';
-                
+
                 // Filter projects
                 let filteredProjects = projects;
                 if (filter !== 'all') {
                     filteredProjects = projects.filter(project => project.status === filter);
                 }
-                
+
                 // Check if there are projects to show
                 if (filteredProjects.length === 0) {
                     emptyState.style.display = 'block';
@@ -830,26 +885,26 @@
                 } else {
                     emptyState.style.display = 'none';
                 }
-                
+
                 // Create project cards
                 filteredProjects.forEach(project => {
                     const projectCard = document.createElement('div');
                     projectCard.className = 'project-card';
-                    
+
                     // Format due date
                     const dueDate = new Date(project.dueDate);
-                    const formattedDate = dueDate.toLocaleDateString('en-US', { 
-                        month: 'short', 
+                    const formattedDate = dueDate.toLocaleDateString('en-US', {
+                        month: 'short',
                         day: 'numeric',
                         year: 'numeric'
                     });
-                    
+
                     // Determine status class
                     let statusClass = '';
                     if (project.status === 'active') statusClass = 'status-active';
                     else if (project.status === 'completed') statusClass = 'status-completed';
                     else if (project.status === 'pending') statusClass = 'status-pending';
-                    
+
                     // Create collaborators list
                     let collaboratorsHTML = '';
                     project.collaborators.forEach(collab => {
@@ -857,7 +912,7 @@
                             <div class="collaborator-avatar" title="${collab.name}">${collab.initials}</div>
                         `;
                     });
-                    
+
                     // Create project card HTML
                     projectCard.innerHTML = `
                         <div class="project-header">
@@ -890,44 +945,35 @@
                             </div>
                         </div>
                     `;
-                    
+
                     projectsGrid.appendChild(projectCard);
                 });
             }
-            
+
             // Filter button functionality
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     // Remove active class from all buttons
                     filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
+
                     // Add active class to clicked button
                     this.classList.add('active');
-                    
+
                     // Get filter value
                     const filter = this.getAttribute('data-filter');
-                    
+
                     // Render filtered projects
                     renderProjects(filter);
                 });
             });
-
             // Initial render
             renderProjects();
-            
-            // Search functionality
-            const searchInput = document.getElementById("searchInput");
-             if (searchInput) {
-                 searchInput.addEventListener('input', function () {
-                     const searchTerm = this.value.toLowerCase();
-                     console.log("Searching for:", searchTerm);
-                     // Add specific search logic for tasks here
-                 });
-            }
+
         });
     </script>
     <script src="js/settings.js"></script>
 
-</body> 
+</body>
+
 </html>
