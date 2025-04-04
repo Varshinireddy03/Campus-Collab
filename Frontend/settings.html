@@ -26,6 +26,7 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --border-radius: 12px;
             --sidebar-width: 280px;
+            --sidebar-collapsed-width: 80px; /* Added from homepage.html */
             --navbar-height: 70px;
         }
 
@@ -115,24 +116,31 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Sidebar Styles */
+        /* Sidebar Styles - Collapsed by default with icons only (Copied from homepage.html) */
         .sidebar {
             position: fixed;
             left: 0;
             top: var(--navbar-height);
             height: calc(100vh - var(--navbar-height));
-            width: var(--sidebar-width);
+            width: var(--sidebar-collapsed-width); /* Updated */
             background-color: white;
             box-shadow: var(--shadow-md);
             padding: 1.5rem 0;
-            transform: translateX(-100%);
             transition: var(--transition);
             z-index: 999;
             overflow-y: auto;
+            overflow-x: hidden; /* Added */
         }
 
-        .sidebar.active {
+        /* Added hover effect from homepage.html */
+        .sidebar:hover {
+            width: var(--sidebar-width);
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
             transform: translateX(0);
+            margin-left: 1rem;
         }
 
         .sidebar ul {
@@ -143,13 +151,13 @@
         .sidebar li a {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem; /* Updated padding */
             color: var(--dark-gray);
             text-decoration: none;
             transition: var(--transition);
             font-size: 0.95rem;
             position: relative;
+            white-space: nowrap; /* Added */
         }
 
         .sidebar li a:hover {
@@ -178,43 +186,38 @@
             width: 24px;
             text-align: center;
             font-size: 1.1rem;
+            flex-shrink: 0; /* Added */
         }
 
-        /* Hamburger Button */
-        .hamburger-below {
-            position: fixed;
-            left: 1rem;
-            top: calc(var(--navbar-height) - 0rem);
-            background: var(--primary);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Added sidebar-text styles from homepage.html */
+        .sidebar-text {
+            opacity: 0;
+            transform: translateX(-20px);
             transition: var(--transition);
-            box-shadow: var(--shadow-md);
-        }
-
-        .hamburger-below:hover {
-            background-color: var(--primary-dark);
-            transform: scale(1.05);
-        }
-
-        /* Main Content */
-        .main-content {
             margin-left: 0;
+            transition-delay: 0.1s;
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
+            transform: translateX(0);
+            margin-left: 1rem;
+        }
+
+        /* Hamburger Button - REMOVED */
+        /* .hamburger-below { ... } */
+
+        /* Main Content - Adjusted margin-left */
+        .main-content {
+            margin-left: var(--sidebar-collapsed-width); /* Updated */
             padding: 2rem;
             transition: var(--transition);
             margin-top: var(--navbar-height);
             min-height: calc(100vh - var(--navbar-height));
         }
 
-        .sidebar.active + .main-content {
+        /* Added hover effect adjustment from homepage.html */
+        .sidebar:hover + .main-content {
             margin-left: var(--sidebar-width);
         }
 
@@ -483,10 +486,19 @@
             .settings-container {
                 padding: 1.5rem;
             }
-            
+
             .main-content {
                 padding: 1.5rem;
+                margin-left: 0; /* Adjusted for mobile */
             }
+
+            /* Adjust sidebar for mobile as per homepage.html if needed */
+            .sidebar {
+                 width: 0;
+                 transform: translateX(-100%);
+                 /* Keep other mobile sidebar styles if desired, or remove if hover is enough */
+             }
+             /* Add hamburger toggle for mobile if keeping toggle behavior */
         }
 
         @media (max-width: 576px) {
@@ -496,23 +508,23 @@
                 padding: 0.75rem;
                 gap: 0.75rem;
             }
-            
+
             .logo {
                 order: 1;
             }
-            
+
             .search-box {
                 order: 3;
                 width: 100%;
                 max-width: none;
                 min-width: auto;
             }
-            
+
             .nav-actions {
                 order: 2;
                 margin-left: auto;
             }
-            
+
             .settings-container {
                 padding: 1rem;
             }
@@ -520,18 +532,16 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <div class="navbar">
         <div class="logo">
             <i class="fas fa-users"></i>
             <span>Campus Collab</span>
-        </div>        
-            <!-- Profile Dropdown -->
+        </div>
             <div class="profile-container">
                 <button class="profile-btn">
                     <span id="profileInitials">JD</span>
                 </button>
-                
+
                 <div class="profile-dropdown">
                     <div class="profile-header">
                         <div class="profile-avatar" id="profileAvatar">JD</div>
@@ -540,51 +550,41 @@
                             <p id="profileMajor">Computer Science</p>
                         </div>
                     </div>
-                    
+
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
-                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li> <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
                         <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
-                        
+
                         <div class="dropdown-divider"></div>
-                        
+
                         <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Sidebar Toggle Button -->
-    <button class="hamburger-below" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <!-- Sidebar -->
+
     <div class="sidebar" id="sidebar">
         <ul>
-            <li><a href="homepage.html"><i class="fas fa-star"></i> <span>Featured</span></a></li>
-            <li><a href="projects.html"><i class="fas fa-folder"></i> <span>Projects</span></a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> <span>Courses</span></a></li>
-            <li><a href="collaborators.html"><i class="fas fa-users"></i> <span>Collaborators</span></a></li>
-            <li><a href="events.html"><i class="fas fa-calendar-alt"></i> <span>Events</span></a></li>
-            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span>Leaderboard</span></a></li>
-            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span>Mentorship</span></a></li>
-            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span>Tasks</span></a></li>
-            <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
-        </ul>
+             <li><a href="homepage.html"><i class="fas fa-star"></i> <span class="sidebar-text">Featured</span></a></li>
+            <li><a href="projects.html"><i class="fas fa-folder"></i> <span class="sidebar-text">Projects</span></a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> <span class="sidebar-text">Courses</span></a></li>
+            <li><a href="collaborators.html"><i class="fas fa-users"></i> <span class="sidebar-text">Collaborators</span></a></li>
+            <li><a href="events.html" target="_blank"><i class="fas fa-calendar-alt"></i> <span class="sidebar-text">Events</span></a></li>
+            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span class="sidebar-text">Leaderboard</span></a></li>
+            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span class="sidebar-text">Mentorship</span></a></li>
+            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span class="sidebar-text">Tasks</span></a></li>
+            <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> <span class="sidebar-text">Settings</span></a></li> </ul>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content" id="main-content">
         <h1 class="headline">Website Settings</h1>
-        
+
         <div class="settings-container">
-            <!-- Appearance Settings -->
             <div class="settings-section">
                 <h2><i class="fas fa-palette"></i> Appearance</h2>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Theme</h3>
@@ -596,7 +596,7 @@
                         <option value="system">System Default</option>
                     </select>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Accent Color</h3>
@@ -610,7 +610,7 @@
                         <option value="orange">Orange</option>
                     </select>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Font Size</h3>
@@ -622,7 +622,7 @@
                         <option value="large">Large</option>
                     </select>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Animation Effects</h3>
@@ -634,11 +634,10 @@
                     </label>
                 </div>
             </div>
-            
-            <!-- Content Settings -->
+
             <div class="settings-section">
                 <h2><i class="fas fa-newspaper"></i> Content</h2>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Default View</h3>
@@ -649,7 +648,7 @@
                         <option value="list">List View</option>
                     </select>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Show Featured Content</h3>
@@ -660,7 +659,7 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Show Recent Activity</h3>
@@ -672,11 +671,10 @@
                     </label>
                 </div>
             </div>
-            
-            <!-- Notification Settings -->
+
             <div class="settings-section">
                 <h2><i class="fas fa-bell"></i> Notifications</h2>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Project Updates</h3>
@@ -687,7 +685,7 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Event Reminders</h3>
@@ -698,7 +696,7 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                
+
                 <div class="setting-item">
                     <div class="setting-info">
                         <h3>Message Notifications</h3>
@@ -710,24 +708,21 @@
                     </label>
                 </div>
             </div>
-            
+
             <button class="save-button" id="saveSettings">Save Changes</button>
         </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Sidebar toggle functionality
-            const sidebarToggle = document.getElementById("sidebarToggle");
-            const sidebar = document.getElementById("sidebar");
-            
-            sidebarToggle.addEventListener("click", function() {
-                sidebar.classList.toggle("active");
-            });
+            // Sidebar toggle functionality - REMOVED
+            // const sidebarToggle = document.getElementById("sidebarToggle");
+            // const sidebar = document.getElementById("sidebar");
+            // sidebarToggle.addEventListener("click", function() { ... });
 
             // Load saved settings
             const settings = JSON.parse(localStorage.getItem('settings')) || {};
-            
+
             // Apply saved settings to form elements
             if (settings.theme) {
                 document.getElementById('themeSetting').value = settings.theme;
@@ -743,6 +738,9 @@
             }
             if (settings.animationsEnabled !== undefined) {
                 document.getElementById('animationsEnabled').checked = settings.animationsEnabled;
+                applyAnimationSettings(settings.animationsEnabled); // Apply on load
+            } else {
+                 applyAnimationSettings(true); // Default to enabled
             }
             if (settings.defaultView) {
                 document.getElementById('defaultView').value = settings.defaultView;
@@ -769,7 +767,7 @@
                 name: 'John Doe',
                 major: 'Computer Science'
             };
-            
+
             // Update profile information
             document.getElementById('profileInitials').textContent = user.initials;
             document.getElementById('profileAvatar').textContent = user.initials;
@@ -782,72 +780,89 @@
                 localStorage.removeItem('user');
                 window.location.href = 'index.html';
             });
-            
-            // Highlight active sidebar link
+
+            // Highlight active sidebar link (Keep this logic)
             const currentPage = window.location.pathname.split('/').pop() || 'settings.html';
             const sidebarLinks = document.querySelectorAll(".sidebar ul li a");
-            
+
             sidebarLinks.forEach(link => {
+                link.classList.remove("active"); // Remove active class from all
                 const linkPage = link.getAttribute('href');
                 if (currentPage === linkPage) {
-                    link.classList.add("active");
+                    link.classList.add("active"); // Add active class to the current page link
                 }
             });
-            
+
             // Theme switcher
             document.getElementById('themeSetting').addEventListener('change', function() {
                 const theme = this.value;
                 applyTheme(theme);
             });
-            
+
             // Accent color switcher
             document.getElementById('accentColor').addEventListener('change', function() {
                 const color = this.value;
                 applyAccentColor(color);
             });
-            
+
             // Font size switcher
             document.getElementById('fontSize').addEventListener('change', function() {
                 const size = this.value;
                 applyFontSize(size);
             });
-            
+
+            // Animation toggle listener
+             document.getElementById('animationsEnabled').addEventListener('change', function() {
+                applyAnimationSettings(this.checked);
+            });
+
+
             // Save settings
             document.getElementById('saveSettings').addEventListener('click', function() {
                 const newSettings = {
                     theme: document.getElementById('themeSetting').value || 'light',
                     accentColor: document.getElementById('accentColor').value || 'blue',
                     fontSize: document.getElementById('fontSize').value || 'medium',
-                    animationsEnabled: document.getElementById('animationsEnabled').checked || true,
+                    animationsEnabled: document.getElementById('animationsEnabled').checked, // No default needed here
                     defaultView: document.getElementById('defaultView').value || 'grid',
-                    showFeatured: document.getElementById('showFeatured').checked || true,
-                    showActivity: document.getElementById('showActivity').checked || true,
-                    projectNotifications: document.getElementById('projectNotifications').checked || true,
-                    eventNotifications: document.getElementById('eventNotifications').checked || true,
-                    messageNotifications: document.getElementById('messageNotifications').checked || true
+                    showFeatured: document.getElementById('showFeatured').checked,
+                    showActivity: document.getElementById('showActivity').checked,
+                    projectNotifications: document.getElementById('projectNotifications').checked,
+                    eventNotifications: document.getElementById('eventNotifications').checked,
+                    messageNotifications: document.getElementById('messageNotifications').checked
                 };
-                
+
                 localStorage.setItem('settings', JSON.stringify(newSettings));
                 alert('Settings saved successfully! These changes will apply across all pages.');
             });
-            
+
             // Apply theme function
             function applyTheme(theme) {
+                // Reset to light mode defaults first
+                document.documentElement.style.setProperty('--light', '#f8f9fa');
+                document.documentElement.style.setProperty('--dark', '#212529');
+                document.documentElement.style.setProperty('--light-gray', '#f1f3f5');
+                document.documentElement.style.setProperty('--medium-gray', '#dee2e6');
+                document.documentElement.style.setProperty('--dark-gray', '#495057');
+                document.body.style.backgroundColor = 'var(--light)';
+                document.querySelectorAll('.settings-container').forEach(el => el.style.backgroundColor = 'white'); // Example for specific elements
+
                 if (theme === 'dark') {
                     document.documentElement.style.setProperty('--light', '#212529');
                     document.documentElement.style.setProperty('--dark', '#f8f9fa');
                     document.documentElement.style.setProperty('--light-gray', '#343a40');
                     document.documentElement.style.setProperty('--medium-gray', '#495057');
                     document.documentElement.style.setProperty('--dark-gray', '#e9ecef');
-                } else {
-                    document.documentElement.style.setProperty('--light', '#f8f9fa');
-                    document.documentElement.style.setProperty('--dark', '#212529');
-                    document.documentElement.style.setProperty('--light-gray', '#f1f3f5');
-                    document.documentElement.style.setProperty('--medium-gray', '#dee2e6');
-                    document.documentElement.style.setProperty('--dark-gray', '#495057');
+                     document.body.style.backgroundColor = 'var(--light)';
+                     document.querySelectorAll('.settings-container').forEach(el => el.style.backgroundColor = '#343a40'); // Dark background for container
+                } else if (theme === 'system') {
+                    // Apply based on prefers-color-scheme
+                     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                     if(prefersDark) applyTheme('dark');
+                     else applyTheme('light');
                 }
             }
-            
+
             // Apply accent color function
             function applyAccentColor(color) {
                 let primaryColor;
@@ -875,7 +890,7 @@
                 const lighterShade = shadeColor(primaryColor, 20);
                 document.documentElement.style.setProperty('--primary-light', lighterShade);
             }
-            
+
             // Helper function to lighten/darken colors
             function shadeColor(color, percent) {
                 let R = parseInt(color.substring(1,3), 16);
@@ -886,9 +901,9 @@
                 G = parseInt(G * (100 + percent) / 100);
                 B = parseInt(B * (100 + percent) / 100);
 
-                R = (R<255)?R:255;  
-                G = (G<255)?G:255;  
-                B = (B<255)?B:255;  
+                R = (R<255)?R:255;
+                G = (G<255)?G:255;
+                B = (B<255)?B:255;
 
                 const RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
                 const GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
@@ -896,7 +911,7 @@
 
                 return "#"+RR+GG+BB;
             }
-            
+
             // Apply font size function
             function applyFontSize(size) {
                 let baseSize;
@@ -907,34 +922,49 @@
                     case 'large':
                         baseSize = '18px';
                         break;
-                    default:
+                    default: // medium
                         baseSize = '16px';
                 }
                 document.documentElement.style.fontSize = baseSize;
             }
-            
-            // Apply animation settings
+
+            // Apply animation settings function
             function applyAnimationSettings(enabled) {
+                const noAnimStyle = document.getElementById('no-animations');
                 if (!enabled) {
                     document.documentElement.style.setProperty('--transition', 'none');
-                    // Disable all CSS animations
-                    const style = document.createElement('style');
-                    style.id = 'no-animations';
-                    style.textContent = `
-                        *, *::before, *::after {
-                            transition: none !important;
-                            animation: none !important;
-                        }
-                    `;
-                    document.head.appendChild(style);
+                    if (!noAnimStyle) {
+                        const style = document.createElement('style');
+                        style.id = 'no-animations';
+                        style.textContent = `
+                            *, *::before, *::after {
+                                transition: none !important;
+                                animation: none !important;
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    }
                 } else {
                     document.documentElement.style.setProperty('--transition', 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)');
-                    const noAnimStyle = document.getElementById('no-animations');
                     if (noAnimStyle) {
                         noAnimStyle.remove();
                     }
                 }
             }
+
+            // Initial application of settings on load
+             applyTheme(document.getElementById('themeSetting').value);
+             applyAccentColor(document.getElementById('accentColor').value);
+             applyFontSize(document.getElementById('fontSize').value);
+             applyAnimationSettings(document.getElementById('animationsEnabled').checked);
+
+             // Listen for system theme changes if 'system' is selected
+             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                 if (document.getElementById('themeSetting').value === 'system') {
+                     applyTheme('system');
+                 }
+             });
+
         });
     </script>
 </body>

@@ -28,6 +28,7 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --border-radius: 12px;
             --sidebar-width: 280px;
+            --sidebar-collapsed-width: 80px; /* Added */
             --navbar-height: 70px;
             --base-font-size: 16px;
         }
@@ -119,26 +120,30 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Sidebar Styles - Perfect Alignment */
+        /* Sidebar Styles - Updated to Hover-Expand */
         .sidebar {
             position: fixed;
             left: 0;
             top: var(--navbar-height);
-            /* Starts below navbar */
             height: calc(100vh - var(--navbar-height));
-            /* Full height minus navbar */
-            width: var(--sidebar-width);
+            width: var(--sidebar-collapsed-width); /* Updated */
             background-color: white;
             box-shadow: var(--shadow-md);
             padding: 1.5rem 0;
-            transform: translateX(-100%);
             transition: var(--transition);
             z-index: 999;
             overflow-y: auto;
+            overflow-x: hidden; /* Added */
         }
 
-        .sidebar.active {
+        .sidebar:hover {
+            width: var(--sidebar-width);
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
             transform: translateX(0);
+            margin-left: 1rem;
         }
 
         .sidebar ul {
@@ -149,13 +154,13 @@
         .sidebar li a {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem; /* Updated padding */
             color: var(--dark-gray);
             text-decoration: none;
             transition: var(--transition);
             font-size: 0.95rem;
             position: relative;
+            white-space: nowrap; /* Added */
         }
 
         .sidebar li a:hover {
@@ -184,18 +189,34 @@
             width: 24px;
             text-align: center;
             font-size: 1.1rem;
+            flex-shrink: 0; /* Added */
         }
 
-        /* Main Content - Perfect Alignment with Sidebar */
-        .main-content {
+        /* Added sidebar-text styles */
+        .sidebar-text {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: var(--transition);
             margin-left: 0;
+            transition-delay: 0.1s;
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
+            transform: translateX(0);
+            margin-left: 1rem;
+        }
+
+        /* Main Content - Updated for Hover Sidebar */
+        .main-content {
+            margin-left: var(--sidebar-collapsed-width); /* Updated */
             padding: 2rem;
             transition: var(--transition);
             margin-top: var(--navbar-height);
             min-height: calc(100vh - var(--navbar-height));
         }
 
-        .sidebar.active+.main-content {
+        .sidebar:hover + .main-content {
             margin-left: var(--sidebar-width);
         }
 
@@ -319,48 +340,25 @@
             margin: 0.5rem 0;
         }
 
-        /* Hamburger button */
-        .hamburger-below {
-            position: fixed;
-            left: 0;
-            /* Positioned at the left edge */
-            top: calc(var(--navbar-height) - 0rem);
-            /* Below the navbar */
-            background: var(--primary);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            z-index: 1001;
-            /* Above sidebar but below modal potentially */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-        }
+        /* Hamburger button - REMOVED */
+        /* .hamburger-below { ... } */
 
-        .hamburger-below:hover {
-            background-color: var(--primary-dark);
-            transform: scale(1.05);
-        }
-
-        /* Projects Grid Styles */
-        .projects-grid {
+        /* Projects Grid Styles (Task Card uses similar structure) */
+        .projects-grid { /* Renaming might be good, but keep for consistency if tasks look like cards */
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
         }
 
-        .project-card {
+        .project-card { /* Keep name for consistency or rename to task-card */
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-sm);
             overflow: hidden;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -380,7 +378,7 @@
             color: var(--dark);
         }
 
-        .project-course {
+        .project-course { /* Use for project name or context */
             font-size: 0.8rem;
             color: var(--primary);
             font-weight: 500;
@@ -388,9 +386,10 @@
 
         .project-body {
             padding: 1.25rem;
+            flex-grow: 1; /* Ensure body takes available space */
         }
 
-        .project-description {
+        .project-description { /* Use for task description */
             color: var(--dark-gray);
             font-size: 0.9rem;
             margin-bottom: 1rem;
@@ -401,7 +400,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
+            margin-top: auto; /* Push details to bottom if card flexes */
+            padding: 0 1.25rem 1.25rem; /* Add padding if not in body */
         }
 
         .project-due-date {
@@ -423,89 +423,9 @@
             font-weight: 500;
         }
 
-        .status-active {
-            background-color: rgba(76, 201, 240, 0.1);
-            color: var(--secondary);
-        }
-
-        .status-completed {
-            background-color: rgba(67, 97, 238, 0.1);
-            color: var(--primary);
-        }
-
-        .status-pending {
-            background-color: rgba(247, 37, 133, 0.1);
-            color: var(--accent);
-        }
-
-        .collaborators-section {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--light-gray);
-        }
-
-        .collaborators-title {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .collaborators-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .collaborator-avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: var(--primary-light);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        .project-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--light-gray);
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--medium-gray);
-            color: var(--dark-gray);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
+        .status-active { background-color: rgba(76, 201, 240, 0.1); color: var(--secondary); }
+        .status-completed { background-color: rgba(67, 97, 238, 0.1); color: var(--primary); }
+        .status-pending { background-color: rgba(247, 37, 133, 0.1); color: var(--accent); }
 
         /* Task Filters */
         .task-filters {
@@ -544,18 +464,11 @@
             padding: 3rem;
             color: var(--dark-gray);
         }
-
         .empty-state i {
             font-size: 3rem;
-            color: var(--medium-gray);
             margin-bottom: 1rem;
+            color: var(--medium-gray);
         }
-
-        .empty-state h3 {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
         .empty-state p {
             max-width: 400px;
             margin: 0 auto 1.5rem;
@@ -563,67 +476,26 @@
 
         /* Responsive Adjustments */
         @media (max-width: 992px) {
-            .search-box {
-                width: 30%;
-                min-width: 200px;
-            }
+            .search-box { width: 30%; min-width: 200px; }
         }
-
         @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
+            .navbar { padding: 1rem; }
+            .search-box { width: 100%; max-width: 200px; }
+            .main-content { padding: 1.5rem; margin-left: var(--sidebar-collapsed-width);} /* Ensure correct margin on smaller screens */
+             .sidebar:hover + .main-content {
+                margin-left: var(--sidebar-width); /* Maintain hover effect if desired, or remove for simple collapse */
             }
-
-            .search-box {
-                width: 100%;
-                max-width: 200px;
-            }
-
-            .sidebar.active+.main-content {
-                margin-left: 0;
-                /* Remove margin shift on smaller screens */
-            }
-
-            .main-content {
-                padding: 1.5rem;
-            }
+            /* Optional: Consider making sidebar fixed overlay on mobile if hover is difficult */
         }
-
         @media (max-width: 576px) {
-            .navbar {
-                flex-wrap: wrap;
-                height: auto;
-                padding: 0.75rem;
-                gap: 0.75rem;
-            }
-
-            .logo {
-                order: 1;
-            }
-
-            .search-box {
-                order: 3;
-                width: 100%;
-                max-width: none;
-                min-width: auto;
-            }
-
-            .nav-actions {
-                order: 2;
-                margin-left: auto;
-            }
-
-            .modal {
-                width: 95%;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
+            .navbar { flex-wrap: wrap; height: auto; padding: 0.75rem; gap: 0.75rem; }
+            .logo { order: 1; }
+            .search-box { order: 3; width: 100%; max-width: none; min-width: auto; }
+            .nav-actions { order: 2; margin-left: auto; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
     </style>
-    <link rel="stylesheet" href="settings.css">
-</head>
+    </head>
 
 <body>
     <div class="navbar">
@@ -631,17 +503,13 @@
             <i class="fas fa-users"></i>
             <span>Campus Collab</span>
         </div>
-
-        <input type="text" class="search-box" id="searchInput" placeholder="Search projects, courses, people...">
-
-        <div class="nav-actions">
-
+        <input type="text" class="search-box" id="searchInput" placeholder="Search tasks..."> <div class="nav-actions">
             <div class="profile-container">
                 <button class="profile-btn">
                     <span id="profileInitials">JD</span>
                 </button>
                 <div class="profile-dropdown">
-                    <div class="profile-header">
+                     <div class="profile-header">
                         <div class="profile-avatar" id="profileAvatar">JD</div>
                         <div class="profile-info">
                             <h4 id="profileName">John Doe</h4>
@@ -650,7 +518,7 @@
                     </div>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
-                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
                         <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
                         <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
                         <div class="dropdown-divider"></div>
@@ -661,21 +529,17 @@
         </div>
     </div>
 
-    <button class="hamburger-below" id="toggle-btn">
-        <i class="fas fa-bars"></i>
-    </button>
-
     <div class="sidebar" id="sidebar">
         <ul>
-            <li><a href="homepage.html"><i class="fas fa-star"></i> <span>Featured</span></a></li>
-            <li><a href="projects.html"><i class="fas fa-folder"></i> <span>Projects</span></a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> <span>Courses</span></a></li>
-            <li><a href="collaborators.html"><i class="fas fa-users"></i> <span>Collaborators</span></a></li>
-            <li><a href="events.html" target="_blank"><i class="fas fa-calendar-alt"></i> <span>Events</span></a></li>
-            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span>Leaderboard</span></a></li>
-            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span>Mentorship</span></a></li>
-            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span>Tasks</span></a></li>
-            <li><a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            <li><a href="homepage.html"><i class="fas fa-star"></i> <span class="sidebar-text">Featured</span></a></li>
+            <li><a href="projects.html"><i class="fas fa-folder"></i> <span class="sidebar-text">Projects</span></a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> <span class="sidebar-text">Courses</span></a></li>
+            <li><a href="collaborators.html"><i class="fas fa-users"></i> <span class="sidebar-text">Collaborators</span></a></li>
+            <li><a href="events.html" target="_blank"><i class="fas fa-calendar-alt"></i> <span class="sidebar-text">Events</span></a></li>
+            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span class="sidebar-text">Leaderboard</span></a></li>
+            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span class="sidebar-text">Mentorship</span></a></li>
+            <li><a href="tasks.html" class="active"><i class="fas fa-tasks"></i> <span class="sidebar-text">Tasks</span></a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="sidebar-text">Settings</span></a></li>
         </ul>
     </div>
 
@@ -684,296 +548,210 @@
 
         <div class="task-filters">
             <button class="filter-btn active" data-filter="all">All Tasks</button>
-            <button class="filter-btn" data-filter="active">Active</button>
-            <button class="filter-btn" data-filter="completed">Completed</button>
             <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="active">In Progress</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
         </div>
 
-        <div class="projects-grid" id="projectsGrid">
-            <!-- Project cards will be dynamically inserted here -->
+        <div class="projects-grid" id="tasksGrid">
+            <div class="project-card" data-status="pending">
+                <div class="project-header">
+                    <h3 class="project-title">Design Homepage Mockup</h3>
+                    <div class="project-course">Campus Collab Website</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">Create a high-fidelity mockup for the main homepage using Figma.</p>
+                </div>
+                <div class="project-details">
+                     <div class="project-due-date"><i class="fas fa-calendar-alt"></i> Due: Apr 10, 2025</div>
+                    <span class="project-status status-pending">Pending</span>
+                </div>
+            </div>
+             <div class="project-card" data-status="active">
+                <div class="project-header">
+                    <h3 class="project-title">Develop API Endpoint</h3>
+                    <div class="project-course">Event Management Module</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">Implement the backend endpoint for fetching user events.</p>
+                </div>
+                <div class="project-details">
+                     <div class="project-due-date"><i class="fas fa-calendar-alt"></i> Due: Apr 15, 2025</div>
+                    <span class="project-status status-active">In Progress</span>
+                </div>
+            </div>
+            <div class="project-card" data-status="completed">
+                <div class="project-header">
+                    <h3 class="project-title">User Authentication Flow</h3>
+                    <div class="project-course">Core Features</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">Setup login and registration functionality using Firebase Auth.</p>
+                </div>
+                <div class="project-details">
+                     <div class="project-due-date"><i class="fas fa-calendar-alt"></i> Completed: Apr 1, 2025</div>
+                    <span class="project-status status-completed">Completed</span>
+                </div>
+            </div>
         </div>
 
         <div class="empty-state" id="emptyState" style="display: none;">
-            <i class="fas fa-tasks"></i>
-            <h3>No Tasks Found</h3>
-            <p>You don't have any tasks assigned yet. Create a new task or join a project to get started.</p>
-            <button class="btn btn-primary">Create Task</button>
+            <i class="fas fa-folder-open"></i>
+            <p>No tasks found matching the selected filter.</p>
         </div>
+
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Search functionality
-            const searchInput = document.getElementById("searchInput");
-            if (searchInput) {
-                searchInput.addEventListener('input', function () {
-                    const searchTerm = this.value.toLowerCase();
-                    console.log("Searching for:", searchTerm);
-                    // Add specific search logic for tasks here
-                });
-            }
-            searchInput.addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase();
-                const projectCards = document.querySelectorAll('.project-card');
-
-                projectCards.forEach(card => {
-                    const title = card.querySelector('.project-title').textContent.toLowerCase();
-                    const description = card.querySelector('.project-description').textContent.toLowerCase();
-                    const course = card.querySelector('.project-course').textContent.toLowerCase();
-
-                    // Get all collaborator names
-                    const collaborators = Array.from(card.querySelectorAll('.collaborator-avatar'))
-                        .map(avatar => avatar.getAttribute('title').toLowerCase())
-                        .join(' ');
-
-                    if (title.includes(searchTerm)) {
-                        card.style.display = '';
-                    } else if (description.includes(searchTerm)) {
-                        card.style.display = '';
-                    } else if (course.includes(searchTerm)) {
-                        card.style.display = '';
-                    } else if (collaborators.includes(searchTerm)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
+            // Apply settings from localStorage (Theme, Font Size, etc.)
             const settings = JSON.parse(localStorage.getItem('settings')) || {};
-            // Check if user is logged in
+            applySettings(settings);
+
+            // User Info & Logout
             const user = JSON.parse(localStorage.getItem('user')) || {
                 initials: 'JD',
                 name: 'John Doe',
                 major: 'Computer Science'
             };
-
-            // Update profile information
             document.getElementById('profileInitials').textContent = user.initials;
             document.getElementById('profileAvatar').textContent = user.initials;
             document.getElementById('profileName').textContent = user.name;
             document.getElementById('profileMajor').textContent = user.major;
-
-            // Logout functionality
             document.getElementById('logoutBtn').addEventListener('click', function (e) {
                 e.preventDefault();
                 localStorage.removeItem('user');
-                window.location.href = 'index.html'; // Redirect to login/index page
+                window.location.href = 'index.html';
             });
 
-            // Toggle sidebar
-            const toggleBtn = document.getElementById("toggle-btn");
-            const sidebar = document.getElementById("sidebar");
-            const mainContent = document.getElementById("main-content"); // Get main content
-
-            toggleBtn.addEventListener("click", function () {
-                sidebar.classList.toggle("active");
-            });
-
-            // Highlight active sidebar link (Robust check)
-            const currentPath = window.location.pathname.split('/').pop();
+            // Highlight active sidebar link
+            const currentPath = window.location.pathname.split('/').pop() || 'tasks.html';
             const sidebarLinks = document.querySelectorAll(".sidebar ul li a");
-
             sidebarLinks.forEach(link => {
                 const linkPath = link.getAttribute('href').split('/').pop();
-                // Remove existing active class first
-                link.classList.remove("active");
+                link.classList.remove("active"); // Ensure no link starts active unless it's current
                 if (currentPath === linkPath) {
                     link.classList.add("active");
                 }
-                // Handle case where homepage.html might be the root or index
-                else if (currentPath === '' && linkPath === 'homepage.html') {
-                    link.classList.add("active");
-                }
             });
 
-            // Sample projects data
-            const projects = [
-                {
-                    id: 1,
-                    title: "Campus Collab Mobile App",
-                    course: "CS 410 - Software Engineering",
-                    description: "Develop a cross-platform mobile application for the Campus Collab platform using React Native. The app should include all the core features from the web version.",
-                    status: "active",
-                    dueDate: "2023-12-15",
-                    collaborators: [
-                        { name: "Alex Johnson", initials: "AJ" },
-                        { name: "Maria Garcia", initials: "MG" },
-                        { name: "Sam Wilson", initials: "SW" }
-                    ]
-                },
-                {
-                    id: 2,
-                    title: "AI Research Paper",
-                    course: "CS 480 - Artificial Intelligence",
-                    description: "Write a research paper on recent advances in natural language processing. The paper should be 10-12 pages and include at least 10 references from recent conferences.",
-                    status: "pending",
-                    dueDate: "2023-11-30",
-                    collaborators: [
-                        { name: "Taylor Smith", initials: "TS" },
-                        { name: "Jamie Lee", initials: "JL" }
-                    ]
-                },
-                {
-                    id: 3,
-                    title: "Database Optimization",
-                    course: "CS 425 - Database Systems",
-                    description: "Optimize the performance of the student portal database by creating appropriate indexes and rewriting problematic queries. Document the performance improvements.",
-                    status: "completed",
-                    dueDate: "2023-10-20",
-                    collaborators: [
-                        { name: "Jordan Brown", initials: "JB" },
-                        { name: "Casey White", initials: "CW" },
-                        { name: "Riley Green", initials: "RG" }
-                    ]
-                },
-                {
-                    id: 4,
-                    title: "Cybersecurity Lab Report",
-                    course: "CS 463 - Computer Security",
-                    description: "Complete the lab exercises on penetration testing and write a detailed report documenting the vulnerabilities found and remediation strategies.",
-                    status: "active",
-                    dueDate: "2023-12-05",
-                    collaborators: [
-                        { name: "Morgan Taylor", initials: "MT" }
-                    ]
-                },
-                {
-                    id: 5,
-                    title: "Algorithm Visualization",
-                    course: "CS 401 - Algorithms",
-                    description: "Create an interactive visualization of Dijkstra's algorithm using JavaScript and D3.js. The visualization should allow users to step through the algorithm.",
-                    status: "pending",
-                    dueDate: "2023-12-10",
-                    collaborators: [
-                        { name: "Alex Johnson", initials: "AJ" },
-                        { name: "Pat Kim", initials: "PK" }
-                    ]
-                },
-                {
-                    id: 6,
-                    title: "Capstone Project Proposal",
-                    course: "CS 490 - Senior Capstone",
-                    description: "Develop a proposal for your senior capstone project including problem statement, objectives, methodology, and expected outcomes.",
-                    status: "active",
-                    dueDate: "2023-11-15",
-                    collaborators: [
-                        { name: "Taylor Smith", initials: "TS" },
-                        { name: "Jamie Lee", initials: "JL" },
-                        { name: "Morgan Taylor", initials: "MT" }
-                    ]
-                }
-            ];
-
-            // Render projects
-            function renderProjects(filter = 'all') {
-                const projectsGrid = document.getElementById('projectsGrid');
-                const emptyState = document.getElementById('emptyState');
-
-                // Clear existing projects
-                projectsGrid.innerHTML = '';
-
-                // Filter projects
-                let filteredProjects = projects;
-                if (filter !== 'all') {
-                    filteredProjects = projects.filter(project => project.status === filter);
-                }
-
-                // Check if there are projects to show
-                if (filteredProjects.length === 0) {
-                    emptyState.style.display = 'block';
-                    return;
-                } else {
-                    emptyState.style.display = 'none';
-                }
-
-                // Create project cards
-                filteredProjects.forEach(project => {
-                    const projectCard = document.createElement('div');
-                    projectCard.className = 'project-card';
-
-                    // Format due date
-                    const dueDate = new Date(project.dueDate);
-                    const formattedDate = dueDate.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric'
-                    });
-
-                    // Determine status class
-                    let statusClass = '';
-                    if (project.status === 'active') statusClass = 'status-active';
-                    else if (project.status === 'completed') statusClass = 'status-completed';
-                    else if (project.status === 'pending') statusClass = 'status-pending';
-
-                    // Create collaborators list
-                    let collaboratorsHTML = '';
-                    project.collaborators.forEach(collab => {
-                        collaboratorsHTML += `
-                            <div class="collaborator-avatar" title="${collab.name}">${collab.initials}</div>
-                        `;
-                    });
-
-                    // Create project card HTML
-                    projectCard.innerHTML = `
-                        <div class="project-header">
-                            <h3 class="project-title">${project.title}</h3>
-                            <div class="project-course">${project.course}</div>
-                        </div>
-                        <div class="project-body">
-                            <p class="project-description">${project.description}</p>
-                            
-                            <div class="collaborators-section">
-                                <div class="collaborators-title">Collaborators</div>
-                                <div class="collaborators-list">
-                                    ${collaboratorsHTML}
-                                </div>
-                            </div>
-                            
-                            <div class="project-details">
-                                <div class="project-due-date">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Due: ${formattedDate}
-                                </div>
-                                <div class="project-status ${statusClass}">
-                                    ${project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                                </div>
-                            </div>
-                            
-                            <div class="project-actions">
-                                <button class="btn btn-outline">View Details</button>
-                                <button class="btn btn-primary">Contribute</button>
-                            </div>
-                        </div>
-                    `;
-
-                    projectsGrid.appendChild(projectCard);
-                });
-            }
-
-            // Filter button functionality
+            // Task Filtering Logic
             const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
+            const tasksGrid = document.getElementById('tasksGrid');
+            const taskCards = tasksGrid.querySelectorAll('.project-card'); // Assuming tasks use .project-card
+            const emptyState = document.getElementById('emptyState');
 
-                    // Add active class to clicked button
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button style
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
 
-                    // Get filter value
                     const filter = this.getAttribute('data-filter');
+                    let visibleCount = 0;
 
-                    // Render filtered projects
-                    renderProjects(filter);
+                    taskCards.forEach(card => {
+                        const status = card.getAttribute('data-status');
+                        if (filter === 'all' || status === filter) {
+                            card.style.display = ''; // Show card
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none'; // Hide card
+                        }
+                    });
+
+                    // Show/hide empty state message
+                    if (visibleCount === 0) {
+                        emptyState.style.display = 'block';
+                        tasksGrid.style.display = 'none'; // Hide grid container
+                    } else {
+                        emptyState.style.display = 'none';
+                         tasksGrid.style.display = 'grid'; // Show grid container
+                    }
                 });
             });
-            // Initial render
-            renderProjects();
+
+             // Initial filter application (show all)
+             if (filterButtons.length > 0) {
+                document.querySelector('.filter-btn[data-filter="all"]').click();
+             }
+
+
+            // *** ADDED SEARCH FUNCTIONALITY ***
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const allTaskCards = document.querySelectorAll('#tasksGrid .project-card'); // Target task cards within the grid
+
+                    allTaskCards.forEach(card => {
+                        const titleElement = card.querySelector('.project-title');
+                        const descriptionElement = card.querySelector('.project-description');
+                        const projectElement = card.querySelector('.project-course'); // Assuming project name is here
+
+                        const titleText = titleElement ? titleElement.textContent.toLowerCase() : '';
+                        const descriptionText = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
+                        const projectText = projectElement ? projectElement.textContent.toLowerCase() : '';
+
+                        // Check if any relevant text content includes the search term
+                        if (titleText.includes(searchTerm) || descriptionText.includes(searchTerm) || projectText.includes(searchTerm)) {
+                            card.style.display = ''; // Show card if match found
+                        } else {
+                            card.style.display = 'none'; // Hide card if no match found
+                        }
+                    });
+
+                    // Optionally handle empty state based on search results
+                    const visibleCards = document.querySelectorAll('#tasksGrid .project-card[style*="display: block"], #tasksGrid .project-card:not([style*="display: none"])');
+                    if (visibleCards.length === 0 && searchTerm !== '') {
+                       // Maybe show a specific "no search results" message, or adapt the emptyState logic
+                       emptyState.innerHTML = `<i class="fas fa-search"></i><p>No tasks found matching "${searchTerm}".</p>`;
+                       emptyState.style.display = 'block';
+                       tasksGrid.style.display = 'none';
+                    } else if (visibleCards.length > 0){
+                        emptyState.style.display = 'none'; // Hide empty state if results found
+                        tasksGrid.style.display = 'grid';
+                    } else if (searchTerm === '' && filterButtons.length > 0) {
+                        // If search is cleared, re-apply the current filter state
+                         document.querySelector('.filter-btn.active').click();
+                    }
+
+                });
+            }
+            // *** END SEARCH FUNCTIONALITY ***
+
+
+            // Apply Settings Functions (Keep these or import from settings.js)
+             function applySettings(settings) {
+                if (settings.theme) applyTheme(settings.theme);
+                if (settings.accentColor) applyAccentColor(settings.accentColor);
+                if (settings.fontSize) applyFontSize(settings.fontSize);
+                if (settings.animationsEnabled !== undefined) {
+                    applyAnimationSettings(settings.animationsEnabled);
+                } else {
+                    applyAnimationSettings(true); // Default to enabled
+                }
+             }
+
+            function applyTheme(theme) {
+                // Basic theme application (expand as needed from settings.js)
+                 document.documentElement.style.setProperty('--light', theme === 'dark' ? '#212529' : '#f8f9fa');
+                 document.documentElement.style.setProperty('--dark', theme === 'dark' ? '#f8f9fa' : '#212529');
+                 // Add more variable changes for dark theme as needed
+                 document.body.style.backgroundColor = `var(--light)`;
+            }
+            function applyAccentColor(color) { /* ... Implementation ... */ }
+            function applyFontSize(size) { /* ... Implementation ... */ }
+            function applyAnimationSettings(enabled) {
+                 document.documentElement.style.setProperty('--transition', enabled ? 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)' : 'none');
+             }
+             // Add helper functions like shadeColor if needed
+
+             // Initial settings application
+             applySettings(settings);
 
         });
     </script>
     <script src="js/settings.js"></script>
-
 </body>
-
 </html>

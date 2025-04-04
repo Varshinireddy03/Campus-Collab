@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Collab - My Tasks</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Campus Collab - My Collaborations</title> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
@@ -28,6 +27,7 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --border-radius: 12px;
             --sidebar-width: 280px;
+            --sidebar-collapsed-width: 80px; /* Added */
             --navbar-height: 70px;
             --base-font-size: 16px;
         }
@@ -119,39 +119,113 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Sidebar Styles */
+        /* Sidebar Styles - Updated to Hover-Expand */
         .sidebar {
             position: fixed;
             left: 0;
             top: var(--navbar-height);
             height: calc(100vh - var(--navbar-height));
-            width: var(--sidebar-width);
+            width: var(--sidebar-collapsed-width); /* Updated */
             background-color: white;
             box-shadow: var(--shadow-md);
             padding: 1.5rem 0;
-            transform: translateX(-100%);
             transition: var(--transition);
             z-index: 999;
             overflow-y: auto;
+            overflow-x: hidden; /* Added */
         }
-        .sidebar.active { transform: translateX(0); }
-        .sidebar ul { list-style: none; padding-top: 0.5rem; }
-        .sidebar li a { display: flex; align-items: center; gap: 1rem; padding: 1rem 2rem; color: var(--dark-gray); text-decoration: none; transition: var(--transition); font-size: 0.95rem; position: relative; }
-        .sidebar li a:hover { background-color: rgba(67, 97, 238, 0.05); color: var(--primary); }
-        .sidebar li a.active { color: var(--primary); background-color: rgba(67, 97, 238, 0.1); font-weight: 500; }
-        .sidebar li a.active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background-color: var(--primary); border-radius: 0 4px 4px 0; }
-        .sidebar li a i { width: 24px; text-align: center; font-size: 1.1rem; }
 
-        /* Main Content Styles */
-        .main-content {
+        .sidebar:hover {
+            width: var(--sidebar-width);
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
+            transform: translateX(0);
+            margin-left: 1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-top: 0.5rem;
+        }
+
+        .sidebar li a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem; /* Updated padding */
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap; /* Added */
+        }
+
+        .sidebar li a:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+            color: var(--primary);
+        }
+
+        .sidebar li a.active {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+            font-weight: 500;
+        }
+
+        .sidebar li a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sidebar li a i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+            flex-shrink: 0; /* Added */
+        }
+
+        /* Added sidebar-text styles */
+        .sidebar-text {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: var(--transition);
             margin-left: 0;
+            transition-delay: 0.1s;
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
+            transform: translateX(0);
+            margin-left: 1rem;
+        }
+
+
+        /* Main Content - Updated for Hover Sidebar */
+        .main-content {
+            margin-left: var(--sidebar-collapsed-width); /* Updated */
             padding: 2rem;
             transition: var(--transition);
             margin-top: var(--navbar-height);
             min-height: calc(100vh - var(--navbar-height));
         }
-        .sidebar.active+.main-content { margin-left: var(--sidebar-width); }
-        .headline { font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--dark); font-weight: 600; }
+
+        .sidebar:hover + .main-content {
+            margin-left: var(--sidebar-width);
+        }
+
+        .headline {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
 
         /* Profile Dropdown Styles */
         .profile-container { position: relative; }
@@ -169,29 +243,11 @@
         .dropdown-menu li a i { margin-right: 0.75rem; width: 20px; text-align: center; color: var(--dark-gray); }
         .dropdown-divider { height: 1px; background: var(--medium-gray); margin: 0.5rem 0; }
 
-        /* Hamburger button Styles */
-        .hamburger-below {
-            position: fixed;
-            left: 0;
-            top: calc(var(--navbar-height) - 0rem);
-            background: var(--primary);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-        }
-        .hamburger-below:hover { background-color: var(--primary-dark); transform: scale(1.05); }
+        /* Hamburger button Styles - REMOVED */
+        /* .hamburger-below { ... } */
 
-        /* TASK-SPECIFIC STYLES */
-        .task-filters {
+        /* TASK-SPECIFIC STYLES - Reused for Collaborations */
+        .task-filters { /* Keep class name or rename to collaboration-filters */
             display: flex;
             gap: 0.75rem;
             margin-bottom: 1.5rem;
@@ -221,13 +277,13 @@
             color: var(--primary);
         }
 
-        .task-grid {
+        .task-grid { /* Keep class name or rename to collaboration-grid */
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
-        .task-card {
+        .task-card { /* Keep class name or rename to collaboration-card */
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-md);
@@ -249,14 +305,14 @@
             margin-bottom: 0.5rem;
         }
 
-        .task-project {
+        .task-project { /* Can be used for project name */
             font-size: 0.9rem;
             color: var(--primary);
             font-weight: 500;
             margin-bottom: 0.75rem;
         }
 
-        .task-description {
+        .task-description { /* Use for collaboration details/description */
             color: var(--dark-gray);
             font-size: 0.9rem;
             margin-bottom: 1rem;
@@ -273,7 +329,7 @@
             border-top: 1px solid var(--light-gray);
         }
 
-        .task-due-date {
+        .task-due-date { /* Use for deadline or relevant date */
             font-size: 0.85rem;
             color: var(--dark-gray);
             display: flex;
@@ -281,33 +337,37 @@
             gap: 0.5rem;
         }
 
-        .task-status {
+        /* --- Status Tag Styles --- */
+        .task-status { /* Use for collaboration status */
             font-size: 0.75rem;
             padding: 0.35rem 0.75rem;
             border-radius: 50px;
             font-weight: 500;
         }
 
+        /* Statuses based on JS data: not-started, in-progress, completed, overdue */
         .status-not-started {
-            background-color: rgba(247, 37, 133, 0.1);
+            background-color: rgba(247, 37, 133, 0.1); /* Accent color */
             color: var(--accent);
         }
 
         .status-in-progress {
-            background-color: rgba(76, 201, 240, 0.1);
+            background-color: rgba(76, 201, 240, 0.1); /* Secondary color */
             color: var(--secondary);
         }
 
         .status-completed {
-            background-color: rgba(67, 97, 238, 0.1);
+            background-color: rgba(67, 97, 238, 0.1); /* Primary color */
             color: var(--primary);
         }
 
         .status-overdue {
-            background-color: rgba(220, 53, 69, 0.1);
+            background-color: rgba(220, 53, 69, 0.1); /* Reddish color */
             color: #dc3545;
         }
+        /* --- End Status Tag Styles --- */
 
+        /* Priority Styles (can be repurposed or removed) */
         .task-priority {
             font-size: 0.75rem;
             padding: 0.35rem 0.75rem;
@@ -367,12 +427,12 @@
             color: var(--primary);
         }
 
-        .no-tasks-message {
+        .no-tasks-message { /* Rename if desired */
             text-align: center;
             color: var(--dark-gray);
             margin-top: 2rem;
             font-style: italic;
-            grid-column: 1 / -1;
+            grid-column: 1 / -1; /* Ensure it spans grid if grid is empty */
         }
 
         /* Responsive Adjustments */
@@ -383,8 +443,10 @@
         @media (max-width: 768px) {
             .navbar { padding: 1rem; }
             .search-box { width: 100%; max-width: 200px; }
-            .sidebar.active+.main-content { margin-left: 0; }
-            .main-content { padding: 1.5rem; }
+            .main-content { padding: 1.5rem; margin-left: var(--sidebar-collapsed-width);} /* Ensure correct margin */
+             .sidebar:hover + .main-content {
+                margin-left: var(--sidebar-width);
+            }
             .task-grid {
                 grid-template-columns: 1fr;
             }
@@ -407,9 +469,7 @@
             <span>Campus Collab</span>
         </div>
 
-        <input type="text" class="search-box" id="searchInput" placeholder="Search tasks...">
-
-        <div class="nav-actions">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search collaborations or projects..."> <div class="nav-actions">
             <button class="create-button" id="openModalBtn">
                 <i class="fas fa-plus"></i> New collaboration
             </button>
@@ -428,8 +488,7 @@
                     </div>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
-                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li> <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
                         <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
                         <div class="dropdown-divider"></div>
                         <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -439,38 +498,31 @@
         </div>
     </div>
 
-    <button class="hamburger-below" id="toggle-btn">
-        <i class="fas fa-bars"></i>
-    </button>
-
     <div class="sidebar" id="sidebar">
         <ul>
-            <li><a href="homepage.html"><i class="fas fa-star"></i> <span>Featured</span></a></li>
-            <li><a href="projects.html"><i class="fas fa-folder"></i> <span>Projects</span></a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> <span>Courses</span></a></li>
-            <li><a href="collaborator.html"><i class="fas fa-users"></i> <span>Collaborators</span></a></li>
-            <li><a href="events.html"><i class="fas fa-calendar-alt"></i> <span>Events</span></a></li>
-            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span>Leaderboard</span></a></li>
-            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span>Mentorship</span></a></li>
-            <li><a href="tasks.html" class="active"><i class="fas fa-tasks"></i> <span>Tasks</span></a></li>
-            <li><a href="settings.html"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            <li><a href="homepage.html"><i class="fas fa-star"></i> <span class="sidebar-text">Featured</span></a></li>
+            <li><a href="projects.html"><i class="fas fa-folder"></i> <span class="sidebar-text">Projects</span></a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> <span class="sidebar-text">Courses</span></a></li>
+            <li><a href="collaborators.html" class="active"><i class="fas fa-users"></i> <span class="sidebar-text">Collaborators</span></a></li> <li><a href="events.html" target="_blank"><i class="fas fa-calendar-alt"></i> <span class="sidebar-text">Events</span></a></li>
+            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span class="sidebar-text">Leaderboard</span></a></li>
+            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span class="sidebar-text">Mentorship</span></a></li>
+            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span class="sidebar-text">Tasks</span></a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="sidebar-text">Settings</span></a></li>
         </ul>
     </div>
 
+
     <div class="main-content" id="main-content">
-        <h1 class="headline">My collaborations</h1>
-        
-        <div class="task-filters">
+        <h1 class="headline">My Collaborations</h1> <div class="task-filters">
             <button class="filter-btn active" data-filter="all">All Tasks</button>
             <button class="filter-btn" data-filter="not-started">Not Started</button>
             <button class="filter-btn" data-filter="in-progress">In Progress</button>
             <button class="filter-btn" data-filter="completed">Completed</button>
             <button class="filter-btn" data-filter="overdue">Overdue</button>
         </div>
-        
+
         <div class="task-grid" id="taskGrid">
-            <!-- Task cards will be inserted here by JavaScript -->
-        </div>
+            </div>
     </div>
 
     <script>
@@ -492,35 +544,34 @@
             document.getElementById('logoutBtn').addEventListener('click', function (e) {
                 e.preventDefault();
                 localStorage.removeItem('user');
-                window.location.href = 'index.html';
+                window.location.href = 'index.html'; // Redirect to login/index page
             });
 
-            // Toggle sidebar
-            const toggleBtn = document.getElementById("toggle-btn");
-            const sidebar = document.getElementById("sidebar");
-            toggleBtn.addEventListener("click", function () {
-                sidebar.classList.toggle("active");
-            });
+            // Toggle sidebar - REMOVED
+            // const toggleBtn = document.getElementById("toggle-btn");
+            // const sidebar = document.getElementById("sidebar");
+            // toggleBtn.addEventListener("click", function () { sidebar.classList.toggle("active"); });
 
             // Highlight active sidebar link
-            const currentPath = window.location.pathname.split('/').pop();
+            const currentPath = window.location.pathname.split('/').pop() || 'collaborators.html'; // Default to collaborators.html
             const sidebarLinks = document.querySelectorAll(".sidebar ul li a");
             sidebarLinks.forEach(link => {
-                link.classList.remove("active");
-                if (link.getAttribute('href').split('/').pop() === currentPath) {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                 link.classList.remove("active"); // Ensure none start active
+                if (currentPath === linkPath) {
                     link.classList.add("active");
                 }
             });
 
-            // Sample tasks data
-            const tasks = [
+            // Sample tasks data (treat as collaborations for this page)
+             const collaborations = [ // Renamed variable for clarity
                 {
                     id: 1,
                     title: "Complete AI research paper",
                     project: "AI Research Initiative",
                     description: "Finish writing the literature review section and submit first draft to professor.",
                     dueDate: "2025-12-15",
-                    status: "in-progress",
+                    status: "in-progress", // This will use .status-in-progress CSS
                     priority: "high",
                     collaborators: ["Alice Wonder", "Bob Builder"]
                 },
@@ -530,7 +581,7 @@
                     project: "Web Development Platform",
                     description: "Create ER diagram and implement initial database tables for user management.",
                     dueDate: "2025-11-30",
-                    status: "not-started",
+                    status: "not-started", // This will use .status-not-started CSS
                     priority: "medium",
                     collaborators: ["Charlie Code"]
                 },
@@ -540,7 +591,7 @@
                     project: "Web Development Platform",
                     description: "Set up JWT authentication and create login/registration pages.",
                     dueDate: "2025-11-25",
-                    status: "completed",
+                    status: "completed", // This will use .status-completed CSS
                     priority: "high",
                     collaborators: ["Diana Design"]
                 },
@@ -550,7 +601,7 @@
                     project: "Mobile App for Campus Events",
                     description: "Create slides for the mid-project presentation to faculty advisors.",
                     dueDate: "2025-11-20",
-                    status: "overdue",
+                    status: "overdue", // This will use .status-overdue CSS
                     priority: "medium",
                     collaborators: ["Ethan Eng"]
                 },
@@ -576,59 +627,57 @@
                 }
             ];
 
-            // Render tasks
-            function renderTasks(filter = 'all') {
-                const taskGrid = document.getElementById('taskGrid');
-                taskGrid.innerHTML = '';
 
-                let filteredTasks = tasks;
+            // Render tasks/collaborations
+            function renderItems(filter = 'all') { // Renamed function
+                const itemGrid = document.getElementById('taskGrid'); // Keep ID or change if needed
+                itemGrid.innerHTML = '';
+
+                let filteredItems = collaborations; // Use collaboration data
                 if (filter !== 'all') {
-                    filteredTasks = tasks.filter(task => task.status === filter);
+                    filteredItems = collaborations.filter(item => item.status === filter);
                 }
 
-                if (filteredTasks.length === 0) {
-                    taskGrid.innerHTML = `
-                        <div class="no-tasks-message">
-                            <i class="fas fa-tasks" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                            <h3>No tasks found</h3>
-                            <p>You don't have any ${filter === 'all' ? '' : filter.replace('-', ' ')} tasks.</p>
-                            <button class="btn btn-primary" id="createTaskBtn" style="margin-top: 1rem;">
-                                <i class="fas fa-plus"></i> Create New Task
+                if (filteredItems.length === 0) {
+                    itemGrid.innerHTML = `
+                        <div class="no-tasks-message"> <i class="fas fa-users-slash" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i> <h3>No collaborations found</h3>
+                            <p>You don't have any ${filter === 'all' ? '' : filter.replace('-', ' ')} collaborations.</p>
+                            <button class="btn btn-primary" id="createItemBtn" style="margin-top: 1rem;"> <i class="fas fa-plus"></i> Create New Collaboration
                             </button>
                         </div>
                     `;
-                    
-                    document.getElementById('createTaskBtn').addEventListener('click', function() {
-                        document.getElementById('openModalBtn').click();
-                    });
-                    
+
+                     document.getElementById('createItemBtn').addEventListener('click', function() {
+                         document.getElementById('openModalBtn').click();
+                     });
+
                     return;
                 }
 
-                filteredTasks.forEach(task => {
-                    const taskCard = document.createElement('div');
-                    taskCard.className = 'task-card';
-                    
+                filteredItems.forEach(item => { // Renamed loop variable
+                    const itemCard = document.createElement('div');
+                    itemCard.className = 'task-card'; // Keep class or rename
+
                     // Format due date
-                    const dueDate = new Date(task.dueDate);
-                    const formattedDate = dueDate.toLocaleDateString('en-US', { 
-                        month: 'short', 
+                    const dueDate = new Date(item.dueDate);
+                    const formattedDate = dueDate.toLocaleDateString('en-US', {
+                        month: 'short',
                         day: 'numeric',
                         year: 'numeric'
                     });
-                    
+
                     // Determine status and priority classes
-                    const statusClass = `status-${task.status.replace(' ', '-')}`;
-                    const priorityClass = `priority-${task.priority}`;
-                    
+                    const statusClass = `status-${item.status.replace(' ', '-')}`; // Uses CSS classes like .status-in-progress
+                    const priorityClass = `priority-${item.priority}`;
+
                     // Create collaborators list
                     let collaboratorsHTML = '';
-                    if (task.collaborators && task.collaborators.length > 0) {
+                    if (item.collaborators && item.collaborators.length > 0) {
                         collaboratorsHTML = `
                             <div style="margin-top: 0.5rem;">
                                 <small style="color: var(--dark-gray);">Collaborators:</small>
                                 <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.25rem;">
-                                    ${task.collaborators.map(name => `
+                                    ${item.collaborators.map(name => `
                                         <span style="background: var(--light-gray); padding: 0.25rem 0.5rem; border-radius: 50px; font-size: 0.75rem;">
                                             ${name}
                                         </span>
@@ -637,12 +686,12 @@
                             </div>
                         `;
                     }
-                    
-                    // Create task card HTML
-                    taskCard.innerHTML = `
-                        <h3 class="task-title">${task.title}</h3>
-                        <div class="task-project">${task.project}</div>
-                        <p class="task-description">${task.description}</p>
+
+                    // Create item card HTML
+                    itemCard.innerHTML = `
+                        <h3 class="task-title">${item.title}</h3>
+                        <div class="task-project">${item.project}</div>
+                        <p class="task-description">${item.description}</p>
                         ${collaboratorsHTML}
                         <div class="task-meta">
                             <div class="task-due-date">
@@ -651,44 +700,44 @@
                             </div>
                             <div>
                                 <span class="task-priority ${priorityClass}">
-                                    ${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+                                    ${item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}
                                 </span>
                                 <span class="task-status ${statusClass}">
-                                    ${task.status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                                    ${item.status.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
                                 </span>
                             </div>
                         </div>
                         <div class="task-actions">
-                            <button class="btn btn-outline task-details-btn" data-task-id="${task.id}">
+                            <button class="btn btn-outline task-details-btn" data-task-id="${item.id}">
                                 <i class="fas fa-info-circle"></i> Details
                             </button>
-                            <button class="btn btn-primary task-complete-btn" data-task-id="${task.id}">
+                            <button class="btn btn-primary task-complete-btn" data-task-id="${item.id}">
                                 <i class="fas fa-check"></i> Complete
                             </button>
                         </div>
                     `;
-                    
-                    taskGrid.appendChild(taskCard);
+
+                    itemGrid.appendChild(itemCard);
                 });
 
-                // Add event listeners to action buttons
-                document.querySelectorAll('.task-details-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const taskId = this.getAttribute('data-task-id');
-                        console.log('View details for task:', taskId);
-                        // Implement task details view
-                    });
-                });
+                // Add event listeners to action buttons (IDs might need update if actions differ)
+                 document.querySelectorAll('.task-details-btn').forEach(btn => {
+                     btn.addEventListener('click', function() {
+                         const itemId = this.getAttribute('data-task-id');
+                         console.log('View details for item:', itemId);
+                         // Implement details view
+                     });
+                 });
 
-                document.querySelectorAll('.task-complete-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const taskId = this.getAttribute('data-task-id');
-                        console.log('Mark task as complete:', taskId);
-                        // Implement task completion
-                    });
-                });
+                 document.querySelectorAll('.task-complete-btn').forEach(btn => {
+                     btn.addEventListener('click', function() {
+                         const itemId = this.getAttribute('data-task-id');
+                         console.log('Mark item as complete:', itemId);
+                         // Implement completion logic
+                     });
+                 });
             }
-            
+
             // Filter button functionality
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(button => {
@@ -696,65 +745,74 @@
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     const filter = this.getAttribute('data-filter');
-                    renderTasks(filter);
+                    renderItems(filter); // Call updated render function
                 });
             });
 
-            // Search functionality
+             // Search functionality
             const searchInput = document.getElementById("searchInput");
             if (searchInput) {
                 searchInput.addEventListener('input', function () {
                     const searchTerm = this.value.toLowerCase();
-                    const taskCards = document.querySelectorAll(".task-card");
-                    
-                    taskCards.forEach(card => {
-                        const title = card.querySelector('.task-title').textContent.toLowerCase();
-                        const description = card.querySelector('.task-description').textContent.toLowerCase();
-                        const project = card.querySelector('.task-project').textContent.toLowerCase();
-                        
-                        if (title.includes(searchTerm) || description.includes(searchTerm) || project.includes(searchTerm)) {
-                            card.style.display = '';
+                    const itemCards = document.querySelectorAll(".task-card"); // Select item cards
+
+                    itemCards.forEach(card => {
+                        const title = card.querySelector('.task-title')?.textContent.toLowerCase() || '';
+                        const description = card.querySelector('.task-description')?.textContent.toLowerCase() || '';
+                        const project = card.querySelector('.task-project')?.textContent.toLowerCase() || '';
+                        const collaborators = Array.from(card.querySelectorAll('span[style*="background: var(--light-gray)"]')) // Basic way to get collaborator names
+                                                .map(span => span.textContent.toLowerCase())
+                                                .join(' ');
+
+                        if (title.includes(searchTerm) || description.includes(searchTerm) || project.includes(searchTerm) || collaborators.includes(searchTerm)) {
+                            card.style.display = ''; // Show if match
                         } else {
-                            card.style.display = 'none';
+                            card.style.display = 'none'; // Hide if no match
                         }
                     });
                 });
             }
 
-            // Create task button
+
+            // Create item button (modal trigger)
             const createButton = document.getElementById("openModalBtn");
             if (createButton) {
                 createButton.addEventListener('click', function() {
-                    // Implement task creation modal
-                    console.log('Open task creation modal');
-                    alert('Task creation modal would open here in a full implementation');
+                    // Implement item creation modal
+                    console.log('Open item creation modal');
+                    alert('Collaboration creation modal would open here');
                 });
             }
-            searchInput.addEventListener('input', function () {
-                const searchTerm = this.value.toLowerCase();
-                const projectCards = document.querySelectorAll('.project-card');
 
-                projectCards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const description = card.querySelector('p').textContent.toLowerCase();
-                    const languages = card.querySelector('.project-languages').textContent.toLowerCase();
+             // Apply Settings Functions (Keep these or import from settings.js if externalized)
+             function applySettings(settings) {
+                 // Basic implementation - copy full functions from other files if needed
+                 if (settings.theme) applyTheme(settings.theme);
+                 if (settings.accentColor) applyAccentColor(settings.accentColor);
+                 if (settings.fontSize) applyFontSize(settings.fontSize);
+                 if (settings.animationsEnabled !== undefined) {
+                     applyAnimationSettings(settings.animationsEnabled);
+                 } else {
+                    applyAnimationSettings(true);
+                 }
+             }
+            function applyTheme(theme) { /* ... Implementation ... */ document.body.style.backgroundColor = `var(--light)`;}
+            function applyAccentColor(color) { /* ... Implementation ... */ }
+            function applyFontSize(size) { /* ... Implementation ... */ }
+            function applyAnimationSettings(enabled) {
+                document.documentElement.style.setProperty('--transition', enabled ? 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)' : 'none');
+            }
+            // Add helper functions like shadeColor if needed
 
-                    if (title.includes(searchTerm)) {
-                        card.style.display = 'flex';
-                    } else if (description.includes(searchTerm)) {
-                        card.style.display = 'flex';
-                    } else if (languages.includes(searchTerm)) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
+            // Load and apply settings
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            applySettings(settings);
+
 
             // Initial render
-            renderTasks();
+            renderItems(); // Call updated render function
         });
     </script>
     <script src="js/settings.js"></script>
-</body>
+    </body>
 </html>
