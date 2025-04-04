@@ -11,12 +11,13 @@
             --primary: cornflowerblue;
             --secondary: #4b7bec;
             --accent: #a5bdfd;
-            --light: #f8f9fa;
-            --dark: #212529;
+            --light: #f5f7fa;
+            --dark: #2d3748;
+            --text: #4a5568;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --text-light: white;
-            --text-dark: black;
         }
 
         * {
@@ -27,11 +28,9 @@
         }
 
         body {
-            color: var(--dark);
+            color: var(--text);
             overflow-x: hidden;
-            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)), 
-                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
-            background-attachment: fixed;
+            background: var(--background);
             min-height: 100vh;
         }
 
@@ -44,20 +43,10 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            color: var(--text-light);
             position: relative;
             z-index: 1;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: -1;
+            background: linear-gradient(rgba(248, 250, 252, 0.9), rgba(248, 250, 252, 0.95)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
         }
 
         .hero h1 {
@@ -65,6 +54,7 @@
             margin-bottom: 20px;
             font-weight: 700;
             line-height: 1.2;
+            color: var(--primary);
         }
 
         .hero p {
@@ -72,6 +62,7 @@
             max-width: 700px;
             margin-bottom: 30px;
             line-height: 1.6;
+            color: var(--text);
         }
 
         .hero-btns {
@@ -88,11 +79,13 @@
             transition: var(--transition);
             font-size: 1rem;
             border: none;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-primary {
             background: var(--primary);
-            color: var(--text-light);
+            color: white;
         }
 
         .btn-primary:hover {
@@ -103,20 +96,19 @@
 
         .btn-outline {
             background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--text-light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .btn-outline:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(100, 149, 237, 0.1);
             transform: translateY(-3px);
         }
 
         /* Features Section */
         .features {
             padding: 80px 20px;
-            background: white;
-            color: var(--dark);
+            background: var(--background);
         }
 
         .section-title {
@@ -135,16 +127,18 @@
         }
 
         .feature-card {
-            background: var(--light);
+            background: var(--card-bg);
             border-radius: 10px;
             padding: 30px;
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .feature-icon {
@@ -157,10 +151,11 @@
             font-size: 1.3rem;
             margin-bottom: 15px;
             font-weight: 600;
+            color: var(--primary);
         }
 
         .feature-desc {
-            color: #666;
+            color: var(--text);
             line-height: 1.6;
         }
 
@@ -175,9 +170,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
-            background: rgba(0, 0, 0, 0.7);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .logo {
@@ -195,11 +189,11 @@
         .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--primary);
         }
 
         .logo-text span {
-            color: var(--primary);
+            color: var(--secondary);
         }
 
         .nav-auth {
@@ -218,18 +212,17 @@
 
         .nav-login {
             background: transparent;
-            color: var(--text-light);
-            border: 2px solid rgba(255,255,255,0.3);
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .nav-login:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.5);
+            background: rgba(100, 149, 237, 0.1);
         }
 
         .nav-signup {
             background: var(--primary);
-            color: var(--text-light);
+            color: white;
             border: 2px solid var(--primary);
         }
 
@@ -239,15 +232,71 @@
             box-shadow: 0 5px 15px rgba(100, 149, 237, 0.3);
         }
 
-        /* Enhanced Auth Modal - Made more compact */
+        /* Testimonial Section */
+        .testimonials {
+            padding: 80px 20px;
+            background: var(--light);
+            text-align: center;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        /* Authentication Modal */
         .auth-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -263,14 +312,14 @@
         }
 
         .auth-container {
-            background: white;
+            background: var(--card-bg);
             border-radius: 15px;
             width: 90%;
             max-width: 450px;
             overflow: hidden;
             transform: translateY(50px);
             transition: var(--transition);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             position: relative;
             margin: 20px 0;
         }
@@ -282,7 +331,7 @@
         .auth-tabs {
             display: flex;
             position: relative;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
 
         .auth-tab {
@@ -291,7 +340,8 @@
             padding: 15px;
             cursor: pointer;
             font-weight: 600;
-            color: #777;
+            color: var(--text);
+            opacity: 0.7;
             transition: var(--transition);
             position: relative;
             z-index: 1;
@@ -300,6 +350,7 @@
 
         .auth-tab.active {
             color: var(--primary);
+            opacity: 1;
         }
 
         .auth-tab-slider {
@@ -314,7 +365,7 @@
         }
 
         .auth-content {
-            padding: 20px;
+            padding: 30px;
         }
 
         .auth-form {
@@ -327,26 +378,27 @@
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 500;
-            color: #555;
+            color: var(--text);
             font-size: 0.9rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px;
-            padding-left: 40px;
-            border: 1px solid #ddd;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid rgba(0,0,0,0.1);
             border-radius: 8px;
             font-size: 0.9rem;
             transition: var(--transition);
+            background: var(--background);
+            color: var(--text);
         }
 
         .form-control:focus {
@@ -359,7 +411,8 @@
             position: absolute;
             left: 12px;
             top: 38px;
-            color: #777;
+            color: var(--text);
+            opacity: 0.7;
             font-size: 0.95rem;
         }
 
@@ -374,7 +427,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            margin-top: 5px;
+            margin-top: 10px;
             position: relative;
             overflow: hidden;
         }
@@ -407,11 +460,11 @@
             right: 15px;
             width: 35px;
             height: 35px;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.05);
             border: none;
             border-radius: 50%;
             font-size: 1.2rem;
-            color: white;
+            color: var(--text);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -421,18 +474,19 @@
         }
 
         .close-modal:hover {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.1);
             transform: rotate(90deg);
         }
 
         .social-auth {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
         }
 
         .social-auth p {
-            color: #777;
-            margin-bottom: 12px;
+            color: var(--text);
+            opacity: 0.7;
+            margin-bottom: 15px;
             position: relative;
             font-size: 0.9rem;
         }
@@ -444,7 +498,7 @@
             top: 50%;
             width: 30%;
             height: 1px;
-            background: #ddd;
+            background: rgba(0,0,0,0.1);
         }
 
         .social-auth p::before {
@@ -495,63 +549,6 @@
             background: #D44638;
         }
 
-        /* Testimonial Section */
-        .testimonials {
-            padding: 80px 20px;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80') no-repeat center/cover;
-            color: white;
-            text-align: center;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonial-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.15);
-        }
-
-        .testimonial-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 20px;
-            border: 3px solid var(--primary);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .testimonial-role {
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-
         /* Animations */
         @keyframes fadeIn {
             from {
@@ -588,61 +585,14 @@
             }
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .hero-btn {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .auth-container {
-                width: 95%;
-                margin: 10px 0;
-            }
-            
-            .auth-tabs {
-                flex-direction: column;
-            }
-            
-            .auth-tab-slider {
-                display: none;
-            }
-            
-            .auth-tab {
-                padding: 12px;
-            }
-            
-            .auth-content {
-                padding: 15px;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-
-         /* Add these new styles to your existing CSS */
-         .password-toggle {
+        /* Password toggle and form elements */
+        .password-toggle {
             position: absolute;
             right: 12px;
             top: 38px;
             cursor: pointer;
-            color: #777;
+            color: var(--text);
+            opacity: 0.7;
         }
         
         .error-message {
@@ -673,6 +623,41 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .auth-container {
+                width: 95%;
+            }
+            
+            .auth-content {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -695,7 +680,7 @@
         <h1>Revolutionize Your Campus Collaboration</h1>
         <p>Connect, collaborate, and innovate with students across campus. Join the platform designed to bring ideas to life.</p>
         <div class="hero-btns">
-            <button class="hero-btn btn-primary" id="heroSignup">Get Started</button>
+            <a href="homepage.html" class="hero-btn btn-primary">Get Started</a>
             <button class="hero-btn btn-outline" id="heroLogin">Login</button>
         </div>
     </section>
@@ -753,7 +738,7 @@
         </div>
     </section>
 
-    <!-- Enhanced Authentication Modal -->
+    <!-- Authentication Modal (hidden by default) -->
     <div class="auth-modal" id="authModal">
         <button class="close-modal" id="closeModal">&times;</button>
         <div class="auth-container">
@@ -852,6 +837,7 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // ====== Modal Elements ======
@@ -859,7 +845,6 @@
             const navLogin = document.getElementById('navLogin');
             const navSignup = document.getElementById('navSignup');
             const heroLogin = document.getElementById('heroLogin');
-            const heroSignup = document.getElementById('heroSignup');
             const closeModal = document.getElementById('closeModal');
             const loginTab = document.getElementById('loginTab');
             const signupTab = document.getElementById('signupTab');
@@ -1013,20 +998,12 @@
                         body: JSON.stringify(body)
                     });
         
-                    // Check if response is JSON
-                    const contentType = response.headers.get('content-type');
-                    if (!contentType || !contentType.includes('application/json')) {
-                        const text = await response.text();
-                        throw new Error(`Invalid response: ${text}`);
-                    }
-        
-                    const result = await response.json();
-                    
                     if (!response.ok) {
-                        throw new Error(result.message || 'Request failed');
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(errorData.message || 'Request failed');
                     }
         
-                    return result;
+                    return await response.json();
                 } catch (error) {
                     console.error('API Error:', error);
                     throw error;
@@ -1048,30 +1025,22 @@
                 document.getElementById('loginFormError').style.display = 'none';
         
                 try {
-                    const response = await fetch(API_BASE_URL + 'login.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
+                    const response = await handleApiCall(
+                        API_BASE_URL + 'login.php',
+                        'POST',
+                        {
                             email: document.getElementById('loginEmail').value.trim(),
                             password: document.getElementById('loginPassword').value.trim()
-                        })
-                    });
+                        }
+                    );
         
-                    // First check if response is OK
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => null);
-                        throw new Error(errorData?.message || `HTTP error! status: ${response.status}`);
-                    }
-        
-                    const result = await response.json();
-        
-                    if (result.success) {
+                    if (response.success) {
                         // Store user data in localStorage
                         localStorage.setItem('user', JSON.stringify({
-                            name: result.user.name,
-                            email: result.user.email,
-                            id: result.user.id,
-                            initials: getInitials(result.user.name)
+                            name: response.user.name,
+                            email: response.user.email,
+                            id: response.user.id,
+                            initials: getInitials(response.user.name)
                         }));
                         
                         document.getElementById('loginSuccess').textContent = 'Login successful! Redirecting...';
@@ -1081,7 +1050,7 @@
                             window.location.href = 'homepage.html';
                         }, 1500);
                     } else {
-                        throw new Error(result.message || 'Login failed');
+                        throw new Error(response.message || 'Login failed');
                     }
                 } catch (error) {
                     console.error('Login Error:', error);
@@ -1101,88 +1070,101 @@
                 document.getElementById('signupFormError').style.display = 'none';
         
                 try {
-                    const response = await fetch(API_BASE_URL + 'register.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
+                    const response = await handleApiCall(
+                        API_BASE_URL + 'register.php',
+                        'POST',
+                        {
                             name: document.getElementById('signupName').value.trim(),
                             email: document.getElementById('signupEmail').value.trim(),
                             password: document.getElementById('signupPassword').value.trim(),
                             confirm_password: document.getElementById('signupConfirm').value.trim()
-                        })
-                    });
+                        }
+                    );
         
-                    // First check if response is OK
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => null);
-                        throw new Error(errorData?.message || `HTTP error! status: ${response.status}`);
-                    }
-        
-                    const result = await response.json();
-        
-                    if (result.success) {
+                    if (response.success) {
                         document.getElementById('signupSuccess').textContent = 'Registration successful! You can now login.';
                         document.getElementById('signupSuccess').style.display = 'block';
+                        
+                        // Clear form
                         signupForm.reset();
                         
+                        // Switch to login after successful registration
                         setTimeout(() => {
                             switchToLogin();
-                            document.getElementById('signupSuccess').style.display = 'none';
-                        }, 2000);
+                            document.getElementById('loginEmail').value = document.getElementById('signupEmail').value.trim();
+                        }, 1500);
                     } else {
-                        throw new Error(result.message || 'Registration failed');
+                        throw new Error(response.message || 'Registration failed');
                     }
                 } catch (error) {
-                    console.error('Registration Error:', error);
+                    console.error('Signup Error:', error);
                     document.getElementById('signupFormError').textContent = error.message || 'An error occurred during registration';
                     document.getElementById('signupFormError').style.display = 'block';
                 } finally {
                     setLoading(false, 'signupForm');
                 }
             });
-        
+
             // ====== Password Toggle ======
-            function setupPasswordToggle(passwordId, toggleId) {
-                const passwordInput = document.getElementById(passwordId);
+            function togglePasswordVisibility(inputId, toggleId) {
+                const passwordInput = document.getElementById(inputId);
                 const toggleIcon = document.getElementById(toggleId);
                 
-                toggleIcon.addEventListener('click', function() {
-                    if (passwordInput.type === 'password') {
-                        passwordInput.type = 'text';
-                        toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
-                    } else {
-                        passwordInput.type = 'password';
-                        toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
-                    }
-                });
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+                }
             }
-            
-            // Initialize password toggles
-            setupPasswordToggle('loginPassword', 'toggleLoginPassword');
-            setupPasswordToggle('signupPassword', 'toggleSignupPassword');
-            setupPasswordToggle('signupConfirm', 'toggleSignupConfirm');
-        
+
+            document.getElementById('toggleLoginPassword').addEventListener('click', () => {
+                togglePasswordVisibility('loginPassword', 'toggleLoginPassword');
+            });
+
+            document.getElementById('toggleSignupPassword').addEventListener('click', () => {
+                togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
+            });
+
+            document.getElementById('toggleSignupConfirm').addEventListener('click', () => {
+                togglePasswordVisibility('signupConfirm', 'toggleSignupConfirm');
+            });
+
             // ====== Event Listeners ======
             navLogin.addEventListener('click', openLogin);
             navSignup.addEventListener('click', openSignup);
             heroLogin.addEventListener('click', openLogin);
-            heroSignup.addEventListener('click', openSignup);
             closeModal.addEventListener('click', closeModalHandler);
             loginTab.addEventListener('click', switchToLogin);
             signupTab.addEventListener('click', switchToSignup);
-        
+
             // Close modal when clicking outside
             authModal.addEventListener('click', function(e) {
                 if (e.target === authModal) {
                     closeModalHandler();
                 }
             });
-        
-            // Initialize tab slider
-            tabSlider.style.width = `${100 / 2}%`;
+
+            // Check for authentication status on page load
+            function checkAuthStatus() {
+                const user = localStorage.getItem('user');
+                if (user) {
+                    // User is logged in - update UI accordingly
+                    const userData = JSON.parse(user);
+                    document.querySelector('.nav-auth').innerHTML = `
+                        <div class="user-avatar" style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); 
+                            color: white; display: flex; align-items: center; justify-content: center; 
+                            font-weight: bold; cursor: pointer;" title="${userData.name}">
+                            ${userData.initials}
+                        </div>
+                    `;
+                }
+            }
+
+            // Initialize
+            checkAuthStatus();
         });
-        </script>
-    
+    </script>
 </body>
 </html>
-
