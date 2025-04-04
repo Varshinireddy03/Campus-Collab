@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DebugFest 2025 - Intercollegiate Debugging Challenge</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --secondary: #9b59b6;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 8s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .colleges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .college-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .college-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .college-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(142,68,173,0.1), rgba(155,89,182,0.2));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .college-card:hover::before {
+            opacity: 1;
+        }
+        
+        .college-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        .college-info {
+            padding: 1.5rem;
+        }
+        
+        .college-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .college-location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .college-location i {
+            margin-right: 0.5rem;
+        }
+        
+        .apply-btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(142,68,173,0.3);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .close-btn:hover {
+            color: var(--accent);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(142,68,173,0.3);
+        }
+        
+        .highlight {
+            background-color: #fffde7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .prizes {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        .prize-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 30%;
+            min-width: 250px;
+            margin: 1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .prize-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .prize-place {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .prize-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .schedule {
+            margin: 2rem 0;
+        }
+        
+        .schedule-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .schedule-time {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .schedule-details {
+            flex-grow: 1;
+        }
+        
+        .certificate-preview {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            border: 10px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .colleges-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .prize-card {
+                width: 100%;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+            
+            .schedule-item {
+                flex-direction: column;
+            }
+            
+            .schedule-time {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>DebugFest 2K25</h1>
+        <p class="tagline">Find. Fix. Flourish.</p>
+        <div class="date-badge">JUNE 12-14, 2025</div>
+    </header>
+    
+    <div class="container">
+        <section id="about">
+            <h2>About the Debugging Challenge</h2>
+            <p>DebugFest 2025 is an intense intercollegiate debugging competition that tests participants' ability to identify, diagnose, and fix complex software bugs across multiple programming languages and environments.</p>
+            <p>With challenges ranging from <span class="highlight">memory leaks</span> to <span class="highlight">race conditions</span> and <span class="highlight">security vulnerabilities</span>, DebugFest provides a platform for students to showcase their problem-solving skills and technical expertise.</p>
+        </section>
+        
+        <section id="tracks">
+            <h2>Challenge Categories</h2>
+            <ul>
+                <li><strong>Algorithmic Debugging:</strong> Find and fix logical errors in complex algorithms</li>
+                <li><strong>System-Level Debugging:</strong> Diagnose low-level issues in operating systems and drivers</li>
+                <li><strong>Web Application Debugging:</strong> Solve frontend and backend issues in web applications</li>
+                <li><strong>Concurrency Challenges:</strong> Identify and fix race conditions and deadlocks</li>
+                <li><strong>Security Vulnerabilities:</strong> Find and patch security flaws in provided code</li>
+                <li><strong>Performance Optimization:</strong> Diagnose and fix performance bottlenecks</li>
+            </ul>
+        </section>
+        
+        <section id="prizes">
+            <h2>Prizes & Recognition</h2>
+            <div class="prizes">
+                <div class="prize-card">
+                    <div class="prize-place">Debugging Champion</div>
+                    <div class="prize-amount">₹1,50,000</div>
+                    <p>Plus internship opportunities</p>
+                </div>
+                <div class="prize-card">
+                    <div class="prize-place">Best System Debugger</div>
+                    <div class="prize-amount">₹75,000</div>
+                    <p>Plus premium developer tools</p>
+                </div>
+                <div class="prize-card">
+                    <div class="prize-place">Security Expert</div>
+                    <div class="prize-amount">₹50,000</div>
+                    <p>Plus cybersecurity certification</p>
+                </div>
+            </div>
+            <p>Additional awards include:</p>
+            <ul>
+                <li>Fastest Debugger Award: ₹25,000</li>
+                <li>Most Elegant Solution Award: ₹25,000</li>
+                <li>Best Teamwork Award: ₹25,000</li>
+                <li>Certificates of Excellence for all participants</li>
+            </ul>
+        </section>
+        
+        <section id="schedule">
+            <h2>Event Schedule</h2>
+            <div class="schedule">
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 1: 9 AM</div>
+                    <div class="schedule-details">
+                        <h3>Registration & Orientation</h3>
+                        <p>Check-in, rules overview, and environment setup</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 1: 10:30 AM</div>
+                    <div class="schedule-details">
+                        <h3>Round 1: Basic Debugging</h3>
+                        <p>Individual challenges with simple to moderate bugs</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 1: 2 PM</div>
+                    <div class="schedule-details">
+                        <h3>Round 2: Algorithmic Debugging</h3>
+                        <p>Fix logical errors in complex algorithms</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 2: 10 AM</div>
+                    <div class="schedule-details">
+                        <h3>Round 3: System-Level Debugging</h3>
+                        <p>Diagnose low-level system issues</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 2: 2 PM</div>
+                    <div class="schedule-details">
+                        <h3>Round 4: Security Challenges</h3>
+                        <p>Find and patch security vulnerabilities</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 3: 10 AM</div>
+                    <div class="schedule-details">
+                        <h3>Final Round: Live Debugging</h3>
+                        <p>Real-time debugging of complex systems</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 3: 3 PM</div>
+                    <div class="schedule-details">
+                        <h3>Awards Ceremony</h3>
+                        <p>Certificate distribution and prize announcement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="certificates">
+            <h2>Certificates & Benefits</h2>
+            <p>All participants will receive a certificate of participation that can be used to enhance their academic and professional profiles:</p>
+            
+            <img src="https://via.placeholder.com/600x400/8e44ad/ffffff?text=DebugFest+2025+Certificate" alt="Certificate Preview" class="certificate-preview">
+            
+            <ul>
+                <li>Digitally signed and verifiable certificates</li>
+                <li>Performance-based endorsements for top participants</li>
+                <li>Recognized by leading tech companies and academic institutions</li>
+                <li>Can be included in college applications and resumes</li>
+            </ul>
+            
+            <p><strong>Note:</strong> Certificates will be issued within 7 working days after the event and can be downloaded from our portal.</p>
+        </section>
+        
+        <section id="rules">
+            <h2>Rules & Guidelines</h2>
+            <ul>
+                <li>Participants can compete individually or in teams of 2</li>
+                <li>All debugging must be done during the competition timeframe</li>
+                <li>Internet access is allowed for documentation only</li>
+                <li>No communication with non-participants during challenges</li>
+                <li>Solutions must be original work - plagiarism will result in disqualification</li>
+                <li>Judges' decisions are final in all matters</li>
+            </ul>
+            <p><strong>Environment:</strong> Participants can use their preferred IDEs and tools, but all solutions must work in the provided testing environment.</p>
+        </section>
+        
+        <section id="apply">
+            <h2>Apply Through Your College</h2>
+            <p>Select your college to access the application form. Limited seats available!</p>
+            
+            <div class="colleges-grid">
+                <div class="college-card" onclick="openModal('iiit')">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIIT Hyderabad" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">IIIT Hyderabad</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('iitb')">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIT Bombay" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">IIT Bombay</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('bits')">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939a5854b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="BITS Pilani" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">BITS Pilani</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Pilani, Rajasthan
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('nit')">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="NIT Trichy" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">NIT Trichy</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Tiruchirappalli, Tamil Nadu
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Modal for IIIT Hyderabad -->
+    <div id="iiit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('iiit')">&times;</span>
+            <h2>DebugFest 2025 Application - IIIT Hyderabad</h2>
+            <form id="iiit-form">
+                <div class="form-group">
+                    <label for="iiit-name">Full Name</label>
+                    <input type="text" id="iiit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-email">Email</label>
+                    <input type="email" id="iiit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-phone">Phone Number</label>
+                    <input type="tel" id="iiit-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-year">Year of Study</label>
+                    <select id="iiit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-branch">Branch</label>
+                    <input type="text" id="iiit-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-id">Student ID Number</label>
+                    <input type="text" id="iiit-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-team">Team Member (if any)</label>
+                    <input type="text" id="iiit-team" placeholder="Name and ID of your teammate (optional)">
+                </div>
+                <div class="form-group">
+                    <label for="iiit-track">Preferred Track</label>
+                    <select id="iiit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-experience">Debugging Experience</label>
+                    <textarea id="iiit-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for IIT Bombay -->
+    <div id="iitb-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('iitb')">&times;</span>
+            <h2>DebugFest 2025 Application - IIT Bombay</h2>
+            <form id="iitb-form">
+                <div class="form-group">
+                    <label for="iitb-name">Full Name</label>
+                    <input type="text" id="iitb-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-email">Email</label>
+                    <input type="email" id="iitb-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-phone">Phone Number</label>
+                    <input type="tel" id="iitb-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-year">Year of Study</label>
+                    <select id="iitb-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-branch">Branch</label>
+                    <input type="text" id="iitb-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-id">Student ID Number</label>
+                    <input type="text" id="iitb-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-team">Team Member (if any)</label>
+                    <input type="text" id="iitb-team" placeholder="Name and ID of your teammate (optional)">
+                </div>
+                <div class="form-group">
+                    <label for="iitb-track">Preferred Track</label>
+                    <select id="iitb-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iitb-experience">Debugging Experience</label>
+                    <textarea id="iitb-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for BITS Pilani -->
+    <div id="bits-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('bits')">&times;</span>
+            <h2>DebugFest 2025 Application - BITS Pilani</h2>
+            <form id="bits-form">
+                <div class="form-group">
+                    <label for="bits-name">Full Name</label>
+                    <input type="text" id="bits-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="bits-email">Email</label>
+                    <input type="email" id="bits-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="bits-phone">Phone Number</label>
+                    <input type="tel" id="bits-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="bits-year">Year of Study</label>
+                    <select id="bits-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bits-branch">Branch</label>
+                    <input type="text" id="bits-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="bits-id">Student ID Number</label>
+                    <input type="text" id="bits-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="bits-team">Team Member (if any)</label>
+                    <input type="text" id="bits-team" placeholder="Name and ID of your teammate (optional)">
+                </div>
+                <div class="form-group">
+                    <label for="bits-track">Preferred Track</label>
+                    <select id="bits-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bits-experience">Debugging Experience</label>
+                    <textarea id="bits-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal for NIT Trichy -->
+    <div id="nit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('nit')">&times;</span>
+            <h2>DebugFest 2025 Application - NIT Trichy</h2>
+            <form id="nit-form">
+                <div class="form-group">
+                    <label for="nit-name">Full Name</label>
+                    <input type="text" id="nit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit-email">Email</label>
+                    <input type="email" id="nit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit-phone">Phone Number</label>
+                    <input type="tel" id="nit-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit-year">Year of Study</label>
+                    <select id="nit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nit-branch">Branch</label>
+                    <input type="text" id="nit-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit-id">Student ID Number</label>
+                    <input type="text" id="nit-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="nit-team">Team Member (if any)</label>
+                    <input type="text" id="nit-team" placeholder="Name and ID of your teammate (optional)">
+                </div>
+                <div class="form-group">
+                    <label for="nit-track">Preferred Track</label>
+                    <select id="nit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nit-experience">Debugging Experience</label>
+                    <textarea id="nit-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        
+        function openModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+    
+        function closeModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        
+        document.getElementById('iiit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for IIIT Hyderabad!');
+            closeModal('iiit');
+        });
+        
+        document.getElementById('iitb-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for IIT Bombay!');
+            closeModal('iitb');
+        });
+        
+        document.getElementById('bits-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for BITS Pilani!');
+            closeModal('bits');
+        });
+        
+        document.getElementById('nit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for NIT Trichy!');
+            closeModal('nit');
+        });
+        
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const collegeCards = document.querySelectorAll('.college-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            collegeCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

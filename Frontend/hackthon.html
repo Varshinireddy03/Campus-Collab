@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TechHack 2024 - Intercollegiate Hackathon</title>
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff4d4d;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 8s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .date-badge {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .colleges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .college-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .college-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .college-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(106,17,203,0.1), rgba(37,117,252,0.2));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .college-card:hover::before {
+            opacity: 1;
+        }
+        
+        .college-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        .college-info {
+            padding: 1.5rem;
+        }
+        
+        .college-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .college-location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .college-location i {
+            margin-right: 0.5rem;
+        }
+        
+        .apply-btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .close-btn:hover {
+            color: var(--accent);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
+        }
+        
+        .highlight {
+            background-color: #fffde7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .prizes {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        .prize-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 30%;
+            min-width: 250px;
+            margin: 1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .prize-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .prize-place {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .prize-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .schedule {
+            margin: 2rem 0;
+        }
+        
+        .schedule-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .schedule-time {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .schedule-details {
+            flex-grow: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .colleges-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .prize-card {
+                width: 100%;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>TechHack 2K25</h1>
+        <p class="tagline">Innovate. Collaborate. Transform.</p>
+        <div class="date-badge">MAY 5-7, 2025</div>
+    </header>
+    
+    <div class="container">
+        <section id="about">
+            <h2>About the Hackathon</h2>
+            <p>TechHack 2024 is an intercollegiate hackathon bringing together the brightest minds from top engineering colleges across India. This 48-hour coding marathon challenges participants to solve real-world problems through innovative technology solutions.</p>
+            <p>With themes ranging from <span class="highlight">AI & Machine Learning</span> to <span class="highlight">Sustainable Tech</span> and <span class="highlight">Healthcare Innovations</span>, TechHack provides a platform for students to showcase their skills, learn from industry experts, and network with peers.</p>
+        </section>
+        
+        <section id="themes">
+            <h2>Themes & Tracks</h2>
+            <ul>
+                <li><strong>Artificial Intelligence & Machine Learning:</strong> Build intelligent systems that can learn and adapt</li>
+                <li><strong>Blockchain & Web3:</strong> Develop decentralized applications for the future internet</li>
+                <li><strong>Healthcare Technology:</strong> Create solutions to improve medical care and accessibility</li>
+                <li><strong>Sustainable Development:</strong> Innovate for a greener planet with climate tech solutions</li>
+                <li><strong>FinTech Innovations:</strong> Revolutionize financial services with technology</li>
+                <li><strong>Open Innovation:</strong> Any groundbreaking idea that doesn't fit the above categories</li>
+            </ul>
+        </section>
+        
+        <section id="prizes">
+            <h2>Prizes & Opportunities</h2>
+            <div class="prizes">
+                <div class="prize-card">
+                    <div class="prize-place">1st Place</div>
+                    <div class="prize-amount">₹2,00,000</div>
+                    <p>Plus incubation support and mentorship</p>
+                </div>
+                <div class="prize-card">
+                    <div class="prize-place">2nd Place</div>
+                    <div class="prize-amount">₹1,00,000</div>
+                    <p>Plus premium developer tools</p>
+                </div>
+                <div class="prize-card">
+                    <div class="prize-place">3rd Place</div>
+                    <div class="prize-amount">₹50,000</div>
+                    <p>Plus exclusive swag</p>
+                </div>
+            </div>
+            <p>Additional prizes include:</p>
+            <ul>
+                <li>Best Women-Led Team Award: ₹25,000</li>
+                <li>Most Innovative Idea Award: ₹25,000</li>
+                <li>Social Impact Award: ₹25,000</li>
+                <li>Internship opportunities with sponsoring companies</li>
+            </ul>
+        </section>
+        
+        <section id="schedule">
+            <h2>Event Schedule</h2>
+            <div class="schedule">
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 1: 9 AM</div>
+                    <div class="schedule-details">
+                        <h3>Registration & Opening Ceremony</h3>
+                        <p>Check-in, team formation, and keynote from industry leaders</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 1: 12 PM</div>
+                    <div class="schedule-details">
+                        <h3>Hacking Begins</h3>
+                        <p>Teams start working on their projects</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 1: 7 PM</div>
+                    <div class="schedule-details">
+                        <h3>Mentorship Sessions</h3>
+                        <p>Get guidance from industry experts and professors</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 2: 12 PM</div>
+                    <div class="schedule-details">
+                        <h3>Midpoint Check-in</h3>
+                        <p>Teams present progress and get feedback</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 3: 12 PM</div>
+                    <div class="schedule-details">
+                        <h3>Hacking Ends</h3>
+                        <p>Submission deadline for all projects</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 3: 2 PM</div>
+                    <div class="schedule-details">
+                        <h3>Demo Fair & Judging</h3>
+                        <p>Teams showcase their projects to judges</p>
+                    </div>
+                </div>
+                <div class="schedule-item">
+                    <div class="schedule-time">Day 3: 6 PM</div>
+                    <div class="schedule-details">
+                        <h3>Closing Ceremony & Awards</h3>
+                        <p>Announcement of winners and closing remarks</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="rules">
+            <h2>Rules & Guidelines</h2>
+            <ul>
+                <li>Teams of 2-4 members from the same or different colleges</li>
+                <li>All code must be written during the hackathon (no pre-written code)</li>
+                <li>Use of open-source libraries and APIs is allowed</li>
+                <li>Projects must be submitted by the deadline to be eligible for prizes</li>
+                <li>All participants must adhere to the code of conduct</li>
+                <li>Judges' decisions are final</li>
+            </ul>
+            <p><strong>Code of Conduct:</strong> We expect all participants to maintain a respectful and inclusive environment. Harassment of any kind will not be tolerated.</p>
+        </section>
+        
+        <section id="apply">
+            <h2>Apply Through Your College</h2>
+            <p>Select your college to access the application form. Limited slots available!</p>
+            
+            <div class="colleges-grid">
+                <div class="college-card" onclick="openModal('iiit')">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIIT Hyderabad" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">IIIT Hyderabad</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('srm')">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="SRM University" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">SRM University</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('malla')">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Malla Reddy College" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">Malla Reddy College</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('iit')">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIT Tirupati" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">IIT Tirupati</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Tirupati, Andhra Pradesh
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    
+    <div id="iiit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('iiit')">&times;</span>
+            <h2>TechHack 2024 Application - IIIT Hyderabad</h2>
+            <form id="iiit-form">
+                <div class="form-group">
+                    <label for="iiit-name">Full Name</label>
+                    <input type="text" id="iiit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-email">Email</label>
+                    <input type="email" id="iiit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-phone">Phone Number</label>
+                    <input type="tel" id="iiit-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-year">Year of Study</label>
+                    <select id="iiit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-branch">Branch</label>
+                    <input type="text" id="iiit-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-id">Student ID Number</label>
+                    <input type="text" id="iiit-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-team">Team Members (if any)</label>
+                    <textarea id="iiit-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-theme">Preferred Theme</label>
+                    <select id="iiit-theme" required>
+                        <option value="">Select Theme</option>
+                        <option value="ai">AI & Machine Learning</option>
+                        <option value="blockchain">Blockchain & Web3</option>
+                        <option value="healthcare">Healthcare Technology</option>
+                        <option value="sustainable">Sustainable Development</option>
+                        <option value="fintech">FinTech Innovations</option>
+                        <option value="open">Open Innovation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-skills">Technical Skills</label>
+                    <textarea id="iiit-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    
+    <div id="srm-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('srm')">&times;</span>
+            <h2>TechHack 2024 Application - SRM University</h2>
+            <form id="srm-form">
+                <div class="form-group">
+                    <label for="srm-name">Full Name</label>
+                    <input type="text" id="srm-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="srm-email">Email</label>
+                    <input type="email" id="srm-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="srm-phone">Phone Number</label>
+                    <input type="tel" id="srm-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="srm-year">Year of Study</label>
+                    <select id="srm-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="srm-branch">Branch</label>
+                    <input type="text" id="srm-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="srm-id">Student ID Number</label>
+                    <input type="text" id="srm-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="srm-team">Team Members (if any)</label>
+                    <textarea id="srm-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="srm-theme">Preferred Theme</label>
+                    <select id="srm-theme" required>
+                        <option value="">Select Theme</option>
+                        <option value="ai">AI & Machine Learning</option>
+                        <option value="blockchain">Blockchain & Web3</option>
+                        <option value="healthcare">Healthcare Technology</option>
+                        <option value="sustainable">Sustainable Development</option>
+                        <option value="fintech">FinTech Innovations</option>
+                        <option value="open">Open Innovation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="srm-skills">Technical Skills</label>
+                    <textarea id="srm-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    
+    <div id="malla-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('malla')">&times;</span>
+            <h2>TechHack 2024 Application - Malla Reddy College</h2>
+            <form id="malla-form">
+                <div class="form-group">
+                    <label for="malla-name">Full Name</label>
+                    <input type="text" id="malla-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="malla-email">Email</label>
+                    <input type="email" id="malla-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="malla-phone">Phone Number</label>
+                    <input type="tel" id="malla-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="malla-year">Year of Study</label>
+                    <select id="malla-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="malla-branch">Branch</label>
+                    <input type="text" id="malla-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="malla-id">Student ID Number</label>
+                    <input type="text" id="malla-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="malla-team">Team Members (if any)</label>
+                    <textarea id="malla-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="malla-theme">Preferred Theme</label>
+                    <select id="malla-theme" required>
+                        <option value="">Select Theme</option>
+                        <option value="ai">AI & Machine Learning</option>
+                        <option value="blockchain">Blockchain & Web3</option>
+                        <option value="healthcare">Healthcare Technology</option>
+                        <option value="sustainable">Sustainable Development</option>
+                        <option value="fintech">FinTech Innovations</option>
+                        <option value="open">Open Innovation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="malla-skills">Technical Skills</label>
+                    <textarea id="malla-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    
+    <div id="iit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('iit')">&times;</span>
+            <h2>TechHack 2024 Application - IIT Tirupati</h2>
+            <form id="iit-form">
+                <div class="form-group">
+                    <label for="iit-name">Full Name</label>
+                    <input type="text" id="iit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="iit-email">Email</label>
+                    <input type="email" id="iit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="iit-phone">Phone Number</label>
+                    <input type="tel" id="iit-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="iit-year">Year of Study</label>
+                    <select id="iit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iit-branch">Branch</label>
+                    <input type="text" id="iit-branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="iit-id">Student ID Number</label>
+                    <input type="text" id="iit-id" required>
+                </div>
+                <div class="form-group">
+                    <label for="iit-team">Team Members (if any)</label>
+                    <textarea id="iit-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="iit-theme">Preferred Theme</label>
+                    <select id="iit-theme" required>
+                        <option value="">Select Theme</option>
+                        <option value="ai">AI & Machine Learning</option>
+                        <option value="blockchain">Blockchain & Web3</option>
+                        <option value="healthcare">Healthcare Technology</option>
+                        <option value="sustainable">Sustainable Development</option>
+                        <option value="fintech">FinTech Innovations</option>
+                        <option value="open">Open Innovation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iit-skills">Technical Skills</label>
+                    <textarea id="iit-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+    
+        function openModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+    
+        function closeModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+    
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        
+        document.getElementById('iiit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for IIIT Hyderabad!');
+            closeModal('iiit');
+        });
+        
+        document.getElementById('srm-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for SRM University!');
+            closeModal('srm');
+        });
+        
+        document.getElementById('malla-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for Malla Reddy College!');
+            closeModal('malla');
+        });
+        
+        document.getElementById('iit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for IIT Tirupati!');
+            closeModal('iit');
+        });
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const collegeCards = document.querySelectorAll('.college-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            collegeCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
