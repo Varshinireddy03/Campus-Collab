@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Collab - Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Color Scheme with Cornflower Blue */
+        :root {
+            --primary: #6495ED; /* Cornflower Blue */
+            --primary-dark: #4169E1; /* Royal Blue */
+            --primary-light: #87CEFA; /* Light Sky Blue */
+            --secondary: #4cc9f0;
+            --accent: #f72585;
+            --accent-light: #ff6b9d;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --light-gray: #f1f3f5;
+            --medium-gray: #dee2e6;
+            --dark-gray: #495057;
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-light));
+            --gradient-accent: linear-gradient(135deg, var(--accent), var(--accent-light));
+            --gradient-secondary: linear-gradient(135deg, var(--secondary), #6fe5ff);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.2s ease;
+            --border-radius: 16px;
+            --border-radius-sm: 8px;
+            --sidebar-width: 280px;
+            --sidebar-collapsed-width: 80px;
+            --navbar-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--navbar-height);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary); /* Cornflower Blue */
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.75rem;
+            color: var(--primary); /* Cornflower Blue */
+        }
+
+        .search-box {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--medium-gray);
+            width: 40%;
+            min-width: 300px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(100, 149, 237, 0.15);
+            background-color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .create-button {
+            padding: 0.75rem 1.75rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(100, 149, 237, 0.2);
+        }
+
+        .create-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: var(--navbar-height);
+            height: calc(100vh - var(--navbar-height));
+            width: var(--sidebar-collapsed-width);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            padding: 2rem 0;
+            transition: var(--transition);
+            z-index: 999;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .sidebar:hover {
+            width: var(--sidebar-width);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-top: 0.5rem;
+        }
+
+        .sidebar li a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+            white-space: nowrap;
+            margin: 0.25rem 0;
+        }
+
+        .sidebar li a:hover {
+            color: var(--primary);
+            background-color: rgba(100, 149, 237, 0.05);
+        }
+
+        .sidebar li a.active {
+            color: var(--primary);
+            background-color: rgba(100, 149, 237, 0.1);
+            font-weight: 500;
+        }
+
+        .sidebar li a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sidebar li a i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar-text {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: var(--transition);
+            margin-left: 0;
+            transition-delay: 0.1s;
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
+            transform: translateX(0);
+            margin-left: 1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+            padding: 3rem;
+            transition: var(--transition);
+            margin-top: var(--navbar-height);
+            min-height: calc(100vh - var(--navbar-height));
+        }
+
+        .sidebar:hover + .main-content {
+            margin-left: var(--sidebar-width);
+        }
+
+        /* Projects Page Styles */
+        .headline {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .subheadline {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Projects Tabs */
+        .projects-tabs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .projects-tabs::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--light-gray);
+            z-index: 0;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.75rem;
+            background: none;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--dark-gray);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-btn.active {
+            color: white;
+            font-weight: 600;
+            background: var(--gradient-primary);
+        }
+
+        .tab-btn:not(.active):hover {
+            color: var(--primary);
+        }
+
+        /* Projects Container */
+        .projects-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: none;
+            border: 1px solid var(--medium-gray);
+            color: var(--dark-gray);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background-color: var(--light-gray);
+            color: var(--primary);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--medium-gray);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-title {
+            font-size: 0.95rem;
+            color: var(--dark-gray);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stat-change.positive {
+            color: #28a745;
+        }
+
+        .stat-change.negative {
+            color: #dc3545;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--medium-gray);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .project-status {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-active {
+            background-color: #e6f7ee;
+            color: #28a745;
+        }
+
+        .status-completed {
+            background-color: #e6f3ff;
+            color: #17a2b8;
+        }
+
+        .status-paused {
+            background-color: #fff3e6;
+            color: #fd7e14;
+        }
+
+        .project-description {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .project-team {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .team-avatars {
+            display: flex;
+            margin-right: 1rem;
+        }
+
+        .team-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: -10px;
+            border: 2px solid white;
+        }
+
+        .team-avatar:nth-child(2) {
+            background: var(--gradient-secondary);
+        }
+
+        .team-avatar:nth-child(3) {
+            background: var(--gradient-accent);
+        }
+
+        .team-more {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--medium-gray);
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .project-progress {
+            width: 100%;
+            height: 6px;
+            background-color: var(--light-gray);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--medium-gray);
+            color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            border: 1px dashed var(--medium-gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .empty-state p {
+            color: var(--dark-gray);
+            max-width: 500px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xl);
+            z-index: 2001;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-content {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(100, 149, 237, 0.15);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-buttons button {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-buttons button:first-child {
+            background: none;
+            border: 1px solid var(--medium-gray);
+            color: var(--dark);
+        }
+
+        .modal-buttons button:first-child:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .modal-buttons button:last-child {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+        }
+
+        .modal-buttons button:last-child:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .logo {
+                order: 1;
+            }
+            
+            .search-box {
+                order: 3;
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+            }
+            
+            .nav-actions {
+                order: 2;
+                margin-left: auto;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                width: var(--sidebar-width);
+                z-index: 1001;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .headline {
+                font-size: 2rem;
+            }
+            
+            .modal {
+                width: 95%;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .modal-buttons button {
+                width: 100%;
+            }
+
+            .projects-tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar" id="navbar">
+        <a href="homepage.html" class="logo">
+            <i class="fas fa-users"></i>
+            <span>Campus Collab</span>
+        </a>
+        
+        <input type="text" class="search-box" placeholder="Search projects, collaborators...">
+        
+        <div class="nav-actions">
+            <button class="create-button" id="openModalBtn">
+                <i class="fas fa-plus"></i> <span>New Project</span>
+            </button>
+            
+            <!-- Profile Dropdown -->
+            <div class="profile-container">
+                <button class="profile-btn">
+                    <span id="profileInitials">JD</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="homepage.html"><i class="fas fa-star"></i> <span class="sidebar-text">Featured</span></a></li>
+            <li><a href="projects.html" class="active"><i class="fas fa-folder"></i> <span class="sidebar-text">Projects</span></a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> <span class="sidebar-text">Courses</span></a></li>
+            <li><a href="collaborators.html"><i class="fas fa-users"></i> <span class="sidebar-text">Collaborators</span></a></li>
+            <li><a href="events.html"><i class="fas fa-calendar-alt"></i> <span class="sidebar-text">Events</span></a></li>
+            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span class="sidebar-text">Leaderboard</span></a></li>
+            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span class="sidebar-text">Mentorship</span></a></li>
+            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span class="sidebar-text">Tasks</span></a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="sidebar-text">Settings</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <h1 class="headline">Projects Hub</h1>
+        <p class="subheadline">Discover, collaborate, and showcase your academic and personal projects. Join existing projects or start your own to build your portfolio and gain practical experience.</p>
+        
+        <div class="projects-tabs">
+            <button class="tab-btn active" data-tab="all-projects">All Projects</button>
+            <button class="tab-btn" data-tab="my-projects">My Projects</button>
+            <button class="tab-btn" data-tab="collaborations">Collaborations</button>
+            <button class="tab-btn" data-tab="completed">Completed</button>
+        </div>
+        
+        <div class="projects-container">
+            <!-- Stats Section -->
+            <div class="stats-grid">
+                <div class="stat-card" style="--delay: 1">
+                    <div class="stat-title">Total Projects</div>
+                    <div class="stat-value">127</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 12% from last month
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="--delay: 2">
+                    <div class="stat-title">Active Projects</div>
+                    <div class="stat-value">84</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 8% from last month
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="--delay: 3">
+                    <div class="stat-title">Completed</div>
+                    <div class="stat-value">43</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 15% from last month
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="--delay: 4">
+                    <div class="stat-title">Collaborators</div>
+                    <div class="stat-value">312</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 21% from last month
+                    </div>
+                </div>
+            </div>
+            
+            <!-- All Projects Section -->
+            <div class="projects-section" id="all-projects">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Projects</h2>
+                    <div class="section-actions">
+                        <button class="action-btn" title="Filters"><i class="fas fa-sliders-h"></i></button>
+                        <button class="action-btn" title="Search"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Project Card 1 -->
+                    <div class="project-card" style="--delay: 1">
+                        <div class="project-header">
+                            <h3 class="project-title">Campus Navigation App</h3>
+                            <span class="project-status status-active">Active</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            Developing a mobile app to help students navigate campus buildings with AR features and accessibility options.
+                        </p>
+                        
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i> Due: May 15, 2023
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i> 4 members
+                            </div>
+                        </div>
+                        
+                        <div class="project-skills">
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">ARCore</span>
+                            <span class="skill-tag">Firebase</span>
+                        </div>
+                        
+                        <div class="project-team">
+                            <div class="team-avatars">
+                                <div class="team-avatar">JD</div>
+                                <div class="team-avatar">AS</div>
+                                <div class="team-avatar">MJ</div>
+                            </div>
+                            <span class="team-more">+1 more</span>
+                        </div>
+                        
+                        <div class="project-progress">
+                            <div class="progress-bar" style="width: 65%"></div>
+                        </div>
+                        <div class="progress-text">65% completed</div>
+                        
+                        <div class="project-footer">
+                            <div class="project-actions">
+                                <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Join</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Card 2 -->
+                    <div class="project-card" style="--delay: 2">
+                        <div class="project-header">
+                            <h3 class="project-title">AI Course Recommender</h3>
+                            <span class="project-status status-active">Active</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            Machine learning system to recommend courses based on student interests, academic history, and career goals.
+                        </p>
+                        
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i> Due: June 30, 2023
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i> 3 members
+                            </div>
+                        </div>
+                        
+                        <div class="project-skills">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">TensorFlow</span>
+                            <span class="skill-tag">Flask</span>
+                        </div>
+                        
+                        <div class="project-team">
+                            <div class="team-avatars">
+                                <div class="team-avatar">RK</div>
+                                <div class="team-avatar">TL</div>
+                            </div>
+                            <span class="team-more">Looking for 2 more</span>
+                        </div>
+                        
+                        <div class="project-progress">
+                            <div class="progress-bar" style="width: 30%"></div>
+                        </div>
+                        <div class="progress-text">30% completed</div>
+                        
+                        <div class="project-footer">
+                            <div class="project-actions">
+                                <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Join</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="project-card" style="--delay: 3">
+                        <div class="project-header">
+                            <h3 class="project-title">Sustainable Energy Dashboard</h3>
+                            <span class="project-status status-completed">Completed</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            Interactive dashboard visualizing campus energy consumption and recommendations for sustainability improvements.
+                        </p>
+                        
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i> Completed: Apr 2, 2023
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i> 5 members
+                            </div>
+                        </div>
+                        <div class="project-skills">
+                          <span class="skill-tag">React</span>
+                          <span class="skill-tag">D3.js</span>
+                          <span class="skill-tag">Node.js</span>
+                      </div>
+                      
+                      <div class="project-team">
+                          <div class="team-avatars">
+                              <div class="team-avatar">CW</div>
+                              <div class="team-avatar">AM</div>
+                              <div class="team-avatar">JP</div>
+                          </div>
+                          <span class="team-more">+2 more</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Project Card 4 -->
+                  <div class="project-card" style="--delay: 4">
+                      <div class="project-header">
+                          <h3 class="project-title">Virtual Study Groups Platform</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Web platform for students to form virtual study groups with video chat, shared whiteboard, and document collaboration.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: July 15, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 6 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">WebRTC</span>
+                          <span class="skill-tag">Socket.io</span>
+                          <span class="skill-tag">MongoDB</span>
+                      </div>
+                      
+                      <div class="project-team">
+                          <div class="team-avatars">
+                              <div class="team-avatar">SG</div>
+                              <div class="team-avatar">DK</div>
+                              <div class="team-avatar">AS</div>
+                          </div>
+                          <span class="team-more">+3 more</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 45%"></div>
+                      </div>
+                      <div class="progress-text">45% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                              <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Join</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- My Projects Section (Hidden by default) -->
+          <div class="projects-section" style="display: none; --delay: 1" id="my-projects">
+              <div class="section-header">
+                  <h2 class="section-title">My Projects</h2>
+                  <div class="section-actions">
+                      <button class="action-btn"><i class="fas fa-sliders-h"></i></button>
+                  </div>
+              </div>
+              
+              <div class="projects-grid">
+                  <div class="project-card" style="--delay: 1">
+                      <div class="project-header">
+                          <h3 class="project-title">Campus Navigation App</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Developing a mobile app to help students navigate campus buildings with AR features.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: May 15, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 4 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">Flutter</span>
+                          <span class="skill-tag">ARCore</span>
+                          <span class="skill-tag">Firebase</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 65%"></div>
+                      </div>
+                      <div class="progress-text">65% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-edit"></i> Edit</button>
+                              <button class="btn btn-primary"><i class="fas fa-tasks"></i> Manage</button>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="project-card" style="--delay: 2">
+                      <div class="project-header">
+                          <h3 class="project-title">CS101 Study Portal</h3>
+                          <span class="project-status status-completed">Completed</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Online portal with study materials, practice problems, and discussion forum for CS101 course.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Completed: Mar 10, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 2 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">PHP</span>
+                          <span class="skill-tag">MySQL</span>
+                          <span class="skill-tag">Bootstrap</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-chart-line"></i> Analytics</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Collaborations Section (Hidden by default) -->
+          <div class="projects-section" style="display: none; --delay: 2" id="collaborations">
+              <div class="section-header">
+                  <h2 class="section-title">Collaborations</h2>
+                  <div class="section-actions">
+                      <button class="action-btn"><i class="fas fa-filter"></i></button>
+                  </div>
+              </div>
+              
+              <div class="projects-grid">
+                  <div class="project-card" style="--delay: 1">
+                      <div class="project-header">
+                          <h3 class="project-title">AI Course Recommender</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Machine learning system to recommend courses based on student interests and academic history.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: June 30, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 3 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">Python</span>
+                          <span class="skill-tag">TensorFlow</span>
+                          <span class="skill-tag">Flask</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 30%"></div>
+                      </div>
+                      <div class="progress-text">30% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-comments"></i> Discuss</button>
+                              <button class="btn btn-primary"><i class="fas fa-code"></i> Contribute</button>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="project-card" style="--delay: 2">
+                      <div class="project-header">
+                          <h3 class="project-title">Library Management System</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Modernizing the campus library system with digital checkouts and inventory management.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: Aug 15, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 5 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">Java</span>
+                          <span class="skill-tag">Spring Boot</span>
+                          <span class="skill-tag">React</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 55%"></div>
+                      </div>
+                      <div class="progress-text">55% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-comments"></i> Discuss</button>
+                              <button class="btn btn-primary"><i class="fas fa-code"></i> Contribute</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Completed Section (Hidden by default) -->
+          <div class="projects-section" style="display: none; --delay: 3" id="completed">
+              <div class="section-header">
+                  <h2 class="section-title">Completed Projects</h2>
+                  <div class="section-actions">
+                      <button class="action-btn"><i class="fas fa-sliders-h"></i></button>
+                  </div>
+              </div>
+              
+              <div class="projects-grid">
+                  <div class="project-card" style="--delay: 1">
+                      <div class="project-header">
+                          <h3 class="project-title">CS101 Study Portal</h3>
+                          <span class="project-status status-completed">Completed</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Online portal with study materials, practice problems, and discussion forum for CS101 course.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Completed: Mar 10, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 2 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">PHP</span>
+                          <span class="skill-tag">MySQL</span>
+                          <span class="skill-tag">Bootstrap</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-chart-line"></i> Analytics</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="project-card" style="--delay: 2">
+                      <div class="project-header">
+                          <h3 class="project-title">Student Attendance Tracker</h3>
+                          <span class="project-status status-completed">Completed</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Mobile app for professors to track student attendance using QR codes.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Completed: Dec 15, 2022
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 3 members
+                          </div>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">React Native</span>
+                          <span class="skill-tag">Node.js</span>
+                          <span class="skill-tag">MongoDB</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-chart-line"></i> Analytics</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- New Project Modal -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal" id="projectModal">
+      <div class="modal-header">
+          <h2>Create New Project</h2>
+          <button class="close-modal" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="modal-content">
+          <form id="projectForm">
+              <div class="form-group">
+                  <label for="projectName">Project Name</label>
+                  <input type="text" id="projectName" required placeholder="e.g. Campus Navigation App">
+              </div>
+              
+              <div class="form-group">
+                  <label for="projectDescription">Description</label>
+                  <textarea id="projectDescription" required placeholder="Briefly describe your project..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                  <label for="projectSkills">Required Skills</label>
+                  <input type="text" id="projectSkills" required placeholder="e.g. JavaScript, Python, UI Design">
+              </div>
+              
+              <div class="form-group">
+                  <label for="projectCategory">Category</label>
+                  <select id="projectCategory" required>
+                      <option value="" disabled selected>Select category</option>
+                      <option value="web">Web Development</option>
+                      <option value="mobile">Mobile App</option>
+                      <option value="ai">AI/ML</option>
+                      <option value="design">UI/UX Design</option>
+                      <option value="research">Research</option>
+                      <option value="other">Other</option>
+                  </select>
+              </div>
+              
+              <div class="form-group">
+                  <label for="projectDeadline">Target Deadline</label>
+                  <input type="date" id="projectDeadline">
+              </div>
+              
+              <div class="form-group">
+                  <label for="projectTeamSize">Team Size</label>
+                  <input type="number" id="projectTeamSize" min="1" max="10" placeholder="How many collaborators needed?">
+              </div>
+              
+              <div class="modal-buttons">
+                  <button type="button" id="cancelProjectBtn">Cancel</button>
+                  <button type="submit" id="submitProjectBtn">Create Project</button>
+              </div>
+          </form>
+      </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button class="fab" id="fabBtn">
+      <i class="fas fa-plus"></i>
+  </button>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          // Check if user is logged in
+          const user = JSON.parse(localStorage.getItem('user')) || {
+              initials: 'JD',
+              name: 'John Doe',
+              major: 'Computer Science',
+              year: 'Junior'
+          };
+
+          // Set profile initials
+          document.getElementById('profileInitials').textContent = user.initials;
+
+          // Tab switching functionality
+          const tabButtons = document.querySelectorAll('.tab-btn');
+          const tabSections = document.querySelectorAll('.projects-section');
+
+          tabButtons.forEach(button => {
+              button.addEventListener('click', () => {
+                  // Remove active class from all buttons
+                  tabButtons.forEach(btn => btn.classList.remove('active'));
+                  // Add active class to clicked button
+                  button.classList.add('active');
+                  
+                  // Hide all sections
+                  tabSections.forEach(section => {
+                      section.style.display = 'none';
+                  });
+                  
+                  // Show the selected section
+                  const tabId = button.getAttribute('data-tab');
+                  document.getElementById(tabId).style.display = 'block';
+              });
+          });
+
+          // Modal functionality
+          const modalOverlay = document.getElementById('modalOverlay');
+          const projectModal = document.getElementById('projectModal');
+          const openModalBtn = document.getElementById('openModalBtn');
+          const closeModalBtn = document.getElementById('closeModalBtn');
+          const cancelProjectBtn = document.getElementById('cancelProjectBtn');
+
+          function openModal() {
+              modalOverlay.classList.add('active');
+              projectModal.classList.add('active');
+              document.body.style.overflow = 'hidden';
+          }
+
+          function closeModal() {
+              modalOverlay.classList.remove('active');
+              projectModal.classList.remove('active');
+              document.body.style.overflow = 'auto';
+          }
+
+          openModalBtn.addEventListener('click', openModal);
+          closeModalBtn.addEventListener('click', closeModal);
+          cancelProjectBtn.addEventListener('click', closeModal);
+          modalOverlay.addEventListener('click', closeModal);
+
+          // Form submission
+          const projectForm = document.getElementById('projectForm');
+          projectForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              
+              // Get form values
+              const name = document.getElementById('projectName').value;
+              const description = document.getElementById('projectDescription').value;
+              const skills = document.getElementById('projectSkills').value;
+              const category = document.getElementById('projectCategory').value;
+              const deadline = document.getElementById('projectDeadline').value;
+              const teamSize = document.getElementById('projectTeamSize').value;
+              
+              // In a real app, you would send this data to a server
+              console.log('New Project Created:', {
+                  name,
+                  description,
+                  skills,
+                  category,
+                  deadline,
+                  teamSize
+              });
+              
+              // Show success message
+              alert('Your project has been created successfully!');
+              
+              // Close modal
+              closeModal();
+              
+              // Reset form
+              projectForm.reset();
+          });
+
+          // Animate sections on scroll
+          function animateOnScroll() {
+              const sections = document.querySelectorAll('.projects-section, .stat-card, .project-card');
+              
+              sections.forEach(section => {
+                  const sectionTop = section.getBoundingClientRect().top;
+                  const windowHeight = window.innerHeight;
+                  
+                  if (sectionTop < windowHeight - 100) {
+                      section.style.animation = `fadeInUp 0.6s forwards`;
+                  }
+              });
+          }
+
+          // Initial animation check
+          animateOnScroll();
+          
+          // Check on scroll
+          window.addEventListener('scroll', animateOnScroll);
+
+          // Navbar scroll effect
+          window.addEventListener('scroll', function() {
+              const navbar = document.getElementById('navbar');
+              if (window.scrollY > 50) {
+                  navbar.classList.add('scrolled');
+              } else {
+                  navbar.classList.remove('scrolled');
+              }
+          });
+
+          // Floating Action Button
+          const fabBtn = document.getElementById('fabBtn');
+          fabBtn.addEventListener('click', function() {
+              // Scroll to top
+              window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+              });
+          });
+
+          // Show/hide FAB based on scroll position
+          window.addEventListener('scroll', function() {
+              if (window.scrollY > 300) {
+                  fabBtn.style.opacity = '1';
+                  fabBtn.style.visibility = 'visible';
+              } else {
+                  fabBtn.style.opacity = '0';
+                  fabBtn.style.visibility = 'hidden';
+              }
+          });
+
+          // Initialize FAB as hidden
+          fabBtn.style.opacity = '0';
+          fabBtn.style.visibility = 'hidden';
+
+          // Mobile sidebar toggle
+          const sidebar = document.getElementById('sidebar');
+          const menuToggle = document.createElement('button');
+          menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          menuToggle.style.position = 'fixed';
+          menuToggle.style.bottom = '1rem';
+          menuToggle.style.left = '1rem';
+          menuToggle.style.width = '50px';
+          menuToggle.style.height = '50px';
+          menuToggle.style.borderRadius = '50%';
+          menuToggle.style.background = 'var(--gradient-primary)';
+          menuToggle.style.color = 'white';
+          menuToggle.style.border = 'none';
+          menuToggle.style.fontSize = '1.25rem';
+          menuToggle.style.cursor = 'pointer';
+          menuToggle.style.zIndex = '1000';
+          menuToggle.style.boxShadow = 'var(--shadow-md)';
+          menuToggle.style.display = 'none';
+          document.body.appendChild(menuToggle);
+
+          menuToggle.addEventListener('click', function() {
+              sidebar.classList.toggle('active');
+          });
+
+          // Show menu toggle on mobile
+          function checkScreenSize() {
+              if (window.innerWidth <= 768) {
+                  menuToggle.style.display = 'flex';
+                  menuToggle.style.alignItems = 'center';
+                  menuToggle.style.justifyContent = 'center';
+                  sidebar.classList.remove('active');
+              } else {
+                  menuToggle.style.display = 'none';
+                  sidebar.classList.remove('active');
+              }
+          }
+
+          window.addEventListener('resize', checkScreenSize);
+          checkScreenSize();
+      });
+  </script>
+</body>
+</html>
