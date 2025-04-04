@@ -1,40 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Technical Events</title>
     <style>
+        :root {
+            --light: #f8f9fa;
+            /* default light */
+            --dark: #212529;
+            /* default dark */
+            --primary: #4361ee;
+            /* default blue */
+            --base-font-size: 16px;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            background-color: var(--light);
+            color: var(--dark);
+            font-size: var(--base-font-size);
         }
-        
+
         .container {
             text-align: center;
             background: white;
             padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 500px;
         }
-        
+
         h1 {
             color: #2e607d;
             margin-bottom: 1.5rem;
         }
-        
+
         .event-row {
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
         }
-        
+
         .event-box {
             width: 48%;
             padding: 15px 0;
@@ -47,28 +60,31 @@
             text-align: center;
             font-weight: bold;
         }
-        
+
         .event-box:hover {
             background: #c8e4e6;
             transform: translateY(-2px);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Technical Events</h1>
         <br> <br>
 
-        
+
         <div class="event-row">
             <a href="hackthon.html" target="_blank" class="event-box">HackThon</a>
             <a href="enginix.html" target="_blank" class="event-box">Enginix</a>
         </div>
-        
+
         <div class="event-row">
             <a href="abhiyanth.html" target="_blank" class="event-box">Abhiyanth</a>
             <a href="debug.html" target="_blank" class="event-box">Debug Challenge</a>
         </div>
     </div>
 </body>
+<script src="js/settings.js"></script>
+
 </html>

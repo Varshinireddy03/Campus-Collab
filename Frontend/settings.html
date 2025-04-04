@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Collab - Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Color Scheme */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --primary-light: #4895ef;
+            --secondary: #4cc9f0;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --light-gray: #f1f3f5;
+            --medium-gray: #dee2e6;
+            --dark-gray: #495057;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --border-radius: 12px;
+            --sidebar-width: 280px;
+            --navbar-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: var(--shadow-md);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--navbar-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .search-box {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--medium-gray);
+            width: 40%;
+            min-width: 300px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .create-button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .create-button:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: var(--navbar-height);
+            height: calc(100vh - var(--navbar-height));
+            width: var(--sidebar-width);
+            background-color: white;
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem 0;
+            transform: translateX(-100%);
+            transition: var(--transition);
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-top: 0.5rem;
+        }
+
+        .sidebar li a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .sidebar li a:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+            color: var(--primary);
+        }
+
+        .sidebar li a.active {
+            color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.1);
+            font-weight: 500;
+        }
+
+        .sidebar li a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sidebar li a i {
+            width: 24px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Hamburger Button */
+        .hamburger-below {
+            position: fixed;
+            left: 1rem;
+            top: calc(var(--navbar-height) - 0rem);
+            background: var(--primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hamburger-below:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 0;
+            padding: 2rem;
+            transition: var(--transition);
+            margin-top: var(--navbar-height);
+            min-height: calc(100vh - var(--navbar-height));
+        }
+
+        .sidebar.active + .main-content {
+            margin-left: var(--sidebar-width);
+        }
+
+        .headline {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Settings specific styles */
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 2rem;
+        }
+
+        .settings-section {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 1.5rem;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .settings-section h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .settings-section h2 i {
+            color: var(--primary);
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+
+        .setting-info p {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--medium-gray);
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .select-dropdown {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+            background-color: white;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .select-dropdown:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .save-button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            margin: 2rem auto 0;
+            font-size: 0.95rem;
+        }
+
+        .save-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Profile Dropdown */
+        .profile-container {
+            position: relative;
+        }
+
+        .profile-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-dark);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            right: 0;
+            top: 50px;
+            width: 280px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xl);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .profile-container:hover .profile-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .profile-header {
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .profile-info h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .profile-info p {
+            margin: 0.25rem 0 0;
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        .dropdown-menu {
+            list-style: none;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu li a:hover {
+            background: rgba(67, 97, 238, 0.05);
+            color: var(--primary);
+        }
+
+        .dropdown-menu li a i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+            color: var(--dark-gray);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--medium-gray);
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .settings-container {
+                padding: 1.5rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 0.75rem;
+                gap: 0.75rem;
+            }
+            
+            .logo {
+                order: 1;
+            }
+            
+            .search-box {
+                order: 3;
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+            }
+            
+            .nav-actions {
+                order: 2;
+                margin-left: auto;
+            }
+            
+            .settings-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-users"></i>
+            <span>Campus Collab</span>
+        </div>        
+            <!-- Profile Dropdown -->
+            <div class="profile-container">
+                <button class="profile-btn">
+                    <span id="profileInitials">JD</span>
+                </button>
+                
+                <div class="profile-dropdown">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">JD</div>
+                        <div class="profile-info">
+                            <h4 id="profileName">John Doe</h4>
+                            <p id="profileMajor">Computer Science</p>
+                        </div>
+                    </div>
+                    
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                        <li><a href="#"><i class="fas fa-calendar"></i> Calendar</a></li>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar Toggle Button -->
+    <button class="hamburger-below" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="homepage.html"><i class="fas fa-star"></i> <span>Featured</span></a></li>
+            <li><a href="projects.html"><i class="fas fa-folder"></i> <span>Projects</span></a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> <span>Courses</span></a></li>
+            <li><a href="collaborators.html"><i class="fas fa-users"></i> <span>Collaborators</span></a></li>
+            <li><a href="events.html"><i class="fas fa-calendar-alt"></i> <span>Events</span></a></li>
+            <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span>Leaderboard</span></a></li>
+            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span>Mentorship</span></a></li>
+            <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span>Tasks</span></a></li>
+            <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <h1 class="headline">Website Settings</h1>
+        
+        <div class="settings-container">
+            <!-- Appearance Settings -->
+            <div class="settings-section">
+                <h2><i class="fas fa-palette"></i> Appearance</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Theme</h3>
+                        <p>Choose between light and dark mode</p>
+                    </div>
+                    <select class="select-dropdown" id="themeSetting">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                        <option value="system">System Default</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Accent Color</h3>
+                        <p>Change the primary color of the website</p>
+                    </div>
+                    <select class="select-dropdown" id="accentColor">
+                        <option value="blue">Blue</option>
+                        <option value="purple">Purple</option>
+                        <option value="green">Green</option>
+                        <option value="red">Red</option>
+                        <option value="orange">Orange</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Font Size</h3>
+                        <p>Adjust the text size across the platform</p>
+                    </div>
+                    <select class="select-dropdown" id="fontSize">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Animation Effects</h3>
+                        <p>Enable/disable transition animations</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="animationsEnabled" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Content Settings -->
+            <div class="settings-section">
+                <h2><i class="fas fa-newspaper"></i> Content</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Default View</h3>
+                        <p>Choose how projects are displayed by default</p>
+                    </div>
+                    <select class="select-dropdown" id="defaultView">
+                        <option value="grid">Grid View</option>
+                        <option value="list">List View</option>
+                    </select>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Show Featured Content</h3>
+                        <p>Display highlighted projects on homepage</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showFeatured" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Show Recent Activity</h3>
+                        <p>Display recent updates in your feed</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="showActivity" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Notification Settings -->
+            <div class="settings-section">
+                <h2><i class="fas fa-bell"></i> Notifications</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Project Updates</h3>
+                        <p>Get notified about project changes</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="projectNotifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Event Reminders</h3>
+                        <p>Receive reminders for upcoming events</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="eventNotifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <h3>Message Notifications</h3>
+                        <p>Get alerts for new messages</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="messageNotifications" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="save-button" id="saveSettings">Save Changes</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sidebar toggle functionality
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const sidebar = document.getElementById("sidebar");
+            
+            sidebarToggle.addEventListener("click", function() {
+                sidebar.classList.toggle("active");
+            });
+
+            // Load saved settings
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            
+            // Apply saved settings to form elements
+            if (settings.theme) {
+                document.getElementById('themeSetting').value = settings.theme;
+                applyTheme(settings.theme);
+            }
+            if (settings.accentColor) {
+                document.getElementById('accentColor').value = settings.accentColor;
+                applyAccentColor(settings.accentColor);
+            }
+            if (settings.fontSize) {
+                document.getElementById('fontSize').value = settings.fontSize;
+                applyFontSize(settings.fontSize);
+            }
+            if (settings.animationsEnabled !== undefined) {
+                document.getElementById('animationsEnabled').checked = settings.animationsEnabled;
+            }
+            if (settings.defaultView) {
+                document.getElementById('defaultView').value = settings.defaultView;
+            }
+            if (settings.showFeatured !== undefined) {
+                document.getElementById('showFeatured').checked = settings.showFeatured;
+            }
+            if (settings.showActivity !== undefined) {
+                document.getElementById('showActivity').checked = settings.showActivity;
+            }
+            if (settings.projectNotifications !== undefined) {
+                document.getElementById('projectNotifications').checked = settings.projectNotifications;
+            }
+            if (settings.eventNotifications !== undefined) {
+                document.getElementById('eventNotifications').checked = settings.eventNotifications;
+            }
+            if (settings.messageNotifications !== undefined) {
+                document.getElementById('messageNotifications').checked = settings.messageNotifications;
+            }
+
+            // Check if user is logged in
+            const user = JSON.parse(localStorage.getItem('user')) || {
+                initials: 'JD',
+                name: 'John Doe',
+                major: 'Computer Science'
+            };
+            
+            // Update profile information
+            document.getElementById('profileInitials').textContent = user.initials;
+            document.getElementById('profileAvatar').textContent = user.initials;
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileMajor').textContent = user.major;
+
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            });
+            
+            // Highlight active sidebar link
+            const currentPage = window.location.pathname.split('/').pop() || 'settings.html';
+            const sidebarLinks = document.querySelectorAll(".sidebar ul li a");
+            
+            sidebarLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add("active");
+                }
+            });
+            
+            // Theme switcher
+            document.getElementById('themeSetting').addEventListener('change', function() {
+                const theme = this.value;
+                applyTheme(theme);
+            });
+            
+            // Accent color switcher
+            document.getElementById('accentColor').addEventListener('change', function() {
+                const color = this.value;
+                applyAccentColor(color);
+            });
+            
+            // Font size switcher
+            document.getElementById('fontSize').addEventListener('change', function() {
+                const size = this.value;
+                applyFontSize(size);
+            });
+            
+            // Save settings
+            document.getElementById('saveSettings').addEventListener('click', function() {
+                const newSettings = {
+                    theme: document.getElementById('themeSetting').value || 'light',
+                    accentColor: document.getElementById('accentColor').value || 'blue',
+                    fontSize: document.getElementById('fontSize').value || 'medium',
+                    animationsEnabled: document.getElementById('animationsEnabled').checked || true,
+                    defaultView: document.getElementById('defaultView').value || 'grid',
+                    showFeatured: document.getElementById('showFeatured').checked || true,
+                    showActivity: document.getElementById('showActivity').checked || true,
+                    projectNotifications: document.getElementById('projectNotifications').checked || true,
+                    eventNotifications: document.getElementById('eventNotifications').checked || true,
+                    messageNotifications: document.getElementById('messageNotifications').checked || true
+                };
+                
+                localStorage.setItem('settings', JSON.stringify(newSettings));
+                alert('Settings saved successfully! These changes will apply across all pages.');
+            });
+            
+            // Apply theme function
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.style.setProperty('--light', '#212529');
+                    document.documentElement.style.setProperty('--dark', '#f8f9fa');
+                    document.documentElement.style.setProperty('--light-gray', '#343a40');
+                    document.documentElement.style.setProperty('--medium-gray', '#495057');
+                    document.documentElement.style.setProperty('--dark-gray', '#e9ecef');
+                } else {
+                    document.documentElement.style.setProperty('--light', '#f8f9fa');
+                    document.documentElement.style.setProperty('--dark', '#212529');
+                    document.documentElement.style.setProperty('--light-gray', '#f1f3f5');
+                    document.documentElement.style.setProperty('--medium-gray', '#dee2e6');
+                    document.documentElement.style.setProperty('--dark-gray', '#495057');
+                }
+            }
+            
+            // Apply accent color function
+            function applyAccentColor(color) {
+                let primaryColor;
+                switch(color) {
+                    case 'purple':
+                        primaryColor = '#6a0dad';
+                        break;
+                    case 'green':
+                        primaryColor = '#2e7d32';
+                        break;
+                    case 'red':
+                        primaryColor = '#c62828';
+                        break;
+                    case 'orange':
+                        primaryColor = '#ef6c00';
+                        break;
+                    default: // blue
+                        primaryColor = '#4361ee';
+                }
+                document.documentElement.style.setProperty('--primary', primaryColor);
+                // Calculate darker shade for primary-dark
+                const darkerShade = shadeColor(primaryColor, -20);
+                document.documentElement.style.setProperty('--primary-dark', darkerShade);
+                // Calculate lighter shade for primary-light
+                const lighterShade = shadeColor(primaryColor, 20);
+                document.documentElement.style.setProperty('--primary-light', lighterShade);
+            }
+            
+            // Helper function to lighten/darken colors
+            function shadeColor(color, percent) {
+                let R = parseInt(color.substring(1,3), 16);
+                let G = parseInt(color.substring(3,5), 16);
+                let B = parseInt(color.substring(5,7), 16);
+
+                R = parseInt(R * (100 + percent) / 100);
+                G = parseInt(G * (100 + percent) / 100);
+                B = parseInt(B * (100 + percent) / 100);
+
+                R = (R<255)?R:255;  
+                G = (G<255)?G:255;  
+                B = (B<255)?B:255;  
+
+                const RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+                const GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+                const BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+
+                return "#"+RR+GG+BB;
+            }
+            
+            // Apply font size function
+            function applyFontSize(size) {
+                let baseSize;
+                switch(size) {
+                    case 'small':
+                        baseSize = '14px';
+                        break;
+                    case 'large':
+                        baseSize = '18px';
+                        break;
+                    default:
+                        baseSize = '16px';
+                }
+                document.documentElement.style.fontSize = baseSize;
+            }
+            
+            // Apply animation settings
+            function applyAnimationSettings(enabled) {
+                if (!enabled) {
+                    document.documentElement.style.setProperty('--transition', 'none');
+                    // Disable all CSS animations
+                    const style = document.createElement('style');
+                    style.id = 'no-animations';
+                    style.textContent = `
+                        *, *::before, *::after {
+                            transition: none !important;
+                            animation: none !important;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                } else {
+                    document.documentElement.style.setProperty('--transition', 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)');
+                    const noAnimStyle = document.getElementById('no-animations');
+                    if (noAnimStyle) {
+                        noAnimStyle.remove();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
