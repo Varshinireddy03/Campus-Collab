@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Challenge 2024</title>
+    <style>
+        :root {
+            --ds-blue: #99b9e9;
+            --ds-teal: #3f76aa;
+            --ds-light: #0b0b0c;
+            --ds-dark: #f7f8faf8;
+            --ds-gray: #8892b0;
+            --prize-gold: #ffd700;
+            --prize-silver: #c0c0c0;
+            --prize-bronze: #cd7f32;
+            --prize-special: #a8ff78;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--ds-dark);
+            color: var(--ds-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        
+        header {
+            background: linear-gradient(135deg, var(--ds-blue), var(--ds-dark));
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(2, 12, 27, 0.9), rgba(2, 12, 27, 0.9)),
+                url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            z-index: 0;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.2rem;
+            color: var(--ds-teal);
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(100, 255, 218, 0.3); }
+            100% { text-shadow: 0 0 15px rgba(100, 255, 218, 0.6); }
+        }
+
+        .tagline {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+            animation: fadeIn 2s ease;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: var(--ds-teal);
+            color: var(--ds-blue);
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        section.visible {
+            opacity: 1;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.8rem;
+            color: var(--ds-teal);
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background-color: var(--ds-teal);
+            animation: underlineGrow 1s ease forwards;
+        }
+
+        @keyframes underlineGrow {
+            from { width: 0; }
+            to { width: 60%; }
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--ds-gray);
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 1.8rem;
+            margin-bottom: 1.8rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--ds-gray);
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: -20px;
+            color: var(--ds-teal);
+        }
+
+        
+        .colleges-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .college-card {
+            background: rgba(192, 202, 218, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            cursor: pointer;
+            width: 300px;
+            opacity: 0;
+            transform: perspective(1000px) rotateY(90deg);
+            transform-origin: left center;
+        }
+
+        .college-card.visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .college-card:hover {
+            transform: perspective(1000px) rotateY(0deg) translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.15);
+            border-color: var(--ds-teal);
+        }
+
+        .college-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .college-info {
+            padding: 1.5rem;
+        }
+
+        .college-name {
+            font-size: 1.3rem;
+            color: var(--ds-teal);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .college-location {
+            color: var(--ds-gray);
+            margin-bottom: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--ds-teal);
+            padding: 0.5rem 1.3rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid var(--ds-teal);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .apply-btn:hover {
+            background:white;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+
+        
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .challenge-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 3px solid var(--ds-teal);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .challenge-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .challenge-title {
+            font-size: 1.3rem;
+            color: var(--ds-teal);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .challenge-difficulty {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--ds-teal);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .rule-card {
+            background: rgba(232, 238, 247, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-top: 3px solid var(--ds-teal);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .rule-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .rule-card:nth-child(even) {
+            transform: translateX(20px);
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.1);
+        }
+
+        .rule-icon {
+            font-size: 2rem;
+            color: var(--ds-teal);
+            margin-bottom: 1rem;
+        }
+
+        .rule-title {
+            font-size: 1.2rem;
+            color: var(--ds-light);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* New Schedule Section - Card Based */
+        .schedule-container {
+            margin-top: 2rem;
+        }
+
+        .day-group {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--ds-teal);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .day-group.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .day-header h3 {
+            color: var(--ds-light);
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .day-tag {
+            background: var(--ds-teal);
+            color: var(--ds-blue);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .schedule-card {
+            display: flex;
+            background: rgba(151, 188, 245, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .schedule-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .schedule-card:hover {
+            transform: translateX(5px);
+            background: rgba(10, 25, 47, 0.5);
+        }
+
+        .schedule-card.highlight {
+            border-left: 3px solid var(--ds-teal);
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .time-slot {
+            min-width: 120px;
+            color: var(--ds-teal);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .event-details {
+            flex: 1;
+        }
+
+        .event-details h4 {
+            color: var(--ds-light);
+            margin: 0 0 0.3rem 0;
+            font-size: 1.1rem;
+        }
+
+        .event-details p {
+            color: var(--ds-gray);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Prizes Section */
+        .prizes-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .prize-card {
+            background: rgba(10, 25, 47, 0.8);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            width: 220px;
+            min-width: 220px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .prize-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .prize-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.2);
+        }
+
+        .prize-rank {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .prize-card:nth-child(1) .prize-rank {
+            color: var(--prize-gold);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .prize-card:nth-child(2) .prize-rank {
+            color: var(--prize-silver);
+            text-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
+        }
+
+        .prize-card:nth-child(3) .prize-rank {
+            color: var(--prize-bronze);
+            text-shadow: 0 0 8px rgba(205, 127, 50, 0.3);
+        }
+
+        .prize-card:nth-child(4) .prize-rank {
+            color: var(--prize-special);
+            text-shadow: 0 0 8px rgba(168, 255, 120, 0.3);
+        }
+
+        .prize-amount {
+            font-size: 1.8rem;
+            color: var(--ds-light);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .prize-card:nth-child(1) .prize-amount {
+            background: linear-gradient(to right, #ffd700, #fff8a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-card:nth-child(2) .prize-amount {
+            background: linear-gradient(to right, #c0c0c0, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-card:nth-child(3) .prize-amount {
+            background: linear-gradient(to right, #cd7f32, #e6a15c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-card:nth-child(4) .prize-amount {
+            background: linear-gradient(to right, #a8ff78, #64ffda);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-details {
+            color: var(--ds-gray);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .prize-details p {
+            margin-bottom: 0.5rem;
+        }
+
+    
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(2, 12, 27, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--ds-blue);
+            margin: 3% auto;
+            padding: 2.5rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            border: 1px solid var(--ds-teal);
+            animation: modalFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.3rem;
+            right: 1.3rem;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--ds-teal);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--ds-light);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(2, 12, 27, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 4px;
+            color: var(--ds-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ds-teal);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+
+        .submit-btn {
+            background: var(--ds-teal);
+            color: var(--ds-blue);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #52e0c4;
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes modalFadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        
+        @media (max-width: 1024px) {
+            .colleges-container {
+                gap: 1.5rem;
+            }
+            
+            .college-card {
+                width: calc(50% - 1rem);
+            }
+
+            .prizes-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .prize-card {
+                width: calc(50% - 1rem);
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+
+            .college-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .container {
+                padding: 3rem 1.5rem;
+            }
+
+            .modal-content {
+                padding: 1.8rem;
+            }
+
+            .schedule-card {
+                flex-direction: column;
+            }
+            
+            .time-slot {
+                margin-bottom: 0.5rem;
+            }
+
+            .prizes-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .prize-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Data Science Challenge 2024</h1>
+        <p class="tagline">Harnessing the Power of Data for Tomorrow's Solutions</p>
+        <div class="date-badge">DEC 10-12, 2025</div>
+    </header>
+    
+    <div class="container">
+        <section id="about">
+            <h2>About the Challenge</h2>
+            <p>The Data Science Challenge 2024 is a premier competition where participants solve real-world problems using cutting-edge data science techniques. This event brings together the brightest analytical minds to test their skills in machine learning, statistical modeling, and data visualization.</p>
+            <p>In our data-driven world, this challenge provides a platform to develop practical data science skills through hands-on projects guided by industry leaders and academic experts.</p>
+        </section>
+        
+        <section id="rules">
+            <h2>Competition Rules</h2>
+            <p>To ensure fair competition and maintain academic integrity, all participants must follow these guidelines:</p>
+            
+            <div class="rules-container">
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="rule-title">Data Usage</h3>
+                    <p>Only provided datasets may be used. External data sources are prohibited unless explicitly allowed for specific challenges.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="rule-title">Team Composition</h3>
+                    <p>Teams of 1-3 members from the same institution. Cross-institution collaboration is not permitted.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="rule-title">Tools & Libraries</h3>
+                    <p>Open-source tools and libraries are encouraged. Commercial software requires prior approval.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="rule-title">Submission Timing</h3>
+                    <p>Solutions must be submitted before deadlines. Late submissions will receive point deductions.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="rule-title">Evaluation Criteria</h3>
+                    <p>Solutions judged on accuracy, innovation, reproducibility, and clarity of methodology.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3 class="rule-title">Original Work</h3>
+                    <p>All submissions must be original work created during the competition period.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="schedule">
+            <h2>Event Schedule</h2>
+            <p>The Data Science Challenge 2024 spans three intensive days of analysis, modeling, and presentations:</p>
+            
+            <div class="schedule-container">
+                <!-- Day 1 -->
+                <div class="day-group">
+                    <div class="day-header">
+                        <h3>Day 1 • December 10</h3>
+                        <div class="day-tag">Opening Day</div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">09:00 - 10:30</div>
+                        <div class="event-details">
+                            <h4>Registration & Orientation</h4>
+                            <p>Check-in and get settled with your team</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">10:30 - 12:00</div>
+                        <div class="event-details">
+                            <h4>Keynote: Future of Data Science</h4>
+                            <p>Industry leaders discuss emerging trends</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">12:00 - 13:00</div>
+                        <div class="event-details">
+                            <h4>Challenge Datasets Released</h4>
+                            <p>Official competition begins</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">13:00 - 18:00</div>
+                        <div class="event-details">
+                            <h4>Exploratory Data Analysis</h4>
+                            <p>Initial data exploration and planning</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">18:00 - 19:30</div>
+                        <div class="event-details">
+                            <h4>Dinner & Networking</h4>
+                            <p>Connect with other participants and mentors</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">19:30 - 21:00</div>
+                        <div class="event-details">
+                            <h4>Workshop: Feature Engineering</h4>
+                            <p>Learn advanced techniques for preparing your data</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Day 2 -->
+                <div class="day-group">
+                    <div class="day-header">
+                        <h3>Day 2 • December 11</h3>
+                        <div class="day-tag">Development Day</div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">08:00 - 09:00</div>
+                        <div class="event-details">
+                            <h4>Breakfast & Progress Review</h4>
+                            <p>Discuss initial findings with mentors</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">09:00 - 12:00</div>
+                        <div class="event-details">
+                            <h4>Model Building Intensive</h4>
+                            <p>Core development time with mentor support</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">12:00 - 13:00</div>
+                        <div class="event-details">
+                            <h4>Lunch & Lightning Talks</h4>
+                            <p>Quick presentations from industry experts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">15:00 - 17:00</div>
+                        <div class="event-details">
+                            <h4>Validation Phase</h4>
+                            <p>Test and validate your models</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">17:00 - 18:30</div>
+                        <div class="event-details">
+                            <h4>Panel: Careers in Data Science</h4>
+                            <p>Learn about career paths from professionals</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">18:30 - 20:00</div>
+                        <div class="event-details">
+                            <h4>Workshop: Model Interpretation</h4>
+                            <p>Make your models more explainable</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Day 3 -->
+                <div class="day-group">
+                    <div class="day-header">
+                        <h3>Day 3 • December 12</h3>
+                        <div class="day-tag">Final Day</div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">09:00 - 11:00</div>
+                        <div class="event-details">
+                            <h4>Final Model Tuning</h4>
+                            <p>Last optimizations before submission</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">11:00 - 14:00</div>
+                        <div class="event-details">
+                            <h4>Documentation & Submission Prep</h4>
+                            <p>Prepare your final reports and materials</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">14:00</div>
+                        <div class="event-details">
+                            <h4>Submission Deadline</h4>
+                            <p>All materials must be submitted by this time</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">15:30 - 16:30</div>
+                        <div class="event-details">
+                            <h4>Top Team Presentations</h4>
+                            <p>Finalists present their solutions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">16:30 - 17:30</div>
+                        <div class="event-details">
+                            <h4>Awards Ceremony</h4>
+                            <p>Winners announced and prizes awarded</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="prizes">
+            <h2>Prizes & Rewards</h2>
+            <p>Exceptional teams will receive valuable prizes along with career-building opportunities:</p>
+            
+            <div class="prizes-container">
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">1st Place</div>
+                        <div class="prize-amount">$10,000</div>
+                        <div class="prize-details">
+                            <p>Kaggle Pro membership</p>
+                            <p>Data science internship</p>
+                            <p>Trophy & certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">2nd Place</div>
+                        <div class="prize-amount">$5,000</div>
+                        <div class="prize-details">
+                            <p>O'Reilly learning platform</p>
+                            <p>Mentorship program</p>
+                            <p>Certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">3rd Place</div>
+                        <div class="prize-amount">$2,500</div>
+                        <div class="prize-details">
+                            <p>DataCamp subscription</p>
+                            <p>Tech swag package</p>
+                            <p>Certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">Special Awards</div>
+                        <div class="prize-amount">$1,000</div>
+                        <div class="prize-details">
+                            <p>Best Visualization</p>
+                            <p>Most Innovative Approach</p>
+                            <p>Best Student Team</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="challenges">
+            <h2>Challenge Tracks</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Predictive Modeling</h3>
+                    <span class="challenge-difficulty">Advanced</span>
+                    <p>Build accurate predictive models using structured datasets. Evaluate performance on hidden test sets with strict computational constraints.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Natural Language Processing</h3>
+                    <span class="challenge-difficulty">Intermediate-Advanced</span>
+                    <p>Solve text classification, sentiment analysis, or generation tasks using modern NLP techniques and transformer architectures.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Computer Vision</h3>
+                    <span class="challenge-difficulty">Intermediate</span>
+                    <p>Develop image classification, object detection, or segmentation models with provided image datasets and evaluation metrics.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Time Series Analysis</h3>
+                    <span class="challenge-difficulty">Advanced</span>
+                    <p>Forecast future values and detect anomalies in temporal data using statistical and deep learning approaches.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Data Visualization</h3>
+                    <span class="challenge-difficulty">Beginner-Advanced</span>
+                    <p>Create compelling visual narratives from complex datasets. Judged on clarity, insight, and design aesthetics.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Ethical AI</h3>
+                    <span class="challenge-difficulty">Intermediate</span>
+                    <p>Develop solutions that address fairness, bias mitigation, and explainability in machine learning models.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="apply">
+            <h2>Participating Institutions</h2>
+            <p>Register through your university to compete in this prestigious data science event:</p>
+            
+            <div class="colleges-container">
+                <div class="college-card" onclick="openModal('iiit')">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIIT Delhi" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">IIIT Delhi</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Delhi, India
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('cmu')">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="CMU" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">Carnegie Mellon</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Pittsburgh, USA
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+   
+    <div id="iiit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('iiit')">&times;</span>
+            <h2 style="color: var(--ds-teal);">Application - IIIT Delhi</h2>
+            <form id="iiit-form">
+                <div class="form-group">
+                    <label for="iiit-name">Full Name</label>
+                    <input type="text" id="iiit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-email">Email</label>
+                    <input type="email" id="iiit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-year">Year of Study</label>
+                    <select id="iiit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-track">Preferred Track</label>
+                    <select id="iiit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="predictive">Predictive Modeling</option>
+                        <option value="nlp">Natural Language Processing</option>
+                        <option value="vision">Computer Vision</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-skills">Technical Skills</label>
+                    <textarea id="iiit-skills" placeholder="Describe your data science skills and experience" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <!-- CMU Modal -->
+    <div id="cmu-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('cmu')">&times;</span>
+            <h2 style="color: var(--ds-teal);">Application - Carnegie Mellon</h2>
+            <form id="cmu-form">
+                <div class="form-group">
+                    <label for="cmu-name">Full Name</label>
+                    <input type="text" id="cmu-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cmu-email">Email</label>
+                    <input type="email" id="cmu-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="cmu-year">Year of Study</label>
+                    <select id="cmu-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cmu-track">Preferred Track</label>
+                    <select id="cmu-track" required>
+                        <option value="">Select Track</option>
+                        <option value="predictive">Predictive Modeling</option>
+                        <option value="nlp">Natural Language Processing</option>
+                        <option value="vision">Computer Vision</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cmu-skills">Technical Skills</label>
+                    <textarea id="cmu-skills" placeholder="Describe your data science skills and experience" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function openModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+    
+        document.getElementById('iiit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for IIIT Delhi!');
+            closeModal('iiit');
+        });
+        
+        
+        document.getElementById('cmu-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for Carnegie Mellon!');
+            closeModal('cmu');
+        });
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 150);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+        
+            document.querySelectorAll('section, .college-card, .challenge-card, .rule-card, .day-group, .schedule-card, .prize-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

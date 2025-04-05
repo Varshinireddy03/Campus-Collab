@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TechHack 2024 - Intercollegiate Hackathon</title>
+    <title>DebugFest 2025 - Intercollegiate Debugging Challenge</title>
     <style>
         :root {
-            --primary:cornflowerblue;
-            --secondary: #2575fc;
-            --accent: #62bfeb;
+            --primary: cornflowerblue;
+            --secondary: #3591bb;
+            --accent: #7ac5f0;
             --light: #f8f9fa;
             --dark: #212529;
         }
@@ -152,7 +152,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(106,17,203,0.1), rgba(37,117,252,0.2));
+            background: linear-gradient(to bottom, rgba(142,68,173,0.1), rgba(155,89,182,0.2));
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -204,7 +204,7 @@
         
         .apply-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
+            box-shadow: 0 5px 15px rgba(142,68,173,0.3);
         }
         
         .modal {
@@ -284,7 +284,7 @@
         
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
+            box-shadow: 0 5px 15px rgba(142,68,173,0.3);
         }
         
         .highlight {
@@ -355,6 +355,14 @@
             flex-grow: 1;
         }
         
+        .certificate-preview {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            border: 10px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
         @media (max-width: 768px) {
             .colleges-grid {
                 grid-template-columns: 1fr;
@@ -368,61 +376,69 @@
                 width: 95%;
                 margin: 2% auto;
             }
+            
+            .schedule-item {
+                flex-direction: column;
+            }
+            
+            .schedule-time {
+                margin-bottom: 0.5rem;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>TechHack 2K25</h1>
-        <p class="tagline">Innovate. Collaborate. Transform.</p>
-        <div class="date-badge">MAY 5-7, 2025</div>
+        <h1>DebugFest 2K25</h1>
+        <p class="tagline">Find. Fix. Flourish.</p>
+        <div class="date-badge">JUNE 12-14, 2025</div>
     </header>
     
     <div class="container">
         <section id="about">
-            <h2>About the Hackathon</h2>
-            <p>TechHack 2024 is an intercollegiate hackathon bringing together the brightest minds from top engineering colleges across India. This 48-hour coding marathon challenges participants to solve real-world problems through innovative technology solutions.</p>
-            <p>With themes ranging from <span class="highlight">AI & Machine Learning</span> to <span class="highlight">Sustainable Tech</span> and <span class="highlight">Healthcare Innovations</span>, TechHack provides a platform for students to showcase their skills, learn from industry experts, and network with peers.</p>
+            <h2>About the Debugging Challenge</h2>
+            <p>DebugFest 2025 is an intense intercollegiate debugging competition that tests participants' ability to identify, diagnose, and fix complex software bugs across multiple programming languages and environments.</p>
+            <p>With challenges ranging from <span class="highlight">memory leaks</span> to <span class="highlight">race conditions</span> and <span class="highlight">security vulnerabilities</span>, DebugFest provides a platform for students to showcase their problem-solving skills and technical expertise.</p>
         </section>
         
-        <section id="themes">
-            <h2>Themes & Tracks</h2>
+        <section id="tracks">
+            <h2>Challenge Categories</h2>
             <ul>
-                <li><strong>Artificial Intelligence & Machine Learning:</strong> Build intelligent systems that can learn and adapt</li>
-                <li><strong>Blockchain & Web3:</strong> Develop decentralized applications for the future internet</li>
-                <li><strong>Healthcare Technology:</strong> Create solutions to improve medical care and accessibility</li>
-                <li><strong>Sustainable Development:</strong> Innovate for a greener planet with climate tech solutions</li>
-                <li><strong>FinTech Innovations:</strong> Revolutionize financial services with technology</li>
-                <li><strong>Open Innovation:</strong> Any groundbreaking idea that doesn't fit the above categories</li>
+                <li><strong>Algorithmic Debugging:</strong> Find and fix logical errors in complex algorithms</li>
+                <li><strong>System-Level Debugging:</strong> Diagnose low-level issues in operating systems and drivers</li>
+                <li><strong>Web Application Debugging:</strong> Solve frontend and backend issues in web applications</li>
+                <li><strong>Concurrency Challenges:</strong> Identify and fix race conditions and deadlocks</li>
+                <li><strong>Security Vulnerabilities:</strong> Find and patch security flaws in provided code</li>
+                <li><strong>Performance Optimization:</strong> Diagnose and fix performance bottlenecks</li>
             </ul>
         </section>
         
         <section id="prizes">
-            <h2>Prizes & Opportunities</h2>
+            <h2>Prizes & Recognition</h2>
             <div class="prizes">
                 <div class="prize-card">
-                    <div class="prize-place">1st Place</div>
-                    <div class="prize-amount">2,00,000</div>
-                    <p>Plus incubation support and mentorship</p>
+                    <div class="prize-place">Debugging Champion</div>
+                    <div class="prize-amount">1,50,000</div>
+                    <p>Plus internship opportunities</p>
                 </div>
                 <div class="prize-card">
-                    <div class="prize-place">2nd Place</div>
-                    <div class="prize-amount">1,00,000</div>
+                    <div class="prize-place">Best System Debugger</div>
+                    <div class="prize-amount">75,000</div>
                     <p>Plus premium developer tools</p>
                 </div>
                 <div class="prize-card">
-                    <div class="prize-place">3rd Place</div>
+                    <div class="prize-place">Security Expert</div>
                     <div class="prize-amount">50,000</div>
-                    <p>Plus exclusive swag</p>
+                    <p>Plus cybersecurity certification</p>
                 </div>
             </div>
-            <p>Additional prizes include:</p>
+            <p>Additional awards include:</p>
             <ul>
-                <li>Best Women-Led Team Award: ₹25,000</li>
-                <li>Most Innovative Idea Award: ₹25,000</li>
-                <li>Social Impact Award: ₹25,000</li>
-                <li>Internship opportunities with sponsoring companies</li>
+                <li>Fastest Debugger Award: 25,000</li>
+                <li>Most Elegant Solution Award: 25,000</li>
+                <li>Best Teamwork Award: 5,000</li>
+                <li>Certificates of Excellence for all participants</li>
             </ul>
         </section>
         
@@ -432,71 +448,87 @@
                 <div class="schedule-item">
                     <div class="schedule-time">Day 1: 9 AM</div>
                     <div class="schedule-details">
-                        <h3>Registration & Opening Ceremony</h3>
-                        <p>Check-in, team formation, and keynote from industry leaders</p>
+                        <h3>Registration & Orientation</h3>
+                        <p>Check-in, rules overview, and environment setup</p>
                     </div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Day 1: 12 PM</div>
+                    <div class="schedule-time">Day 1: 10:30 AM</div>
                     <div class="schedule-details">
-                        <h3>Hacking Begins</h3>
-                        <p>Teams start working on their projects</p>
+                        <h3>Round 1: Basic Debugging</h3>
+                        <p>Individual challenges with simple to moderate bugs</p>
                     </div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Day 1: 7 PM</div>
+                    <div class="schedule-time">Day 1: 2 PM</div>
                     <div class="schedule-details">
-                        <h3>Mentorship Sessions</h3>
-                        <p>Get guidance from industry experts and professors</p>
+                        <h3>Round 2: Algorithmic Debugging</h3>
+                        <p>Fix logical errors in complex algorithms</p>
                     </div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Day 2: 12 PM</div>
+                    <div class="schedule-time">Day 2: 10 AM</div>
                     <div class="schedule-details">
-                        <h3>Midpoint Check-in</h3>
-                        <p>Teams present progress and get feedback</p>
+                        <h3>Round 3: System-Level Debugging</h3>
+                        <p>Diagnose low-level system issues</p>
                     </div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Day 3: 12 PM</div>
+                    <div class="schedule-time">Day 2: 2 PM</div>
                     <div class="schedule-details">
-                        <h3>Hacking Ends</h3>
-                        <p>Submission deadline for all projects</p>
+                        <h3>Round 4: Security Challenges</h3>
+                        <p>Find and patch security vulnerabilities</p>
                     </div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Day 3: 2 PM</div>
+                    <div class="schedule-time">Day 3: 10 AM</div>
                     <div class="schedule-details">
-                        <h3>Demo Fair & Judging</h3>
-                        <p>Teams showcase their projects to judges</p>
+                        <h3>Final Round: Live Debugging</h3>
+                        <p>Real-time debugging of complex systems</p>
                     </div>
                 </div>
                 <div class="schedule-item">
-                    <div class="schedule-time">Day 3: 6 PM</div>
+                    <div class="schedule-time">Day 3: 3 PM</div>
                     <div class="schedule-details">
-                        <h3>Closing Ceremony & Awards</h3>
-                        <p>Announcement of winners and closing remarks</p>
+                        <h3>Awards Ceremony</h3>
+                        <p>Certificate distribution and prize announcement</p>
                     </div>
                 </div>
             </div>
         </section>
         
+        <section id="certificates">
+            <h2>Certificates & Benefits</h2>
+            <p>All participants will receive a certificate of participation that can be used to enhance their academic and professional profiles:</p>
+            
+            <img src="https://via.placeholder.com/600x400/8e44ad/ffffff?text=DebugFest+2025+Certificate" alt="Certificate Preview" class="certificate-preview">
+            
+            <ul>
+                <li>Digitally signed and verifiable certificates</li>
+                <li>Performance-based endorsements for top participants</li>
+                <li>Recognized by leading tech companies and academic institutions</li>
+                <li>Can be included in college applications and resumes</li>
+            </ul>
+            
+            <p><strong>Note:</strong> Certificates will be issued within 7 working days after the event and can be downloaded from our portal.</p>
+        </section>
+        
         <section id="rules">
             <h2>Rules & Guidelines</h2>
             <ul>
-                <li>Teams of 2-4 members from the same or different colleges</li>
-                <li>All code must be written during the hackathon (no pre-written code)</li>
-                <li>Use of open-source libraries and APIs is allowed</li>
-                <li>Projects must be submitted by the deadline to be eligible for prizes</li>
-                <li>All participants must adhere to the code of conduct</li>
-                <li>Judges' decisions are final</li>
+                <li>Participants can compete individually or in teams of 2</li>
+                <li>All debugging must be done during the competition timeframe</li>
+                <li>Internet access is allowed for documentation only</li>
+                <li>No communication with non-participants during challenges</li>
+                <li>Solutions must be original work - plagiarism will result in disqualification</li>
+                <li>Judges' decisions are final in all matters</li>
             </ul>
-            <p><strong>Code of Conduct:</strong> We expect all participants to maintain a respectful and inclusive environment. Harassment of any kind will not be tolerated.</p>
+            <p><strong>Environment:</strong> Participants can use their preferred IDEs and tools, but all solutions must work in the provided testing environment.</p>
         </section>
         
         <section id="apply">
             <h2>Apply Through Your College</h2>
-            <p>Select your college to access the application form. Limited slots available!</p>
+            <p>Select your college to access the application form. Limited seats available!</p>
             
             <div class="colleges-grid">
                 <div class="college-card" onclick="openModal('iiit')">
@@ -510,34 +542,23 @@
                     </div>
                 </div>
                 
-                <div class="college-card" onclick="openModal('srm')">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="SRM University" class="college-image">
+                <div class="college-card" onclick="openModal('iitb')">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIT Bombay" class="college-image">
                     <div class="college-info">
-                        <h3 class="college-name">SRM University</h3>
+                        <h3 class="college-name">IIT Bombay</h3>
                         <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu
+                            <i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra
                         </div>
                         <button class="apply-btn">Apply Now</button>
                     </div>
                 </div>
                 
-                <div class="college-card" onclick="openModal('malla')">
-                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Malla Reddy College" class="college-image">
+                <div class="college-card" onclick="openModal('nit')">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="NIT Trichy" class="college-image">
                     <div class="college-info">
-                        <h3 class="college-name">Malla Reddy College</h3>
+                        <h3 class="college-name">NIT Trichy</h3>
                         <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana
-                        </div>
-                        <button class="apply-btn">Apply Now</button>
-                    </div>
-                </div>
-                
-                <div class="college-card" onclick="openModal('iit')">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIT Tirupati" class="college-image">
-                    <div class="college-info">
-                        <h3 class="college-name">IIT Tirupati</h3>
-                        <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Tirupati, Andhra Pradesh
+                            <i class="fas fa-map-marker-alt"></i> Tiruchirappalli, Tamil Nadu
                         </div>
                         <button class="apply-btn">Apply Now</button>
                     </div>
@@ -546,11 +567,11 @@
         </section>
     </div>
     
-    
+
     <div id="iiit-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('iiit')">&times;</span>
-            <h2>TechHack 2024 Application - IIIT Hyderabad</h2>
+            <h2>DebugFest 2025 Application - IIIT Hyderabad</h2>
             <form id="iiit-form">
                 <div class="form-group">
                     <label for="iiit-name">Full Name</label>
@@ -583,51 +604,51 @@
                     <input type="text" id="iiit-id" required>
                 </div>
                 <div class="form-group">
-                    <label for="iiit-team">Team Members (if any)</label>
-                    <textarea id="iiit-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                    <label for="iiit-team">Team Member (if any)</label>
+                    <input type="text" id="iiit-team" placeholder="Name and ID of your teammate (optional)">
                 </div>
                 <div class="form-group">
-                    <label for="iiit-theme">Preferred Theme</label>
-                    <select id="iiit-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
+                    <label for="iiit-track">Preferred Track</label>
+                    <select id="iiit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="iiit-skills">Technical Skills</label>
-                    <textarea id="iiit-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                    <label for="iiit-experience">Debugging Experience</label>
+                    <textarea id="iiit-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
         </div>
     </div>
     
-    
-    <div id="srm-modal" class="modal">
+
+    <div id="iitb-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('srm')">&times;</span>
-            <h2>TechHack 2024 Application - SRM University</h2>
-            <form id="srm-form">
+            <span class="close-btn" onclick="closeModal('iitb')">&times;</span>
+            <h2>DebugFest 2025 Application - IIT Bombay</h2>
+            <form id="iitb-form">
                 <div class="form-group">
-                    <label for="srm-name">Full Name</label>
-                    <input type="text" id="srm-name" required>
+                    <label for="iitb-name">Full Name</label>
+                    <input type="text" id="iitb-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-email">Email</label>
-                    <input type="email" id="srm-email" required>
+                    <label for="iitb-email">Email</label>
+                    <input type="email" id="iitb-email" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-phone">Phone Number</label>
-                    <input type="tel" id="srm-phone" required>
+                    <label for="iitb-phone">Phone Number</label>
+                    <input type="tel" id="iitb-phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-year">Year of Study</label>
-                    <select id="srm-year" required>
+                    <label for="iitb-year">Year of Study</label>
+                    <select id="iitb-year" required>
                         <option value="">Select Year</option>
                         <option value="1">1st Year</option>
                         <option value="2">2nd Year</option>
@@ -636,59 +657,59 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="srm-branch">Branch</label>
-                    <input type="text" id="srm-branch" required>
+                    <label for="iitb-branch">Branch</label>
+                    <input type="text" id="iitb-branch" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-id">Student ID Number</label>
-                    <input type="text" id="srm-id" required>
+                    <label for="iitb-id">Student ID Number</label>
+                    <input type="text" id="iitb-id" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-team">Team Members (if any)</label>
-                    <textarea id="srm-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                    <label for="iitb-team">Team Member (if any)</label>
+                    <input type="text" id="iitb-team" placeholder="Name and ID of your teammate (optional)">
                 </div>
                 <div class="form-group">
-                    <label for="srm-theme">Preferred Theme</label>
-                    <select id="srm-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
+                    <label for="iitb-track">Preferred Track</label>
+                    <select id="iitb-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="srm-skills">Technical Skills</label>
-                    <textarea id="srm-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                    <label for="iitb-experience">Debugging Experience</label>
+                    <textarea id="iitb-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
         </div>
     </div>
     
-    
-    <div id="malla-modal" class="modal">
+
+    <div id="nit-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('malla')">&times;</span>
-            <h2>TechHack 2024 Application - Malla Reddy College</h2>
-            <form id="malla-form">
+            <span class="close-btn" onclick="closeModal('nit')">&times;</span>
+            <h2>DebugFest 2025 Application - NIT Trichy</h2>
+            <form id="nit-form">
                 <div class="form-group">
-                    <label for="malla-name">Full Name</label>
-                    <input type="text" id="malla-name" required>
+                    <label for="nit-name">Full Name</label>
+                    <input type="text" id="nit-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="malla-email">Email</label>
-                    <input type="email" id="malla-email" required>
+                    <label for="nit-email">Email</label>
+                    <input type="email" id="nit-email" required>
                 </div>
                 <div class="form-group">
-                    <label for="malla-phone">Phone Number</label>
-                    <input type="tel" id="malla-phone" required>
+                    <label for="nit-phone">Phone Number</label>
+                    <input type="tel" id="nit-phone" required>
                 </div>
                 <div class="form-group">
-                    <label for="malla-year">Year of Study</label>
-                    <select id="malla-year" required>
+                    <label for="nit-year">Year of Study</label>
+                    <select id="nit-year" required>
                         <option value="">Select Year</option>
                         <option value="1">1st Year</option>
                         <option value="2">2nd Year</option>
@@ -697,93 +718,32 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="malla-branch">Branch</label>
-                    <input type="text" id="malla-branch" required>
+                    <label for="nit-branch">Branch</label>
+                    <input type="text" id="nit-branch" required>
                 </div>
                 <div class="form-group">
-                    <label for="malla-id">Student ID Number</label>
-                    <input type="text" id="malla-id" required>
+                    <label for="nit-id">Student ID Number</label>
+                    <input type="text" id="nit-id" required>
                 </div>
                 <div class="form-group">
-                    <label for="malla-team">Team Members (if any)</label>
-                    <textarea id="malla-team" placeholder="Name, Email, and Year of each team member"></textarea>
+                    <label for="nit-team">Team Member (if any)</label>
+                    <input type="text" id="nit-team" placeholder="Name and ID of your teammate (optional)">
                 </div>
                 <div class="form-group">
-                    <label for="malla-theme">Preferred Theme</label>
-                    <select id="malla-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
+                    <label for="nit-track">Preferred Track</label>
+                    <select id="nit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="algorithm">Algorithmic Debugging</option>
+                        <option value="system">System-Level Debugging</option>
+                        <option value="web">Web Application Debugging</option>
+                        <option value="concurrency">Concurrency Challenges</option>
+                        <option value="security">Security Vulnerabilities</option>
+                        <option value="performance">Performance Optimization</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="malla-skills">Technical Skills</label>
-                    <textarea id="malla-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Submit Application</button>
-            </form>
-        </div>
-    </div>
-    
-    
-    <div id="iit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('iit')">&times;</span>
-            <h2>TechHack 2024 Application - IIT Tirupati</h2>
-            <form id="iit-form">
-                <div class="form-group">
-                    <label for="iit-name">Full Name</label>
-                    <input type="text" id="iit-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-email">Email</label>
-                    <input type="email" id="iit-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-phone">Phone Number</label>
-                    <input type="tel" id="iit-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-year">Year of Study</label>
-                    <select id="iit-year" required>
-                        <option value="">Select Year</option>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="iit-branch">Branch</label>
-                    <input type="text" id="iit-branch" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-id">Student ID Number</label>
-                    <input type="text" id="iit-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-team">Team Members (if any)</label>
-                    <textarea id="iit-team" placeholder="Name, Email, and Year of each team member"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="iit-theme">Preferred Theme</label>
-                    <select id="iit-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="iit-skills">Technical Skills</label>
-                    <textarea id="iit-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                    <label for="nit-experience">Debugging Experience</label>
+                    <textarea id="nit-experience" placeholder="Describe your experience with debugging complex systems" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
@@ -791,7 +751,7 @@
     </div>
     
     <script>
-    
+        
         function openModal(college) {
             document.getElementById(`${college}-modal`).style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -803,7 +763,7 @@
             document.body.style.overflow = 'auto';
         }
         
-    
+        
         window.onclick = function(event) {
             if (event.target.className === 'modal') {
                 event.target.style.display = 'none';
@@ -818,25 +778,18 @@
             closeModal('iiit');
         });
         
-        document.getElementById('srm-form').addEventListener('submit', function(e) {
+        document.getElementById('iitb-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Application submitted successfully for SRM University!');
-            closeModal('srm');
+            alert('Application submitted successfully for IIT Bombay!');
+            closeModal('iitb');
+        });
+        document.getElementById('nit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for NIT Trichy!');
+            closeModal('nit');
         });
         
-        document.getElementById('malla-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Application submitted successfully for Malla Reddy College!');
-            closeModal('malla');
-        });
-        
-        document.getElementById('iit-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Application submitted successfully for IIT Tirupati!');
-            closeModal('iit');
-        });
-        
-        
+    
         document.addEventListener('DOMContentLoaded', function() {
             const collegeCards = document.querySelectorAll('.college-card');
             

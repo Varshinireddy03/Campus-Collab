@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSec Summit 2024</title>
+    <style>
+        :root {
+            --cyber-blue: #e4e7e9;
+            --cyber-teal: #72c9eb;
+            --cyber-light: rgb(88, 132, 212);
+            --cyber-dark: white;
+            --cyber-gray: black;
+            --prize-gold: #ffd700;
+            --prize-silver: #edf3f3;
+            --prize-bronze: #cd7f32;
+            --prize-special: #a8ff78;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--cyber-dark);
+            color: var(--cyber-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-dark));
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(2, 12, 27, 0.9), rgba(2, 12, 27, 0.9)),
+                url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            z-index: 0;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.2rem;
+            color: var(--cyber-teal);
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(100, 255, 218, 0.3); }
+            100% { text-shadow: 0 0 15px rgba(100, 255, 218, 0.6); }
+        }
+
+        .tagline {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+            animation: fadeIn 2s ease;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: var(--cyber-teal);
+            color: var(--cyber-blue);
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        section.visible {
+            opacity: 1;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.8rem;
+            color: var(--cyber-teal);
+            position: relative;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background-color: var(--cyber-teal);
+            animation: underlineGrow 1s ease forwards;
+        }
+
+        @keyframes underlineGrow {
+            from { width: 0; }
+            to { width: 60%; }
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--cyber-gray);
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-left: 1.8rem;
+            margin-bottom: 1.8rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: var(--cyber-gray);
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: -20px;
+            color: var(--cyber-teal);
+        }
+
+        /* College Cards */
+        .colleges-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .college-card {
+            background: rgba(188, 204, 226, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            cursor: pointer;
+            width: 300px;
+            opacity: 0;
+            transform: perspective(1000px) rotateY(90deg);
+            transform-origin: left center;
+        }
+
+        .college-card.visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .college-card:hover {
+            transform: perspective(1000px) rotateY(0deg) translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.15);
+            border-color: var(--cyber-teal);
+        }
+
+        .college-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .college-info {
+            padding: 1.5rem;
+        }
+
+        .college-name {
+            font-size: 1.3rem;
+            color: var(--cyber-teal);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .college-location {
+            color: var(--cyber-gray);
+            margin-bottom: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--cyber-teal);
+            padding: 0.5rem 1.3rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid var(--cyber-teal);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .apply-btn:hover {
+            background: rgba(188, 204, 226, 0.5);
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Challenge Details */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .challenge-card {
+            background: rgba(188, 204, 226, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 3px solid var(--cyber-teal);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .challenge-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .challenge-title {
+            font-size: 1.3rem;
+            color: var(--cyber-teal);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .challenge-difficulty {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: rgba(188, 204, 226, 0.5);
+            color: var(--cyber-teal);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Rules Section */
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .rule-card {
+            background: rgba(188, 204, 226, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-top: 3px solid var(--cyber-teal);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .rule-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .rule-card:nth-child(even) {
+            transform: translateX(20px);
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.1);
+        }
+
+        .rule-icon {
+            font-size: 2rem;
+            color: var(--cyber-teal);
+            margin-bottom: 1rem;
+        }
+
+        .rule-title {
+            font-size: 1.2rem;
+            color: var(--cyber-light);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Schedule Section */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--cyber-teal);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            transform: translateX(-20px);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            transform: translateX(20px);
+        }
+
+        .timeline-item.visible:nth-child(odd) {
+            transform: translateX(0);
+        }
+
+        .timeline-item.visible:nth-child(even) {
+            transform: translateX(0);
+        }
+
+        .timeline-content {
+            padding: 1.5rem;
+            background: rgba(188, 204, 226, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--cyber-teal);
+            top: 20px;
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -37px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -37px;
+        }
+
+        .timeline-date {
+            color: var(--cyber-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            color: var(--cyber-light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Prizes Section - Updated */
+        .prizes-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .prize-card {
+            background: rgba(10, 25, 47, 0.8);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            width: 220px;
+            min-width: 220px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .prize-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .prize-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.2);
+        }
+
+        .prize-rank {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .prize-card:nth-child(1) .prize-rank {
+            color: var(--prize-gold);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .prize-card:nth-child(2) .prize-rank {
+            color: var(--prize-silver);
+            text-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
+        }
+
+        .prize-card:nth-child(3) .prize-rank {
+            color: var(--prize-bronze);
+            text-shadow: 0 0 8px rgba(205, 127, 50, 0.3);
+        }
+
+        .prize-card:nth-child(4) .prize-rank {
+            color: var(--prize-special);
+            text-shadow: 0 0 8px rgba(168, 255, 120, 0.3);
+        }
+
+        .prize-amount {
+            font-size: 1.8rem;
+            color: var(--cyber-light);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .prize-card:nth-child(1) .prize-amount {
+            background: linear-gradient(to right, #ffd700, #fff8a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-card:nth-child(2) .prize-amount {
+            background: linear-gradient(to right, #c0c0c0, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-card:nth-child(3) .prize-amount {
+            background: linear-gradient(to right, #cd7f32, #e6a15c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-card:nth-child(4) .prize-amount {
+            background: linear-gradient(to right, #a8ff78, #64ffda);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .prize-details {
+            color: var(--cyber-gray);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .prize-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(2, 12, 27, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--cyber-blue);
+            margin: 3% auto;
+            padding: 2.5rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            border: 1px solid var(--cyber-teal);
+            animation: modalFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.3rem;
+            right: 1.3rem;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--cyber-teal);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--cyber-light);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(2, 12, 27, 0.7);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 4px;
+            color: var(--cyber-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--cyber-teal);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+
+        .submit-btn {
+            background: var(--cyber-teal);
+            color: var(--cyber-blue);
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #52e0c4;
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes modalFadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .colleges-container {
+                gap: 1.5rem;
+            }
+            
+            .college-card {
+                width: calc(50% - 1rem);
+            }
+
+            .prizes-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .prize-card {
+                width: calc(50% - 1rem);
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+
+            .college-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .container {
+                padding: 3rem 1.5rem;
+            }
+
+            .modal-content {
+                padding: 1.8rem;
+            }
+
+            .timeline::before {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::after {
+                left: 15px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: 15px;
+            }
+
+            .prizes-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .prize-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>CyberSec Summit 2024</h1>
+        <p class="tagline">Advanced Cybersecurity Challenges for Tomorrow's Defenders</p>
+        <div class="date-badge">NOV 15-17, 2025</div>
+    </header>
+    
+    <div class="container">
+        <section id="about">
+            <h2>About the Summit</h2>
+            <p>The CyberSec Summit 2024 is an elite cybersecurity competition where participants tackle real-world security challenges across multiple domains. This event brings together the brightest minds to test their skills in penetration testing, secure system design, and threat analysis.</p>
+            <p>With cyber threats evolving rapidly, this summit provides a platform to develop practical defense skills through hands-on challenges guided by industry experts.</p>
+        </section>
+        
+        <section id="rules">
+            <h2>Competition Rules</h2>
+            <p>To ensure fair play and maintain the integrity of the competition, all participants must adhere to the following rules:</p>
+            
+            <div class="rules-container">
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 class="rule-title">Ethical Conduct</h3>
+                    <p>All activities must comply with ethical hacking principles. No real-world systems may be targeted outside the competition environment.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="rule-title">Team Composition</h3>
+                    <p>Teams of 2-4 members from the same institution. No cross-institution teams allowed. Team changes prohibited after registration.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="rule-title">Tools & Resources</h3>
+                    <p>Only pre-approved tools allowed. Internet access restricted to documentation only. No pre-built exploits or automated tools.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 class="rule-title">Flag Submission</h3>
+                    <p>Flags must be submitted in the specified format within the time limit. Multiple incorrect submissions may result in point penalties.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="rule-title">Scoring System</h3>
+                    <p>Dynamic scoring based on challenge difficulty and solve speed. First blood bonuses awarded for being first to solve a challenge.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3 class="rule-title">Disqualification</h3>
+                    <p>Cheating, DoS attacks on infrastructure, or sharing solutions will result in immediate disqualification and potential bans.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="schedule">
+            <h2>Event Schedule</h2>
+            <p>The CyberSec Summit 2024 will take place over three action-packed days with challenges, workshops, and networking opportunities:</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Day 1 • Nov 15</div>
+                        <h3 class="timeline-title">Opening & Challenges Begin</h3>
+                        <p>09:00 - Registration and welcome ceremony</p>
+                        <p>10:30 - Keynote: Future of Cybersecurity</p>
+                        <p>12:00 - Challenge environment opens</p>
+                        <p>13:00 - Web & Network challenges begin</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Day 1 • Nov 15</div>
+                        <h3 class="timeline-title">Evening Activities</h3>
+                        <p>18:00 - Dinner & networking</p>
+                        <p>19:30 - Workshop: Advanced Recon Techniques</p>
+                        <p>21:00 - Night CTF begins (optional)</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Day 2 • Nov 16</div>
+                        <h3 class="timeline-title">Main Competition</h3>
+                        <p>08:00 - Breakfast & challenge review</p>
+                        <p>09:00 - Binary & Crypto challenges open</p>
+                        <p>12:00 - Live jeopardy-style challenges</p>
+                        <p>15:00 - Forensics challenges released</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Day 2 • Nov 16</div>
+                        <h3 class="timeline-title">Expert Sessions</h3>
+                        <p>17:00 - Panel: Cybersecurity Careers</p>
+                        <p>18:30 - Workshop: Secure Coding Practices</p>
+                        <p>20:00 - Team strategy time</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Day 3 • Nov 17</div>
+                        <h3 class="timeline-title">Final Challenges</h3>
+                        <p>09:00 - Secure System Design challenge</p>
+                        <p>11:00 - Attack/Defense competition begins</p>
+                        <p>14:00 - Challenge environment closes</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Day 3 • Nov 17</div>
+                        <h3 class="timeline-title">Closing Ceremony</h3>
+                        <p>15:30 - Results announcement</p>
+                        <p>16:00 - Prize distribution</p>
+                        <p>17:00 - Closing remarks & photos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="prizes">
+            <h2>Prizes & Rewards</h2>
+            <p>Top-performing teams will receive exciting prizes along with opportunities for internships and recognition:</p>
+            
+            <div class="prizes-container">
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">1st Place</div>
+                        <div class="prize-amount">$10,000</div>
+                        <div class="prize-details">
+                            <p>DEF CON trip</p>
+                            <p>Internship offers</p>
+                            <p>Trophy & certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">2nd Place</div>
+                        <div class="prize-amount">$5,000</div>
+                        <div class="prize-details">
+                            <p>Black Hat tickets</p>
+                            <p>Mentorship program</p>
+                            <p>Certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">3rd Place</div>
+                        <div class="prize-amount">$2,500</div>
+                        <div class="prize-details">
+                            <p>Security tools</p>
+                            <p>Exclusive swag</p>
+                            <p>Certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">Special Awards</div>
+                        <div class="prize-amount">$1,000</div>
+                        <div class="prize-details">
+                            <p>Best Female Team</p>
+                            <p>Best Undergrads</p>
+                            <p>Creative Solution</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="challenges">
+            <h2>Challenge Categories</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Web Application Security</h3>
+                    <span class="challenge-difficulty">Medium-Hard</span>
+                    <p>Exploit vulnerabilities in modern web applications including XSS, SQLi, CSRF, and authentication flaws. Challenges mimic real-world bug bounty scenarios.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Binary Exploitation</h3>
+                    <span class="challenge-difficulty">Hard</span>
+                    <p>Reverse engineer compiled binaries to find and exploit memory corruption vulnerabilities like buffer overflows and ROP chains.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Cryptography</h3>
+                    <span class="challenge-difficulty">Medium</span>
+                    <p>Break flawed cryptographic implementations, solve complex mathematical problems, and crack encryption schemes.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Network Security</h3>
+                    <span class="challenge-difficulty">Easy-Medium</span>
+                    <p>Analyze network traffic, exploit protocol vulnerabilities, and penetrate secured network configurations.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Forensics</h3>
+                    <span class="challenge-difficulty">Easy-Hard</span>
+                    <p>Recover hidden data from disk images, memory dumps, and network captures using forensic tools and techniques.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Secure System Design</h3>
+                    <span class="challenge-difficulty">Hard</span>
+                    <p>Design and implement secure systems with proper authentication, authorization, and encryption mechanisms.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="apply">
+            <h2>Participating Institutions</h2>
+            <p>Apply through your college to participate in this prestigious event:</p>
+            
+            <div class="colleges-container">
+                <div class="college-card" onclick="openModal('iiit')">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIIT Delhi" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">IIIT Delhi</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Delhi, India
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('nsit')">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="NSIT" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">NSUT Delhi</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Delhi, India
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+                
+                <div class="college-card" onclick="openModal('vit')">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="VIT" class="college-image">
+                    <div class="college-info">
+                        <h3 class="college-name">VIT Chennai</h3>
+                        <div class="college-location">
+                            <i class="fas fa-map-marker-alt"></i> Chennai, India
+                        </div>
+                        <button class="apply-btn">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Modal templates -->
+    <!-- IIIT Delhi Modal -->
+    <div id="iiit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('iiit')">&times;</span>
+            <h2 style="color: var(--cyber-teal);">Application - IIIT Delhi</h2>
+            <form id="iiit-form">
+                <div class="form-group">
+                    <label for="iiit-name">Full Name</label>
+                    <input type="text" id="iiit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-email">Email</label>
+                    <input type="email" id="iiit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-year">Year of Study</label>
+                    <select id="iiit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-track">Preferred Track</label>
+                    <select id="iiit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="web">Web Security</option>
+                        <option value="binary">Binary Exploitation</option>
+                        <option value="crypto">Cryptography</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="iiit-skills">Technical Skills</label>
+                    <textarea id="iiit-skills" placeholder="Describe your cybersecurity skills and experience" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- NSIT Modal -->
+    <div id="nsit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('nsit')">&times;</span>
+            <h2 style="color: var(--cyber-teal);">Application - NSUT Delhi</h2>
+            <form id="nsit-form">
+                <div class="form-group">
+                    <label for="nsit-name">Full Name</label>
+                    <input type="text" id="nsit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="nsit-email">Email</label>
+                    <input type="email" id="nsit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="nsit-year">Year of Study</label>
+                    <select id="nsit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nsit-track">Preferred Track</label>
+                    <select id="nsit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="web">Web Security</option>
+                        <option value="binary">Binary Exploitation</option>
+                        <option value="crypto">Cryptography</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nsit-skills">Technical Skills</label>
+                    <textarea id="nsit-skills" placeholder="Describe your cybersecurity skills and experience" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- VIT Modal -->
+    <div id="vit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('vit')">&times;</span>
+            <h2 style="color: var(--cyber-teal);">Application - VIT Chennai</h2>
+            <form id="vit-form">
+                <div class="form-group">
+                    <label for="vit-name">Full Name</label>
+                    <input type="text" id="vit-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="vit-email">Email</label>
+                    <input type="email" id="vit-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="vit-year">Year of Study</label>
+                    <select id="vit-year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vit-track">Preferred Track</label>
+                    <select id="vit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="web">Web Security</option>
+                        <option value="binary">Binary Exploitation</option>
+                        <option value="crypto">Cryptography</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vit-skills">Technical Skills</label>
+                    <textarea id="vit-skills" placeholder="Describe your cybersecurity skills and experience" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Modal functions
+        function openModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(college) {
+            document.getElementById(`${college}-modal`).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        // Form submissions
+        document.getElementById('iiit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for IIIT Delhi!');
+            closeModal('iiit');
+        });
+        
+        document.getElementById('nsit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for NSUT Delhi!');
+            closeModal('nsit');
+        });
+        
+        document.getElementById('vit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Application submitted successfully for VIT Chennai!');
+            closeModal('vit');
+        });
+        
+        // Scroll animations with staggered delays
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 150);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe all sections and cards
+            document.querySelectorAll('section, .college-card, .challenge-card, .rule-card, .timeline-item, .prize-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
