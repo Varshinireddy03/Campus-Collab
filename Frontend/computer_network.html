@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23CS3102 Computer Networks - Lecture Notes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: white;
+            color: white;
+            padding-bottom: 60px; /* Space for footer */
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 30px auto;
+            background-color: white;
+            color: black;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2, h3 {
+            color: cornflowerblue;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            background-color: cornflowerblue;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            border-bottom: 2px solid cornflowerblue;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .unit {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid cornflowerblue;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .unit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .unit-title {
+            color: cornflowerblue;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 3px solid black;
+        }
+
+        .resource-section {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px dashed black;
+        }
+
+        .resource-section h2 {
+            color: cornflowerblue;
+            margin-bottom: 15px;
+        }
+
+        .resource-link {
+            display: block;
+            margin-bottom: 10px;
+            color: cornflowerblue;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .resource-link:hover {
+            color: #4682b4; /* Darker cornflowerblue */
+            text-decoration: underline;
+        }
+
+        .animated-list li {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUp 0.4s ease-out forwards;
+            margin-bottom: 10px;
+        }
+
+        .animated-list li:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+
+        .animated-list li:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>23CS3102 Computer Networks</h1>
+        <p style="text-align: center; font-size: 1.1em; color: cornflowerblue;">PCC 3-0-0 3</p>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - I: Introduction and Physical Layer</h2>
+            <h3>Introduction: Network Hardware, Network Software, References Models</h3>
+            <p>Computer networks are interconnected devices that can communicate and share resources. Key components include:</p>
+            <ul class="animated-list">
+                <li><strong>Network Hardware:</strong> Devices such as routers, switches, hubs, bridges, and network interface cards (NICs) that facilitate communication.</li>
+                <li><strong>Network Software:</strong> Protocols, applications, and operating system components that govern network operations.</li>
+                <li><strong>Reference Models:</strong> Conceptual frameworks like the OSI (Open Systems Interconnection) model and the TCP/IP model that provide a layered approach to network design and understanding.</li>
+            </ul>
+
+            <h3>Physical Layer-Guided medium and unguided medium, topologies</h3>
+            <p>The Physical Layer deals with the transmission of raw bits over a physical medium:</p>
+            <ul class="animated-list">
+                <li><strong>Guided Media:</strong> Physical cables that guide the signal, such as:
+                    <ul>
+                        <li>Twisted Pair Cable (UTP, STP)</li>
+                        <li>Coaxial Cable</li>
+                        <li>Fiber Optic Cable</li>
+                    </ul>
+                </li>
+                <li><strong>Unguided Media:</strong> Wireless transmission through air or space, such as:
+                    <ul>
+                        <li>Radio Waves</li>
+                        <li>Microwaves</li>
+                        <li>Infrared</li>
+                    </ul>
+                </li>
+                <li><strong>Network Topologies:</strong> The physical or logical arrangement of network nodes:
+                    <ul>
+                        <li>Bus Topology</li>
+                        <li>Star Topology</li>
+                        <li>Ring Topology</li>
+                        <li>Mesh Topology</li>
+                        <li>Tree Topology</li>
+                        <li>Hybrid Topology</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - II: The Data Link Layer</h2>
+            <h3>The Data Link Layer : Data link Layer Design Issues, Error Control</h3>
+            <p>The Data Link Layer is responsible for reliable node-to-node data transfer between two directly connected nodes:</p>
+            <ul class="animated-list">
+                <li><strong>Data Link Layer Design Issues:</strong>
+                    <ul>
+                        <li>Framing: Dividing the stream of bits from the Physical Layer into manageable frames.</li>
+                        <li>Error Control: Detecting and correcting errors that may occur during transmission.</li>
+                        <li>Flow Control: Preventing a fast sender from overwhelming a slow receiver.</li>
+                    </ul>
+                </li>
+                <li><strong>Error Control:</strong> Techniques to handle errors:
+                    <ul>
+                        <li>Error Detection: Using codes like parity bits, checksums, and Cyclic Redundancy Checks (CRCs) to detect errors.</li>
+                        <li>Error Correction: Using forward error correction (FEC) codes to correct errors without retransmission.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Elementary Data Link Protocols, Sliding Window Protocols</h3>
+            <ul class="animated-list">
+                <li><strong>Elementary Data Link Protocols:</strong> Simple protocols for data transfer:
+                    <ul>
+                        <li>Unrestricted Simplex Protocol</li>
+                        <li>Simplex Stop-and-Wait Protocol</li>
+                        <li>Simplex Protocol for a Noisy Channel</li>
+                    </ul>
+                </li>
+                <li><strong>Sliding Window Protocols:</strong> More efficient protocols that allow multiple frames to be in transit:
+                    <ul>
+                        <li>Go-Back-N</li>
+                        <li>Selective Repeat</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>The Medium Access Control Sublayer: The Channel allocation Problem, Multiple Access protocols, Ethernet - Ethernet Cabling, standard Ethernet , Switched Ethernet, Fast Ethernet</h3>
+            <p>The Medium Access Control (MAC) sublayer governs how multiple nodes share a common transmission medium:</p>
+            <ul class="animated-list">
+                <li><strong>The Channel Allocation Problem:</strong> How to fairly and efficiently allocate a shared communication channel among multiple users.</li>
+                <li><strong>Multiple Access Protocols:</strong> Protocols used by nodes to gain access to the shared medium:
+                    <ul>
+                        <li>Random Access Protocols (e.g., ALOHA, Slotted ALOHA, CSMA, CSMA/CD, CSMA/CA)</li>
+                        <li>Controlled Access Protocols (e.g., Reservation, Polling, Token Passing)</li>
+                        <li>Channelization Protocols (e.g., FDMA, TDMA, CDMA)</li>
+                    </ul>
+                </li>
+                <li><strong>Ethernet:</strong> A widely used LAN technology:
+                    <ul>
+                        <li>Ethernet Cabling: Different types of Ethernet cables (e.g., Cat 5e, Cat 6).</li>
+                        <li>Standard Ethernet (10 Mbps): The original Ethernet standard.</li>
+                        <li>Switched Ethernet: Using switches to create point-to-point connections, improving performance and reducing collisions.</li>
+                        <li>Fast Ethernet (100 Mbps): An evolution of Ethernet offering higher speeds.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - III: The Network Layer</h2>
+            <h3>The Network Layer: Network Layer Design Issues, Routing Algorithms, Congestion Control Algorithms</h3>
+            <p>The Network Layer is responsible for routing packets from the source host to the destination host across multiple networks:</p>
+            <ul class="animated-list">
+                <li><strong>Network Layer Design Issues:</strong>
+                    <ul>
+                        <li>Routing: Determining the path that packets should take.</li>
+                        <li>Addressing: Assigning unique addresses to network devices (e.g., IP addresses).</li>
+                        <li>Forwarding: Moving packets from an input interface to the correct output interface on a router.</li>
+                        <li>Fragmentation: Dividing large packets into smaller fragments to traverse networks with smaller MTUs (Maximum Transmission Units).</li>
+                        <li>Quality of Service (QoS): Mechanisms to prioritize certain types of traffic.</li>
+                    </ul>
+                </li>
+                <li><strong>Routing Algorithms:</strong> Algorithms used by routers to determine the best path for packets:
+                    <ul>
+                        <li>Distance Vector Routing (e.g., RIP)</li>
+                        <li>Link State Routing (e.g., OSPF)</li>
+                        <li>Path Vector Routing (e.g., BGP)</li>
+                    </ul>
+                </li>
+                <li><strong>Congestion Control Algorithms:</strong> Mechanisms to prevent and manage congestion in the network:
+                    <ul>
+                        <li>Open-Loop Congestion Control</li>
+                        <li>Closed-Loop Congestion Control</li>
+                        <li>Examples: Leaky Bucket, Token Bucket, TCP Congestion Control (Slow Start, Congestion Avoidance, Fast Retransmit, Fast Recovery).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Internetworking, subnetting, The Network Layer in the Internet</h3>
+            <ul class="animated-list">
+                <li><strong>Internetworking:</strong> Connecting different types of networks to form a larger network.</li>
+                <li><strong>Subnetting:</strong> Dividing a larger network address space into smaller subnetworks to improve organization and efficiency.</li>
+                <li><strong>The Network Layer in the Internet:</strong>
+                    <ul>
+                        <li>IP Protocol (IPv4 and IPv6): The primary protocol of the Internet's Network Layer, responsible for addressing and routing.</li>
+                        <li>ICMP (Internet Control Message Protocol): Used for error reporting and network diagnostics.</li>
+                        <li>ARP (Address Resolution Protocol): Maps IP addresses to MAC addresses within a local network.</li>
+                        <li>RARP (Reverse Address Resolution Protocol): Maps MAC addresses to IP addresses (obsolete).</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - IV: The Transport Layer</h2>
+            <h3>The Transport Layer: The Transport Service, Elements of Transport Protocols, The Internet Transport Protocols: UDP, The Internet Transport Protocols: TCP</h3>
+            <p>The Transport Layer provides end-to-end communication between applications running on different hosts:</p>
+            <ul class="animated-list">
+                <li><strong>The Transport Service:</strong> Provides services to the Application Layer, such as:
+                    <ul>
+                        <li>Process-to-Process Delivery: Delivering data to the correct application port.</li>
+                        <li>Segmentation and Reassembly: Dividing application data into segments and reassembling them at the destination.</li>
+                        <li>Connection Management: Establishing, maintaining, and terminating connections (in connection-oriented protocols).</li>
+                        <li>Reliable Data Transfer: Ensuring that data is delivered correctly and in order (in reliable protocols).</li>
+                        <li>Flow Control: Preventing a sender application from overwhelming a receiver application.</li>
+                    </ul>
+                </li>
+                <li><strong>Elements of Transport Protocols:</strong> Common mechanisms used in transport protocols:
+                    <ul>
+                        <li>Addressing (Ports)</li>
+                        <li>Connection Establishment and Release</li>
+                        <li>Flow Control</li>
+                        <li>Buffering</li>
+                        <li>Multiplexing and Demultiplexing</li>
+                        <li>Crash Recovery</li>
+                    </ul>
+                </li>
+                <li><strong>The Internet Transport Protocols: UDP (User Datagram Protocol):</strong> A connectionless, unreliable transport protocol. It provides minimal overhead and is suitable for applications where speed is more important than reliability (e.g., streaming, online gaming).</li>
+                <li><strong>The Internet Transport Protocols: TCP (Transmission Control Protocol):</strong> A connection-oriented, reliable transport protocol. It provides features like ordered delivery, error detection and retransmission, and flow control, making it suitable for applications that require reliable data transfer (e.g., web browsing, email, file transfer).</li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - V: The Application Layer</h2>
+            <h3>The Application Layer: DNS - The Domain Name System, Electronic Mail. The World Wide Web, file transfer protocol Multimedia</h3>
+            <p>The Application Layer is the top layer of the TCP/IP model and provides services directly to user applications:</p>
+            <ul class="animated-list">
+                <li><strong>DNS (The Domain Name System):</strong> A hierarchical and distributed naming system for computers, services, or any resource connected to the Internet or a private network. It translates human-readable domain names into IP addresses.</li>
+                <li><strong>Electronic Mail (Email):</strong> A method of exchanging digital messages over the Internet or other computer networks. Key protocols include SMTP (Simple Mail Transfer Protocol) for sending, POP3 (Post Office Protocol version 3) and IMAP (Internet Message Access Protocol) for receiving.</li>
+                <li><strong>The World Wide Web (WWW):</strong> An information system where documents and other web resources are identified by URLs (Uniform Resource Locators), interlinked by hypertext links, and accessible via the Internet. Key protocols include HTTP (Hypertext Transfer Protocol) and HTTPS (HTTP Secure).</li>
+                <li><strong>File Transfer Protocol (FTP):</strong> A standard network protocol used for the transfer of computer files between a client and server on a computer network.</li>
+                <li><strong>Multimedia:</strong> Protocols and technologies for transmitting and handling various forms of media, such as audio and video, over the network. Examples include RTP (Real-time Transport Protocol) and RTSP (Real-time Streaming Protocol).</li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit – VI: Network Security</h2>
+            <h3>Network Security: Cryptography, Symmetric - Key Algorithms, Public - Key Algorithms, Digital Signature</h3>
+            <p>Network Security encompasses measures taken to protect data and systems from unauthorized access, use, disclosure, disruption, modification, or destruction over a computer network.</p>
+            <ul class="animated-list">
+                <li><strong>Cryptography:</strong> The practice and study of techniques for secure communication in the presence of adversaries. It involves encryption (converting data into an unreadable format) and decryption (converting it back).</li>
+                <li><strong>Symmetric-Key Algorithms:</strong> Encryption algorithms that use the same key for both encryption and decryption. Examples include:
+                    <ul>
+                        <li>DES (Data Encryption Standard)</li>
+                        <li>3DES (Triple DES)</li>
+                        <li>AES (Advanced Encryption Standard)</li>
+                    </ul>
+                </li>
+                <li><strong>Public-Key Algorithms (Asymmetric-Key Algorithms):</strong> Encryption algorithms that use a pair of keys: a public key for encryption and a private key for decryption. The public key can be freely distributed, while the private key must be kept secret. Examples include:
+                    <ul>
+                        <li>RSA (Rivest–Shamir–Adleman)</li>
+                        <li>ECC (Elliptic Curve Cryptography)</li>
+                    </ul>
+                </li>
+                <li><strong>Digital Signature:</strong> A mathematical scheme for verifying the authenticity and integrity of a digital message or document. It uses public-key cryptography, where the sender signs the message with their private key, and the receiver verifies the signature using the sender's public key.</li>
+            </ul>
+        </div>
+
+        <div class="resource-section">
+            <h2>Online Resources</h2>
+            <ul>
+                <li><a href="https://www.cloudflare.com/learning/network-layer/" class="resource-link" target="_blank">Cloudflare - What is the Network Layer?</a></li>
+                <li><a href="https://www.geeksforgeeks.org/computer-network-tutorials/" class="resource-link" target="_blank">GeeksforGeeks - Computer Network Tutorials</a></li>
+                <li><a href="https://www.tutorialspoint.com/computer_networking/index.htm" class="resource-link" target="_blank">TutorialsPoint - Computer Networking</a></li>
+                <li><a href="https://www.javatpoint.com/computer-networking-tutorial" class="resource-link" target="_blank">JavaTpoint - Computer Networking Tutorial</a></li>
+                <li><a href="https://www.rfc-editor.org/" class="resource-link" target="_blank">RFC Editor</a> - Repository of technical and organizational documents about the Internet.</li>
+                <li><a href="https://www.ietf.org/" class="resource-link" target="_blank">Internet Engineering Task Force (IETF)</a> - Develops and promotes Internet standards.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

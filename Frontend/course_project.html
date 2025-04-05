@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Project Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .project-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
+        }
+        
+        .project-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-description {
+            color: #666;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tech-tag {
+            background-color: var(--light);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .project-link:hover {
+            background-color: #2980b9;
+        }
+        
+        .github-icon {
+            margin-right: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Engineering Project Showcase</h1>
+            <p class="subtitle">Explore these handpicked open-source projects to get inspiration for your next development challenge.</p>
+        </header>
+        
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects will be loaded here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const projects = [
+            {
+                title: "React Todo App",
+                description: "A beautiful todo application built with React with drag-and-drop functionality and local storage.",
+                image: "https://raw.githubusercontent.com/facebook/create-react-app/main/logo.svg",
+                link: "https://github.com/facebook/create-react-app",
+                tech: ["React", "JavaScript", "CSS"]
+            },
+            {
+                title: "Vue.js E-commerce",
+                description: "Full-featured e-commerce platform built with Vue.js and Firebase with payment integration.",
+                image: "https://raw.githubusercontent.com/vuejs/vue/main/logo.png",
+                link: "https://github.com/vuejs/vue",
+                tech: ["Vue.js", "Firebase", "JavaScript"]
+            },
+            {
+                title: "Django Blog Engine",
+                description: "A complete blog platform with user authentication, rich text editing, and comment system.",
+                image: "https://raw.githubusercontent.com/django/django/main/docs/img/django-logo-positive.svg",
+                link: "https://github.com/django/django",
+                tech: ["Django", "Python", "PostgreSQL"]
+            },
+            {
+                title: "Flutter Weather App",
+                description: "Beautiful weather application with animated UI and real-time weather data from API.",
+                image: "https://raw.githubusercontent.com/flutter/website/main/src/_assets/image/flutter-lockup.png",
+                link: "https://github.com/flutter/flutter",
+                tech: ["Flutter", "Dart", "API"]
+            },
+            {
+                title: "Node.js Authentication",
+                description: "Complete authentication system with JWT, email verification, and password reset.",
+                image: "https://raw.githubusercontent.com/nodejs/node/main/doc/logo.svg",
+                link: "https://github.com/nodejs/node",
+                tech: ["Node.js", "Express", "MongoDB"]
+            },
+            {
+                title: "TensorFlow Image Classifier",
+                description: "Machine learning model that classifies images using convolutional neural networks.",
+                image: "https://raw.githubusercontent.com/tensorflow/tensorflow/master/tensorflow/logo/logo.png",
+                link: "https://github.com/tensorflow/tensorflow",
+                tech: ["TensorFlow", "Python", "CNN"]
+            },
+            {
+                title: "Spring Boot REST API",
+                description: "Production-ready RESTful API with Spring Boot featuring JPA and Hibernate.",
+                image: "https://raw.githubusercontent.com/spring-projects/spring-boot/main/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/spring-boot-logo.png",
+                link: "https://github.com/spring-projects/spring-boot",
+                tech: ["Spring Boot", "Java", "REST"]
+            },
+            {
+                title: "Angular Task Manager",
+                description: "Advanced task management system with drag-and-drop interface and real-time updates.",
+                image: "https://raw.githubusercontent.com/angular/angular/main/aio/src/assets/images/logos/angular/angular.png",
+                link: "https://github.com/angular/angular",
+                tech: ["Angular", "TypeScript", "RxJS"]
+            },
+            {
+                title: "Laravel Social Network",
+                description: "Social networking platform with friends system, posts, and real-time notifications.",
+                image: "https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg",
+                link: "https://github.com/laravel/laravel",
+                tech: ["Laravel", "PHP", "MySQL"]
+            },
+            {
+                title: "React Native Fitness App",
+                description: "Mobile fitness application with workout tracking, progress charts, and social features.",
+                image: "https://raw.githubusercontent.com/facebook/react-native/main/website/img/logo.svg",
+                link: "https://github.com/facebook/react-native",
+                tech: ["React Native", "JavaScript", "Firebase"]
+            }
+        ];
+
+        function displayProjects() {
+            const projectsGrid = document.getElementById('projectsGrid');
+            
+            projects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'project-card';
+                
+                projectCard.innerHTML = `
+                    <div class="project-image" style="background-image: url('${project.image}')">
+                        <h3 class="project-title">${project.title}</h3>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-meta">
+                            <div class="project-tech">
+                                ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                            </div>
+                            <a href="${project.link}" target="_blank" class="project-link">
+                                <i class="fab fa-github github-icon"></i> View
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                projectsGrid.appendChild(projectCard);
+            });
+        }
+
+        // Load projects when page loads
+        window.onload = displayProjects;
+    </script>
+</body>
+</html>

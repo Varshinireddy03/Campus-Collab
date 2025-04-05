@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering Lecture Notes</title>
+    <style>
+        :root {
+            --cornflower-blue: #6495ED;
+            --black: #000000;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            color: var(--black);
+            background-color: var(--white);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background-color: var(--cornflower-blue);
+            color: var(--white);
+            padding: 2.5rem 0;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .unit-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--cornflower-blue);
+            transition: transform 0.3s ease;
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .unit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--cornflower-blue);
+            padding-bottom: 0.5rem;
+        }
+        
+        .unit-title {
+            font-size: 1.6rem;
+            color: var(--cornflower-blue);
+            margin: 0;
+        }
+        
+        .contact-hours {
+            background-color: var(--cornflower-blue);
+            color: var(--white);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            color: var(--cornflower-blue);
+            margin-top: 1.5rem;
+        }
+        
+        .topic-list {
+            padding-left: 1.5rem;
+        }
+        
+        .topic-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        .topic-list li:before {
+            content: "•";
+            color: var(--cornflower-blue);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .highlight-box {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--cornflower-blue);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .definition {
+            font-weight: 600;
+            color: var(--cornflower-blue);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background-color: var(--cornflower-blue);
+            color: var(--white);
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        .tab-container {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--white);
+            border: 1px solid var(--cornflower-blue);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+        }
+        
+        .tab:hover {
+            background-color: var(--cornflower-blue);
+            color: var(--white);
+        }
+        
+        .tab.active {
+            background-color: var(--cornflower-blue);
+            color: var(--white);
+        }
+        
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--cornflower-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .unit-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Software Engineering</h1>
+            <p class="subtitle">Comprehensive Lecture Notes</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Unit 1 -->
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Introduction to Software Engineering</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Introduction to Software Engineering</li>
+                <li>Exploratory style vs. Modern style of development</li>
+                <li>Software Development Life Cycle (SDLC)</li>
+                <li>Process Models</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><span class="definition">Software Engineering</span> is the systematic application of engineering approaches to the development of software.</p>
+            </div>
+            
+            <h3>SDLC Models Comparison</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Model</th>
+                    <th>Advantages</th>
+                    <th>Disadvantages</th>
+                </tr>
+                <tr>
+                    <td>Waterfall</td>
+                    <td>Simple, easy to manage, clear milestones</td>
+                    <td>Inflexible, late testing phase</td>
+                </tr>
+                <tr>
+                    <td>Agile</td>
+                    <td>Flexible, continuous feedback, early delivery</td>
+                    <td>Requires customer involvement, less predictable</td>
+                </tr>
+                <tr>
+                    <td>Spiral</td>
+                    <td>Risk management, combines prototyping and waterfall</td>
+                    <td>Complex, expensive</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Unit 2 -->
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Software Project Management</h2>
+                <span class="contact-hours">8 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Project Planning and Estimation</li>
+                <li>Software Requirements Gathering</li>
+                <li>Requirements Analysis</li>
+                <li>Requirements Specification</li>
+                <li>Characteristics of Good Requirements</li>
+                <li>Requirements Organization</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><span class="definition">Software Requirements Specification (SRS)</span> is a document that describes what the software will do and how it will perform.</p>
+            </div>
+            
+            <h3>Requirement Characteristics (SMART)</h3>
+            <ul class="topic-list">
+                <li><strong>Specific</strong> - Clear and unambiguous</li>
+                <li><strong>Measurable</strong> - Quantifiable where possible</li>
+                <li><strong>Achievable</strong> - Realistic with available resources</li>
+                <li><strong>Relevant</strong> - Aligned with business objectives</li>
+                <li><strong>Traceable</strong> - Can be tracked through development</li>
+            </ul>
+        </div>
+        
+        <!-- Unit 3 -->
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Software Design</h2>
+                <span class="contact-hours">9 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Software Design Overview</li>
+                <li>Characteristics of Good Design</li>
+                <li>Function-Oriented Software Design</li>
+                <li>Object-Oriented Design</li>
+                <li>Unified Modeling Language (UML)</li>
+                <li>Design Patterns</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><span class="definition">Software Design</span> is the process of defining the architecture, components, interfaces, and other characteristics of a system or component.</p>
+            </div>
+            
+            <h3>Common Design Patterns</h3>
+            <div class="tab-container">
+                <div class="tab active" onclick="showPattern('creational')">Creational</div>
+                <div class="tab" onclick="showPattern('structural')">Structural</div>
+                <div class="tab" onclick="showPattern('behavioral')">Behavioral</div>
+            </div>
+            
+            <div id="creational-patterns">
+                <ul class="topic-list">
+                    <li>Singleton - Ensure a class has only one instance</li>
+                    <li>Factory Method - Create objects without specifying exact class</li>
+                    <li>Abstract Factory - Create families of related objects</li>
+                    <li>Builder - Construct complex objects step by step</li>
+                </ul>
+            </div>
+            
+            <div id="structural-patterns" style="display:none">
+                <ul class="topic-list">
+                    <li>Adapter - Match interfaces of different classes</li>
+                    <li>Bridge - Separate abstraction from implementation</li>
+                    <li>Composite - Treat individual and composite objects uniformly</li>
+                    <li>Decorator - Add responsibilities to objects dynamically</li>
+                </ul>
+            </div>
+            
+            <div id="behavioral-patterns" style="display:none">
+                <ul class="topic-list">
+                    <li>Observer - Notify dependents of state changes</li>
+                    <li>Strategy - Encapsulate interchangeable algorithms</li>
+                    <li>Command - Encapsulate a request as an object</li>
+                    <li>Iterator - Access elements of a collection sequentially</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Unit 4 -->
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Coding and Implementation</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Implementation Strategies</li>
+                <li>Coding Standards and Guidelines</li>
+                <li>Code Review Processes</li>
+                <li>Unit Testing Principles</li>
+                <li>Verification and Validation</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><span class="definition">Verification</span> refers to checking whether the product is being built right, while <span class="definition">Validation</span> checks whether the right product is being built.</p>
+            </div>
+            
+            <h3>Coding Best Practices</h3>
+            <ul class="topic-list">
+                <li>Follow consistent naming conventions</li>
+                <li>Write modular, reusable code</li>
+                <li>Include meaningful comments</li>
+                <li>Keep methods/functions short and focused</li>
+                <li>Handle errors gracefully</li>
+                <li>Write self-documenting code</li>
+            </ul>
+        </div>
+        
+        <!-- Unit 5 -->
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Software Testing</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Integration Testing</li>
+                <li>System Testing</li>
+                <li>Black Box Testing Techniques</li>
+                <li>White Box Testing Techniques</li>
+                <li>Debugging Techniques</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><span class="definition">Black Box Testing</span> examines functionality without knowledge of internal implementation, while <span class="definition">White Box Testing</span> uses internal knowledge to design test cases.</p>
+            </div>
+            
+            <h3>Testing Techniques Comparison</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Technique</th>
+                    <th>Description</th>
+                    <th>When to Use</th>
+                </tr>
+                <tr>
+                    <td>Equivalence Partitioning</td>
+                    <td>Divide input data into equivalent classes</td>
+                    <td>For input validation testing</td>
+                </tr>
+                <tr>
+                    <td>Boundary Value Analysis</td>
+                    <td>Test boundaries between partitions</td>
+                    <td>For range and limit testing</td>
+                </tr>
+                <tr>
+                    <td>Statement Coverage</td>
+                    <td>Execute all statements at least once</td>
+                    <td>Unit testing of critical code</td>
+                </tr>
+                <tr>
+                    <td>Path Coverage</td>
+                    <td>Execute all possible paths through code</td>
+                    <td>Complex algorithm testing</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Unit 6 -->
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Software Reliability & Quality Management</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Software Quality Attributes</li>
+                <li>SEI CMM (Capability Maturity Model)</li>
+                <li>ISO 9001 Standards</li>
+                <li>Software Reliability Metrics</li>
+                <li>Safety Considerations</li>
+                <li>Risk Analysis Techniques</li>
+                <li>Computer-Aided Software Engineering (CASE) Tools</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><span class="definition">Software Quality</span> is the degree to which a software product meets its specified requirements and user expectations.</p>
+            </div>
+            
+            <h3>CMM Maturity Levels</h3>
+            <ul class="topic-list">
+                <li><strong>Level 1 - Initial</strong>: Ad hoc processes, unpredictable results</li>
+                <li><strong>Level 2 - Repeatable</strong>: Basic project management established</li>
+                <li><strong>Level 3 - Defined</strong>: Standardized processes across organization</li>
+                <li><strong>Level 4 - Managed</strong>: Quantitative process management</li>
+                <li><strong>Level 5 - Optimizing</strong>: Continuous process improvement</li>
+            </ul>
+            
+            <h3>CASE Tools Categories</h3>
+            <ul class="topic-list">
+                <li><strong>Upper CASE</strong>: Requirements and design tools</li>
+                <li><strong>Lower CASE</strong>: Implementation and testing tools</li>
+                <li><strong>Integrated CASE</strong>: End-to-end development support</li>
+            </ul>
+        </div>
+        
+        <div class="fab" onclick="scrollToTop()">↑</div>
+    </div>
+    
+    <script>
+        // Show specific design pattern category
+        function showPattern(category) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            document.getElementById('creational-patterns').style.display = 'none';
+            document.getElementById('structural-patterns').style.display = 'none';
+            document.getElementById('behavioral-patterns').style.display = 'none';
+            
+            document.getElementById(`${category}-patterns`).style.display = 'block';
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Show/hide floating action button based on scroll
+        window.addEventListener('scroll', function() {
+            const fab = document.querySelector('.fab');
+            if (window.pageYOffset > 300) {
+                fab.style.display = 'flex';
+            } else {
+                fab.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

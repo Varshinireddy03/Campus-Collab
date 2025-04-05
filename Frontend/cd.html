@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler Design | Modern Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: cornflowerblue;
+            --secondary: cornflowerblue;
+            --accent: #4895ef;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #adb5bd;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            background-color: #f5f7ff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3em 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-top: 3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--warning);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-top: 2rem;
+        }
+        
+        .unit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .unit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .unit-title {
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin: 0;
+        }
+        
+        .contact-hours {
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        ol, ul {
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        ul li:before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        ol {
+            counter-reset: item;
+        }
+        
+        ol li {
+            counter-increment: item;
+        }
+        
+        ol li:before {
+            content: counter(item);
+            background: var(--primary);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 1.5em;
+            height: 1.5em;
+            text-align: center;
+            display: inline-block;
+            line-height: 1.5em;
+            margin-right: 0.5em;
+            margin-left: -2.2em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e9f5ff;
+        }
+        
+        code {
+            font-family: 'Source Code Pro', monospace;
+            background: #f1f3ff;
+            color: var(--primary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .resources {
+            background: linear-gradient(135deg, #f5f7ff, #e9f5ff);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 4rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .resources h2 {
+            color: var(--primary);
+            border-bottom: none;
+        }
+        
+        .resources h2:after {
+            display: none;
+        }
+        
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-card h3 {
+            margin-top: 0;
+            color: var(--secondary);
+        }
+        
+        .resource-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+            color: var(--secondary);
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .resource-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Compiler Design</h1>
+            <p class="subtitle">Modern Notes for Computer Science Students</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Introduction to Compilers</h2>
+                <span class="contact-hours">6 Contact Hours</span>
+            </div>
+            
+            <h3>What is a Compiler?</h3>
+            <p>A compiler is a sophisticated program that transforms human-readable source code written in a high-level programming language into efficient machine code or lower-level representations that computers can execute.</p>
+            
+            <h3>Compiler Architecture</h3>
+            <p>The compilation process is typically organized into several logical phases:</p>
+            <ol>
+                <li><strong>Lexical Analysis</strong> - Tokenizes input characters</li>
+                <li><strong>Syntax Analysis</strong> - Constructs parse trees and verifies grammar</li>
+                <li><strong>Semantic Analysis</strong> - Validates meaning and builds symbol tables</li>
+                <li><strong>Intermediate Code Generation</strong> - Produces architecture-independent representation</li>
+                <li><strong>Optimization</strong> - Enhances performance and efficiency</li>
+                <li><strong>Code Generation</strong> - Creates target-specific machine code</li>
+            </ol>
+            
+            <h3>Lexical Analyzer Implementation</h3>
+            <p>The scanner component is responsible for:</p>
+            <ul>
+                <li>Processing source text character-by-character</li>
+                <li>Identifying and classifying lexical tokens</li>
+                <li>Eliminating extraneous whitespace and comments</li>
+                <li>Handling compiler directives and pragmas</li>
+            </ul>
+        </div>
+        
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Syntax Analysis - I</h2>
+                <span class="contact-hours">9 Contact Hours</span>
+            </div>
+            
+            <h3>Parser Responsibilities</h3>
+            <p>The parser serves as the grammatical foundation of the compiler, verifying that the program's structure conforms to the language specification.</p>
+            
+            <h3>Context-Free Grammars</h3>
+            <p>Formal grammar systems consisting of:</p>
+            <ul>
+                <li><strong>Terminals</strong>: Fundamental tokens (keywords, operators)</li>
+                <li><strong>Non-terminals</strong>: Abstract syntactic constructs</li>
+                <li><strong>Production Rules</strong>: Rewrite specifications</li>
+                <li><strong>Start Symbol</strong>: Root non-terminal</li>
+            </ul>
+            
+            <h3>Top-Down Parsing Techniques</h3>
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Characteristics</th>
+                    <th>Complexity</th>
+                </tr>
+                <tr>
+                    <td>Recursive Descent</td>
+                    <td>Direct implementation of grammar productions</td>
+                    <td>O(n)</td>
+                </tr>
+                <tr>
+                    <td>Predictive Parsing</td>
+                    <td>Table-driven approach with lookahead</td>
+                    <td>O(n)</td>
+                </tr>
+                <tr>
+                    <td>LL Parsers</td>
+                    <td>Left-to-right, Leftmost derivation</td>
+                    <td>O(n)</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Syntax Analysis - II</h2>
+                <span class="contact-hours">8 Contact Hours</span>
+            </div>
+            
+            <h3>Bottom-Up Parsing</h3>
+            <p>Constructs parse trees from leaf nodes upward, offering more power than top-down approaches.</p>
+            
+            <h3>Shift-Reduce Mechanics</h3>
+            <ul>
+                <li><strong>Shift Action</strong>: Advances input pointer and pushes token</li>
+                <li><strong>Reduce Action</strong>: Applies grammar production in reverse</li>
+                <li><strong>Handle Pruning</strong>: Identifies rightmost derivation steps</li>
+            </ul>
+            
+            <h3>LR Parser Family Comparison</h3>
+            <table>
+                <tr>
+                    <th>Variant</th>
+                    <th>States</th>
+                    <th>Lookahead</th>
+                    <th>Practical Use</th>
+                </tr>
+                <tr>
+                    <td>SLR</td>
+                    <td>Simplified</td>
+                    <td>Follow sets</td>
+                    <td>Educational</td>
+                </tr>
+                <tr>
+                    <td>Canonical LR</td>
+                    <td>Full</td>
+                    <td>Arbitrary</td>
+                    <td>Theoretical</td>
+                </tr>
+                <tr>
+                    <td>LALR</td>
+                    <td>Merged</td>
+                    <td>Limited</td>
+                    <td>Industrial</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Semantic Analysis</h2>
+                <span class="contact-hours">8 Contact Hours</span>
+            </div>
+            
+            <h3>Syntax-Directed Translation</h3>
+            <p>Associates semantic actions with grammar productions to enable:</p>
+            <ul>
+                <li>Type checking</li>
+                <li>Scope resolution</li>
+                <li>Intermediate representation generation</li>
+            </ul>
+            
+            <h3>Attribute Grammar Systems</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Direction</th>
+                    <th>Implementation</th>
+                </tr>
+                <tr>
+                    <td>S-Attributed</td>
+                    <td>Bottom-up</td>
+                    <td>Simple stack</td>
+                </tr>
+                <tr>
+                    <td>L-Attributed</td>
+                    <td>Left-to-right</td>
+                    <td>Complex traversal</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Intermediate Code & Optimization</h2>
+                <span class="contact-hours">8 Contact Hours</span>
+            </div>
+            
+            <h3>Intermediate Representations</h3>
+            <ul>
+                <li><strong>Three-Address Code</strong>: Temporary variables</li>
+                <li><strong>Static Single Assignment</strong>: Unique definitions</li>
+                <li><strong>Control Flow Graphs</strong>: Basic block organization</li>
+            </ul>
+            
+            <h3>Optimization Techniques</h3>
+            <div style="display: flex; flex-wrap: wrap; margin: 1rem 0;">
+                <span class="tag">Constant Propagation</span>
+                <span class="tag">Dead Code Elimination</span>
+                <span class="tag">Loop Invariant Removal</span>
+                <span class="tag">Common Subexpression</span>
+                <span class="tag">Strength Reduction</span>
+                <span class="tag">Inlining</span>
+            </div>
+        </div>
+        
+        <div class="unit-card">
+            <div class="unit-header">
+                <h2 class="unit-title">Code Generation</h2>
+                <span class="contact-hours">6 Contact Hours</span>
+            </div>
+            
+            <h3>Code Generation Challenges</h3>
+            <ul>
+                <li>Instruction selection</li>
+                <li>Register allocation (graph coloring)</li>
+                <li>Instruction scheduling</li>
+                <li>Memory hierarchy utilization</li>
+            </ul>
+            
+            <h3>Runtime Environment</h3>
+            <p>Manages program execution through:</p>
+            <ol>
+                <li>Activation records</li>
+                <li>Heap management</li>
+                <li>Exception handling</li>
+                <li>Garbage collection</li>
+            </ol>
+        </div>
+        
+        <div class="resources">
+            <h2>Learning Resources</h2>
+            <p>Expand your compiler knowledge with these curated materials:</p>
+            
+            <div class="resource-list">
+                <div class="resource-card">
+                    <h3>Interactive Tutorials</h3>
+                    <p>Hands-on compiler construction exercises</p>
+                    <a href="https://craftinginterpreters.com/" target="_blank">Explore Crafting Interpreters →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Video Lectures</h3>
+                    <p>Comprehensive video course from IIT</p>
+                    <a href="https://www.nptel.ac.in/courses/106/105/106105190/" target="_blank">View NPTEL Course →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Reference Book</h3>
+                    <p>The Dragon Book - Standard textbook</p>
+                    <a href="https://www.pearson.com/store/p/compilers-principles-techniques-and-tools/P100000903468/9780134019990" target="_blank">Get the Book →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Online Community</h3>
+                    <p>Compiler design discussions</p>
+                    <a href="https://compilers.iecc.com/" target="_blank">Join Compiler Community →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Open Source Compilers</h3>
+                    <p>Real-world compiler implementations</p>
+                    <a href="https://github.com/llvm/llvm-project" target="_blank">Explore LLVM →</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h3>Visualization Tools</h3>
+                    <p>See compiler phases in action</p>
+                    <a href="https://compiler-explorer.com/" target="_blank">Try Compiler Explorer →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

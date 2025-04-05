@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Lab Questions</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .subject-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        
+        .subject-btn {
+            padding: 8px 16px;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .subject-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .subject-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .questions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .question-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .subject-tag {
+            background-color: var(--accent-color);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+        
+        .card-body {
+            padding: 15px;
+        }
+        
+        .card-footer {
+            padding: 10px 15px;
+            background-color: var(--light-color);
+            text-align: right;
+        }
+        
+        .solution-btn {
+            padding: 8px 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .solution-btn:hover {
+            background-color: var(--dark-color);
+        }
+        
+        .solution {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid var(--secondary-color);
+            overflow-x: auto;
+        }
+        
+        .solution.active {
+            display: block;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+        }
+        
+        .language-tabs {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .language-tab-btn {
+            padding: 5px 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .language-tab-btn.active {
+            border-bottom: 2px solid var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .language-tab-content {
+            display: none;
+        }
+        
+        .language-tab-content.active {
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .questions-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Computer Science Lab Questions</h1>
+            <p>Important questions for programming and theory labs</p>
+        </header>
+        
+        <div class="subject-selector">
+            <button class="subject-btn active" data-subject="all">All Subjects</button>
+            <button class="subject-btn" data-subject="c">C Programming</button>
+            <button class="subject-btn" data-subject="java">Java</button>
+            <button class="subject-btn" data-subject="python">Python</button>
+            <button class="subject-btn" data-subject="dsa">DSA</button>
+            <button class="subject-btn" data-subject="daa">DAA</button>
+            <button class="subject-btn" data-subject="dsp">DSP</button>
+            <button class="subject-btn" data-subject="wt">Web Tech</button>
+        </div>
+        
+        <div class="questions-container">
+            <!-- C Programming Questions -->
+            <div class="question-card" data-subject="c">
+                <div class="card-header">
+                    <span>1. Array Operations</span>
+                    <span class="subject-tag">C</span>
+                </div>
+                <div class="card-body">
+                    <p>Write a C program to perform various operations on arrays (insertion, deletion, searching, sorting).</p>
+                    <div class="solution" id="solution-c1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="c">C</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="c">
+                            <pre><code>#include &lt;stdio.h&gt;
+
+void display(int arr[], int n) {
+    for(int i=0; i&lt;n; i++) printf("%d ", arr[i]);
+    printf("\n");
+}
+
+void insert(int arr[], int *n, int pos, int val) {
+    for(int i=*n; i&gt;pos; i--) arr[i] = arr[i-1];
+    arr[pos] = val;
+    (*n)++;
+}
+
+int main() {
+    int arr[50] = {1, 2, 3, 4, 5};
+    int n = 5;
+    
+    // Insert at position 2
+    insert(arr, &n, 2, 10);
+    display(arr, n);
+    
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-c1">View Solution</button>
+                </div>
+            </div>
+            
+            <div class="question-card" data-subject="c">
+                <div class="card-header">
+                    <span>2. File Handling</span>
+                    <span class="subject-tag">C</span>
+                </div>
+                <div class="card-body">
+                    <p>Write a C program to read from a file, count vowels and write the count to another file.</p>
+                    <div class="solution" id="solution-c2">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="c">C</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="c">
+                            <pre><code>#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+
+int main() {
+    FILE *fin, *fout;
+    char ch;
+    int count = 0;
+    
+    fin = fopen("input.txt", "r");
+    fout = fopen("output.txt", "w");
+    
+    if(fin == NULL || fout == NULL) {
+        printf("File error!");
+        return 1;
+    }
+    
+    while((ch = fgetc(fin)) != EOF) {
+        ch = tolower(ch);
+        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u')
+            count++;
+    }
+    
+    fprintf(fout, "Vowel count: %d", count);
+    
+    fclose(fin);
+    fclose(fout);
+    return 0;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-c2">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- Java Questions -->
+            <div class="question-card" data-subject="java">
+                <div class="card-header">
+                    <span>3. Exception Handling</span>
+                    <span class="subject-tag">Java</span>
+                </div>
+                <div class="card-body">
+                    <p>Write a Java program to demonstrate exception handling with custom exceptions.</p>
+                    <div class="solution" id="solution-j1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="java">Java</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="java">
+                            <pre><code>class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+    static void validateAge(int age) throws InvalidAgeException {
+        if(age &lt; 18)
+            throw new InvalidAgeException("Age must be 18 or above");
+        else
+            System.out.println("Valid age");
+    }
+    
+    public static void main(String[] args) {
+        try {
+            validateAge(15);
+        } catch(InvalidAgeException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-j1">View Solution</button>
+                </div>
+            </div>
+            
+            <div class="question-card" data-subject="java">
+                <div class="card-header">
+                    <span>4. Multithreading</span>
+                    <span class="subject-tag">Java</span>
+                </div>
+                <div class="card-body">
+                    <p>Write a Java program to demonstrate multithreading using Thread class and Runnable interface.</p>
+                    <div class="solution" id="solution-j2">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="java">Java</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="java">
+                            <pre><code>class MyThread extends Thread {
+    public void run() {
+        for(int i=1; i&lt;=5; i++) {
+            System.out.println("Thread class: " + i);
+            try { Thread.sleep(500); } catch(Exception e) {}
+        }
+    }
+}
+
+class MyRunnable implements Runnable {
+    public void run() {
+        for(int i=1; i&lt;=5; i++) {
+            System.out.println("Runnable: " + i);
+            try { Thread.sleep(500); } catch(Exception e) {}
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        Thread t2 = new Thread(new MyRunnable());
+        
+        t1.start();
+        t2.start();
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-j2">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- Python Questions -->
+            <div class="question-card" data-subject="python">
+                <div class="card-header">
+                    <span>5. File Handling</span>
+                    <span class="subject-tag">Python</span>
+                </div>
+                <div class="card-body">
+                    <p>Write a Python program to read a CSV file and calculate average of a column.</p>
+                    <div class="solution" id="solution-p1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="python">Python</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="python">
+                            <pre><code>import csv
+
+def calculate_average(filename, column):
+    total = 0
+    count = 0
+    
+    with open(filename, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            try:
+                total += float(row[column])
+                count += 1
+            except ValueError:
+                continue
+                
+    return total / count if count > 0 else 0
+
+# Example usage
+average = calculate_average('data.csv', 'price')
+print(f"Average price: {average:.2f}")</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-p1">View Solution</button>
+                </div>
+            </div>
+            
+            <div class="question-card" data-subject="python">
+                <div class="card-header">
+                    <span>6. Web Scraping</span>
+                    <span class="subject-tag">Python</span>
+                </div>
+                <div class="card-body">
+                    <p>Write a Python program to scrape headlines from a news website using BeautifulSoup.</p>
+                    <div class="solution" id="solution-p2">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="python">Python</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="python">
+                            <pre><code>import requests
+from bs4 import BeautifulSoup
+
+def scrape_headlines(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        headlines = []
+        
+        # Adjust selector based on actual website structure
+        for headline in soup.select('h2.title'):
+            headlines.append(headline.get_text(strip=True))
+            
+        return headlines
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
+
+# Example usage
+headlines = scrape_headlines('https://example-news-site.com')
+for i, headline in enumerate(headlines, 1):
+    print(f"{i}. {headline}")</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-p2">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- DSA Questions -->
+            <div class="question-card" data-subject="dsa">
+                <div class="card-header">
+                    <span>7. Binary Search Tree</span>
+                    <span class="subject-tag">DSA</span>
+                </div>
+                <div class="card-body">
+                    <p>Implement Binary Search Tree with insertion, deletion and traversal operations.</p>
+                    <div class="solution" id="solution-dsa1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="java">Java</button>
+                            <button class="language-tab-btn" data-lang="python">Python</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="java">
+                            <pre><code>class Node {
+    int key;
+    Node left, right;
+    
+    public Node(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+
+class BST {
+    Node root;
+    
+    BST() { root = null; }
+    
+    void insert(int key) { root = insertRec(root, key); }
+    
+    Node insertRec(Node root, int key) {
+        if(root == null) {
+            root = new Node(key);
+            return root;
+        }
+        
+        if(key < root.key)
+            root.left = insertRec(root.left, key);
+        else if(key > root.key)
+            root.right = insertRec(root.right, key);
+            
+        return root;
+    }
+    
+    void inorder() { inorderRec(root); }
+    
+    void inorderRec(Node root) {
+        if(root != null) {
+            inorderRec(root.left);
+            System.out.print(root.key + " ");
+            inorderRec(root.right);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BST tree = new BST();
+        tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(70);
+        tree.insert(60);
+        tree.insert(80);
+        
+        tree.inorder(); // Prints in sorted order
+    }
+}</code></pre>
+                        </div>
+                        <div class="language-tab-content" data-lang="python">
+                            <pre><code>class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.val = key
+
+class BST:
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, key):
+        if self.root is None:
+            self.root = Node(key)
+        else:
+            self._insert(self.root, key)
+    
+    def _insert(self, node, key):
+        if key < node.val:
+            if node.left is None:
+                node.left = Node(key)
+            else:
+                self._insert(node.left, key)
+        else:
+            if node.right is None:
+                node.right = Node(key)
+            else:
+                self._insert(node.right, key)
+    
+    def inorder(self):
+        return self._inorder(self.root, [])
+    
+    def _inorder(self, node, result):
+        if node:
+            self._inorder(node.left, result)
+            result.append(node.val)
+            self._inorder(node.right, result)
+        return result
+
+# Example usage
+bst = BST()
+bst.insert(50)
+bst.insert(30)
+bst.insert(20)
+bst.insert(40)
+bst.insert(70)
+bst.insert(60)
+bst.insert(80)
+
+print(bst.inorder())  # Prints in sorted order</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-dsa1">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- DAA Questions -->
+            <div class="question-card" data-subject="daa">
+                <div class="card-header">
+                    <span>8. Dijkstra's Algorithm</span>
+                    <span class="subject-tag">DAA</span>
+                </div>
+                <div class="card-body">
+                    <p>Implement Dijkstra's algorithm to find shortest paths in a graph.</p>
+                    <div class="solution" id="solution-daa1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="java">Java</button>
+                            <button class="language-tab-btn" data-lang="python">Python</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="java">
+                            <pre><code>import java.util.*;
+
+class Graph {
+    private int V;
+    private List&lt;List&lt;Node&gt;&gt; adj;
+    
+    Graph(int v) {
+        V = v;
+        adj = new ArrayList&lt;&gt;(v);
+        for(int i=0; i&lt;v; i++)
+            adj.add(new ArrayList&lt;&gt;());
+    }
+    
+    void addEdge(int u, int v, int weight) {
+        adj.get(u).add(new Node(v, weight));
+        adj.get(v).add(new Node(u, weight)); // Undirected graph
+    }
+    
+    void dijkstra(int src) {
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+        
+        PriorityQueue&lt;Node&gt; pq = new PriorityQueue&lt;&gt;(V, Comparator.comparingInt(a -> a.weight));
+        pq.add(new Node(src, 0));
+        
+        while(!pq.isEmpty()) {
+            Node node = pq.poll();
+            int u = node.vertex;
+            
+            for(Node neighbor : adj.get(u)) {
+                int v = neighbor.vertex;
+                int weight = neighbor.weight;
+                
+                if(dist[v] > dist[u] + weight) {
+                    dist[v] = dist[u] + weight;
+                    pq.add(new Node(v, dist[v]));
+                }
+            }
+        }
+        
+        System.out.println("Vertex Distance from Source");
+        for(int i=0; i&lt;V; i++)
+            System.out.println(i + "\t\t" + dist[i]);
+    }
+    
+    class Node {
+        int vertex, weight;
+        Node(int v, int w) { vertex = v; weight = w; }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Graph g = new Graph(5);
+        g.addEdge(0, 1, 4);
+        g.addEdge(0, 2, 8);
+        g.addEdge(1, 2, 2);
+        g.addEdge(1, 3, 5);
+        g.addEdge(2, 3, 5);
+        g.addEdge(2, 4, 9);
+        g.addEdge(3, 4, 4);
+        
+        g.dijkstra(0);
+    }
+}</code></pre>
+                        </div>
+                        <div class="language-tab-content" data-lang="python">
+                            <pre><code>import heapq
+
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = [[] for _ in range(vertices)]
+    
+    def add_edge(self, u, v, w):
+        self.graph[u].append((v, w))
+        self.graph[v].append((u, w))  # Undirected graph
+    
+    def dijkstra(self, src):
+        dist = [float('inf')] * self.V
+        dist[src] = 0
+        heap = [(0, src)]
+        
+        while heap:
+            current_dist, u = heapq.heappop(heap)
+            
+            if current_dist > dist[u]:
+                continue
+                
+            for v, weight in self.graph[u]:
+                if dist[v] > dist[u] + weight:
+                    dist[v] = dist[u] + weight
+                    heapq.heappush(heap, (dist[v], v))
+        
+        print("Vertex Distance from Source")
+        for i in range(self.V):
+            print(f"{i}\t\t{dist[i]}")
+
+# Example usage
+g = Graph(5)
+g.add_edge(0, 1, 4)
+g.add_edge(0, 2, 8)
+g.add_edge(1, 2, 2)
+g.add_edge(1, 3, 5)
+g.add_edge(2, 3, 5)
+g.add_edge(2, 4, 9)
+g.add_edge(3, 4, 4)
+
+g.dijkstra(0)</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-daa1">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- DSP Questions -->
+            <div class="question-card" data-subject="dsp">
+                <div class="card-header">
+                    <span>9. FIR Filter</span>
+                    <span class="subject-tag">DSP</span>
+                </div>
+                <div class="card-body">
+                    <p>Implement a Finite Impulse Response (FIR) filter in Python.</p>
+                    <div class="solution" id="solution-dsp1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="python">Python</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="python">
+                            <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+def fir_filter(input_signal, coefficients):
+    output = np.zeros_like(input_signal)
+    n_coeff = len(coefficients)
+    
+    for i in range(len(input_signal)):
+        for j in range(n_coeff):
+            if i - j >= 0:
+                output[i] += coefficients[j] * input_signal[i - j]
+    
+    return output
+
+# Example usage
+fs = 1000  # Sampling frequency
+t = np.arange(0, 1, 1/fs)
+f1, f2 = 50, 250  # Signal frequencies
+
+# Create a signal with two frequencies
+signal = np.sin(2 * np.pi * f1 * t) + 0.5 * np.sin(2 * np.pi * f2 * t)
+
+# Design a low-pass FIR filter to remove the higher frequency
+cutoff = 100  # Cutoff frequency
+nyquist = 0.5 * fs
+normal_cutoff = cutoff / nyquist
+numtaps = 101  # Number of filter coefficients
+
+# Create filter coefficients (Hamming window)
+taps = np.sinc(2 * normal_cutoff * (np.arange(numtaps) - (numtaps - 1) / 2))
+taps *= np.hamming(numtaps)
+taps /= np.sum(taps)
+
+# Apply the filter
+filtered_signal = fir_filter(signal, taps)
+
+# Plot results
+plt.figure(figsize=(10, 6))
+plt.plot(t, signal, label='Original Signal')
+plt.plot(t, filtered_signal, label='Filtered Signal')
+plt.xlabel('Time [s]')
+plt.ylabel('Amplitude')
+plt.legend()
+plt.grid()
+plt.show()</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-dsp1">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- Web Tech Questions -->
+            <div class="question-card" data-subject="wt">
+                <div class="card-header">
+                    <span>10. AJAX Implementation</span>
+                    <span class="subject-tag">Web Tech</span>
+                </div>
+                <div class="card-body">
+                    <p>Create a web page that fetches data from an API using AJAX and displays it.</p>
+                    <div class="solution" id="solution-wt1">
+                        <div class="language-tabs">
+                            <button class="language-tab-btn active" data-lang="html">HTML/JS</button>
+                        </div>
+                        <div class="language-tab-content active" data-lang="html">
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;AJAX Example&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #posts { margin-top: 20px; }
+        .post { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        .post h3 { margin-top: 0; }
+        button { padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #45a049; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;AJAX Demo&lt;/h1&gt;
+    &lt;button id="fetchBtn"&gt;Fetch Posts&lt;/button&gt;
+    &lt;div id="posts"&gt;&lt;/div&gt;
+
+    &lt;script&gt;
+        document.getElementById('fetchBtn').addEventListener('click', fetchPosts);
+        
+        function fetchPosts() {
+            const postsDiv = document.getElementById('posts');
+            postsDiv.innerHTML = '&lt;p&gt;Loading...&lt;/p&gt;';
+            
+            // Using Fetch API
+            fetch('https://jsonplaceholder.typicode.com/posts')
+                .then(response => {
+                    if(!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    postsDiv.innerHTML = '';
+                    data.slice(0, 5).forEach(post => {
+                        const postDiv = document.createElement('div');
+                        postDiv.className = 'post';
+                        postDiv.innerHTML = `
+                            &lt;h3&gt;${post.title}&lt;/h3&gt;
+                            &lt;p&gt;${post.body}&lt;/p&gt;
+                        `;
+                        postsDiv.appendChild(postDiv);
+                    });
+                })
+                .catch(error => {
+                    postsDiv.innerHTML = `&lt;p style="color: red;"&gt;Error: ${error.message}&lt;/p&gt;`;
+                });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="solution-btn" data-target="solution-wt1">View Solution</button>
+                </div>
+            </div>
+            
+            <!-- Additional questions would follow the same pattern -->
+            
+        </div>
+        
+        <footer>
+            <p>© 2023 CS Lab Questions | Important questions for C, Java, Python, DSA, DAA, DSP, and Web Technologies</p>
+        </footer>
+    </div>
+
+    <script>
+        // Subject filtering
+        document.querySelectorAll('.subject-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const subject = btn.getAttribute('data-subject');
+                const questions = document.querySelectorAll('.question-card');
+                
+                questions.forEach(question => {
+                    if(subject === 'all' || question.getAttribute('data-subject') === subject) {
+                        question.style.display = 'block';
+                    } else {
+                        question.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Solution toggling
+        document.querySelectorAll('.solution-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const solution = document.getElementById(targetId);
+                
+                if(solution.classList.contains('active')) {
+                    solution.classList.remove('active');
+                    btn.textContent = 'View Solution';
+                } else {
+                    solution.classList.add('active');
+                    btn.textContent = 'Hide Solution';
+                }
+            });
+        });
+        
+        // Language tabs within solutions
+        document.querySelectorAll('.language-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabsContainer = btn.closest('.language-tabs');
+                const solution = btn.closest('.solution');
+                
+                // Update active tab button
+                tabsContainer.querySelectorAll('.language-tab-btn').forEach(tabBtn => {
+                    tabBtn.classList.remove('active');
+                });
+                btn.classList.add('active');
+                
+                // Update active content
+                const lang = btn.getAttribute('data-lang');
+                solution.querySelectorAll('.language-tab-content').forEach(content => {
+                    content.classList.remove('active');
+                    if(content.getAttribute('data-lang') === lang) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

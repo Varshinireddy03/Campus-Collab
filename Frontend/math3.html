@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability and Statistics Lecture Guide</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #0c2986;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin-top: 30px;
+        }
+        
+        h4 {
+            color: var(--accent);
+            margin-top: 25px;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .concept-box {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .example-box {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px dashed var(--secondary);
+        }
+        
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .visual-aid {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .resources {
+            background-color: #d4e6f1;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .toc {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .toc ul {
+            columns: 2;
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .toc li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+        
+        .definition {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .interactive {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Probability and Statistics Lecture Guide</h1>
+    <p style="text-align: center; color: var(--light-text);">Fundamental concepts with practical applications and examples</p>
+    
+    <div class="toc">
+        <h2>📜 Table of Contents</h2>
+        <ul>
+            <li><a href="#probability-basics">Probability Basics</a></li>
+            <li><a href="#random-variables">Random Variables</a></li>
+            <li><a href="#distributions">Probability Distributions</a></li>
+            <li><a href="#descriptive-stats">Descriptive Statistics</a></li>
+            <li><a href="#inferential-stats">Inferential Statistics</a></li>
+            <li><a href="#hypothesis-testing">Hypothesis Testing</a></li>
+            <li><a href="#regression">Regression Analysis</a></li>
+            <li><a href="#resources">Learning Resources</a></li>
+        </ul>
+    </div>
+
+    <!-- Probability Basics Section -->
+    <div id="probability-basics" class="section">
+        <h2>🎲 Probability Basics</h2>
+        
+        <div class="definition">
+            <p><strong>Probability</strong> is a measure of the likelihood that an event will occur, quantified as a number between 0 (impossible) and 1 (certain).</p>
+        </div>
+        
+        <div class="concept-box">
+            <h3>Fundamental Concepts</h3>
+            
+            <h4>1. Sample Space (S)</h4>
+            <p>The set of all possible outcomes of an experiment.</p>
+            <div class="example-box">
+                <p><strong>Example:</strong> When rolling a die:</p>
+                <p>S = {1, 2, 3, 4, 5, 6}</p>
+            </div>
+            
+            <h4>2. Events</h4>
+            <p>A subset of the sample space.</p>
+            <div class="example-box">
+                <p><strong>Example:</strong> Event A = "Rolling an even number"</p>
+                <p>A = {2, 4, 6}</p>
+            </div>
+            
+            <h4>3. Probability Rules</h4>
+            <div class="formula">
+                P(A) = Number of favorable outcomes / Total number of possible outcomes
+            </div>
+            <div class="example-box">
+                <p><strong>Example:</strong> Probability of rolling a 3 on a fair die:</p>
+                <div class="formula">
+                    P(3) = 1/6 ≈ 0.1667
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept-box">
+            <h3>Probability Rules and Theorems</h3>
+            
+            <h4>Addition Rule</h4>
+            <div class="formula">
+                P(A ∪ B) = P(A) + P(B) - P(A ∩ B)
+            </div>
+            <p>For mutually exclusive events: P(A ∩ B) = 0</p>
+            
+            <h4>Multiplication Rule</h4>
+            <div class="formula">
+                P(A ∩ B) = P(A) × P(B|A)
+            </div>
+            <p>For independent events: P(B|A) = P(B)</p>
+            
+            <h4>Bayes' Theorem</h4>
+            <div class="formula">
+                P(A|B) = [P(B|A) × P(A)] / P(B)
+            </div>
+            
+            <div class="example-box">
+                <h4>Medical Test Example</h4>
+                <p>Suppose:</p>
+                <ul>
+                    <li>Disease prevalence P(D) = 1%</li>
+                    <li>Test sensitivity P(T+|D) = 99%</li>
+                    <li>Test specificity P(T-|¬D) = 95%</li>
+                </ul>
+                <p>Probability of having disease given positive test:</p>
+                <div class="formula">
+                    P(D|T+) = [P(T+|D)P(D)] / [P(T+|D)P(D) + P(T+|¬D)P(¬D)] = (0.99×0.01)/(0.99×0.01 + 0.05×0.99) ≈ 16.7%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Random Variables Section -->
+    <div id="random-variables" class="section">
+        <h2>📊 Random Variables</h2>
+        
+        <div class="definition">
+            <p>A <strong>random variable</strong> is a variable whose possible values are numerical outcomes of a random phenomenon.</p>
+        </div>
+        
+        <div class="concept-box">
+            <h3>Types of Random Variables</h3>
+            
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Examples</th>
+                </tr>
+                <tr>
+                    <td>Discrete</td>
+                    <td>Countable number of distinct values</td>
+                    <td>Number of customers, dice rolls</td>
+                </tr>
+                <tr>
+                    <td>Continuous</td>
+                    <td>Uncountable values within an interval</td>
+                    <td>Height, weight, time</td>
+                </tr>
+            </table>
+            
+            <h4>Probability Mass Function (PMF)</h4>
+            <p>For discrete random variables:</p>
+            <div class="formula">
+                p(x) = P(X = x)
+            </div>
+            
+            <h4>Probability Density Function (PDF)</h4>
+            <p>For continuous random variables:</p>
+            <div class="formula">
+                P(a ≤ X ≤ b) = ∫<sub>a</sub><sup>b</sup> f(x) dx
+            </div>
+        </div>
+        
+        <div class="concept-box">
+            <h3>Expected Value and Variance</h3>
+            
+            <h4>Expected Value (Mean)</h4>
+            <div class="formula">
+                E[X] = Σ x·p(x) (Discrete)<br>
+                E[X] = ∫ x·f(x) dx (Continuous)
+            </div>
+            
+            <h4>Variance</h4>
+            <div class="formula">
+                Var(X) = E[(X - μ)<sup>2</sup>] = E[X<sup>2</sup>] - (E[X])<sup>2</sup>
+            </div>
+            
+            <h4>Standard Deviation</h4>
+            <div class="formula">
+                σ = √Var(X)
+            </div>
+            
+            <div class="example-box">
+                <h4>Dice Roll Example</h4>
+                <p>For a fair six-sided die:</p>
+                <div class="formula">
+                    E[X] = (1+2+3+4+5+6)/6 = 3.5<br>
+                    Var(X) = [(1-3.5)² + (2-3.5)² + ... + (6-3.5)²]/6 ≈ 2.92<br>
+                    σ ≈ √2.92 ≈ 1.71
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Probability Distributions Section -->
+    <div id="distributions" class="section">
+        <h2>📈 Probability Distributions</h2>
+        
+        <div class="concept-box">
+            <h3>Discrete Distributions</h3>
+            
+            <h4>Binomial Distribution</h4>
+            <p>Models number of successes in n independent trials</p>
+            <div class="formula">
+                P(X=k) = C(n,k) p<sup>k</sup>(1-p)<sup>n-k</sup>
+            </div>
+            <p>Where C(n,k) is the combination formula</p>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong> Probability of 3 heads in 5 coin flips (p=0.5):</p>
+                <div class="formula">
+                    P(X=3) = C(5,3) (0.5)<sup>3</sup>(0.5)<sup>2</sup> = 10 × 0.125 × 0.25 = 0.3125
+                </div>
+            </div>
+            
+            <h4>Poisson Distribution</h4>
+            <p>Models rare events over time/space</p>
+            <div class="formula">
+                P(X=k) = (e<sup>-λ</sup> λ<sup>k</sup>) / k!
+            </div>
+        </div>
+        
+        <div class="concept-box">
+            <h3>Continuous Distributions</h3>
+            
+            <h4>Normal Distribution</h4>
+            <p>The "bell curve" with mean μ and variance σ²</p>
+            <div class="formula">
+                f(x) = (1/√(2πσ²)) e<sup>-(x-μ)²/(2σ²)</sup>
+            </div>
+            
+            <div class="visual-aid">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Normal_Distribution_PDF.svg" alt="Normal Distribution" style="max-width: 100%; height: auto;">
+                <p>Standard normal distribution (μ=0, σ=1)</p>
+            </div>
+            
+            <h4>Central Limit Theorem</h4>
+            <p>The sum of a large number of independent random variables is approximately normally distributed.</p>
+        </div>
+    </div>
+
+    <!-- Descriptive Statistics Section -->
+    <div id="descriptive-stats" class="section">
+        <h2>📉 Descriptive Statistics</h2>
+        
+        <div class="concept-box">
+            <h3>Measures of Central Tendency</h3>
+            
+            <table>
+                <tr>
+                    <th>Measure</th>
+                    <th>Formula</th>
+                    <th>When to Use</th>
+                </tr>
+                <tr>
+                    <td>Mean</td>
+                    <td>μ = (Σx)/n</td>
+                    <td>Normal distributions</td>
+                </tr>
+                <tr>
+                    <td>Median</td>
+                    <td>Middle value</td>
+                    <td>Skewed distributions</td>
+                </tr>
+                <tr>
+                    <td>Mode</td>
+                    <td>Most frequent value</td>
+                    <td>Categorical data</td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example Dataset:</strong> 3, 5, 7, 7, 8, 10, 12</p>
+                <ul>
+                    <li>Mean = (3+5+7+7+8+10+12)/7 ≈ 7.43</li>
+                    <li>Median = 7 (4th value)</li>
+                    <li>Mode = 7 (appears twice)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="concept-box">
+            <h3>Measures of Dispersion</h3>
+            
+            <table>
+                <tr>
+                    <th>Measure</th>
+                    <th>Formula</th>
+                    <th>Interpretation</th>
+                </tr>
+                <tr>
+                    <td>Range</td>
+                    <td>Max - Min</td>
+                    <td>Total spread</td>
+                </tr>
+                <tr>
+                    <td>Variance</td>
+                    <td>σ² = Σ(x-μ)²/n</td>
+                    <td>Squared deviations</td>
+                </tr>
+                <tr>
+                    <td>Standard Deviation</td>
+                    <td>σ = √σ²</td>
+                    <td>Typical deviation</td>
+                </tr>
+                <tr>
+                    <td>IQR</td>
+                    <td>Q3 - Q1</td>
+                    <td>Middle 50% spread</td>
+                </tr>
+            </table>
+            
+            <div class="visual-aid">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Boxplot_vs_PDF.svg/1200px-Boxplot_vs_PDF.svg.png" alt="Boxplot" style="max-width: 100%; height: auto;">
+                <p>Boxplot showing quartiles and outliers</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Section -->
+    <div id="resources" class="resources">
+        <h2>🌐 Learning Resources</h2>
+        
+        <h3>Recommended Textbooks</h3>
+        <ul>
+            <li>"Introduction to Probability" by Joseph K. Blitzstein</li>
+            <li>"All of Statistics" by Larry Wasserman</li>
+            <li>"The Practice of Statistics" by Daren S. Starnes</li>
+        </ul>
+        
+        <h3>Online Courses</h3>
+        <ul>
+            <li><a href="https://www.edx.org/course/probability-the-science-of-uncertainty-and-data" target="_blank">MIT Probability - edX</a></li>
+            <li><a href="https://www.coursera.org/learn/probability-intro" target="_blank">Introduction to Probability and Data - Coursera</a></li>
+            <li><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank">Khan Academy Statistics & Probability</a></li>
+        </ul>
+        
+        <h3>Interactive Tools</h3>
+        <ul>
+            <li><a href="https://seeing-theory.brown.edu/" target="_blank">Seeing Theory</a> (Visual probability concepts)</li>
+            <li><a href="https://istats.shinyapps.io/ExploreDist/" target="_blank">Distribution Explorer</a></li>
+            <li><a href="https://www.desmos.com/" target="_blank">Desmos Graphing Calculator</a></li>
+        </ul>
+    </div>
+
+    <footer style="text-align: center; margin-top: 50px; padding: 20px; color: var(--light-text);">
+        <p>© 2023 Probability and Statistics Lecture Guide</p>
+    </footer>
+</body>
+</html>

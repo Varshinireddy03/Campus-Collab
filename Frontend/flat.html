@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formal Languages and Automata Theory</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            background-color: #eaf2f8;
+            padding: 10px 15px;
+            border-left: 4px solid #3498db;
+        }
+        h3 {
+            border-bottom: 1px dashed #bdc3c7;
+            padding-bottom: 5px;
+        }
+        .unit {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+        .definition {
+            background-color: #e8f8f5;
+            padding: 12px 15px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .example {
+            background-color: #fef9e7;
+            padding: 12px 15px;
+            border-left: 4px solid #f39c12;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .algorithm {
+            background-color: #f5eef8;
+            padding: 12px 15px;
+            border-left: 4px solid #9b59b6;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            border-radius: 0 4px 4px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .important {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .comparison {
+            background-color: #ebf5fb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formal Languages and Automata Theory</h1>
+        
+        <div class="unit">
+            <h2>UNIT I: Introduction to Automata (6 Contact Hours)</h2>
+            
+            <div class="definition">
+                <strong>Alphabet (Σ):</strong> A finite, non-empty set of symbols.
+                <br><strong>String:</strong> A finite sequence of symbols from an alphabet.
+                <br><strong>Language:</strong> A set of strings chosen from some alphabet.
+            </div>
+            
+            <h3>Operations on Languages</h3>
+            <ul>
+                <li><strong>Union:</strong> L ∪ M = {s | s ∈ L or s ∈ M}</li>
+                <li><strong>Concatenation:</strong> LM = {st | s ∈ L and t ∈ M}</li>
+                <li><strong>Kleene Star:</strong> L* = {ε} ∪ L ∪ LL ∪ LLL ∪ ...</li>
+            </ul>
+            
+            <h3>Finite Automata</h3>
+            <div class="definition">
+                <strong>Finite Automaton (FA):</strong> A 5-tuple (Q, Σ, δ, q₀, F) where:
+                <ul>
+                    <li>Q: Finite set of states</li>
+                    <li>Σ: Finite input alphabet</li>
+                    <li>δ: Transition function (Q × Σ → Q)</li>
+                    <li>q₀: Initial state (q₀ ∈ Q)</li>
+                    <li>F: Set of final states (F ⊆ Q)</li>
+                </ul>
+            </div>
+            
+            <div class="comparison">
+                <h4>DFA vs NFA</h4>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>DFA</th>
+                        <th>NFA</th>
+                    </tr>
+                    <tr>
+                        <td>Transition</td>
+                        <td>Exactly one transition per symbol</td>
+                        <td>Zero or more transitions per symbol</td>
+                    </tr>
+                    <tr>
+                        <td>ε-transitions</td>
+                        <td>Not allowed</td>
+                        <td>Allowed</td>
+                    </tr>
+                    <tr>
+                        <td>Determinism</td>
+                        <td>Deterministic</td>
+                        <td>Non-deterministic</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="example">
+                <h4>Example DFA</h4>
+                <p>DFA accepting strings with even number of 0's:</p>
+                <div class="diagram">
+                    [q₀] --0--> [q₁]
+                    [q₀] --1--> [q₀]
+                    [q₁] --0--> [q₀]
+                    [q₁] --1--> [q₁]
+                    <p>Final state: q₀</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT II: Finite Automata (9 Contact Hours)</h2>
+            
+            <h3>NFA with ε-transitions</h3>
+            <div class="definition">
+                <strong>ε-NFA:</strong> Allows transitions on empty string ε in addition to alphabet symbols.
+                <br><strong>ε-closure:</strong> Set of states reachable from a state using only ε-transitions.
+            </div>
+            
+            <h3>Conversions and Equivalence</h3>
+            <ol>
+                <li><strong>ε-NFA to NFA:</strong> Compute ε-closures and adjust transitions</li>
+                <li><strong>NFA to DFA:</strong> Subset construction method</li>
+                <li><strong>Minimization of DFA:</strong> Myhill-Nerode theorem or table filling algorithm</li>
+            </ol>
+            
+            <div class="algorithm">
+                <strong>NFA to DFA Conversion Steps:</strong>
+                1. Start with ε-closure of initial state
+                2. For each state in DFA and each input symbol:
+                   a. Compute move to new state set
+                   b. Take ε-closure of result
+                3. Mark as final if contains any NFA final states
+            </div>
+            
+            <h3>Finite Automata with Output</h3>
+            <div class="comparison">
+                <h4>Moore vs Mealy Machines</h4>
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Moore Machine</th>
+                        <th>Mealy Machine</th>
+                    </tr>
+                    <tr>
+                        <td>Output depends on</td>
+                        <td>Current state only</td>
+                        <td>Current state and input</td>
+                    </tr>
+                    <tr>
+                        <td>Output timing</td>
+                        <td>After state transition</td>
+                        <td>During state transition</td>
+                    </tr>
+                    <tr>
+                        <td>States required</td>
+                        <td>Generally more</td>
+                        <td>Generally fewer</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT III: Regular Languages (6 Contact Hours)</h2>
+            
+            <div class="definition">
+                <strong>Regular Expression:</strong> Algebraic notation for describing regular languages.
+                <br>Operations: Union (|), Concatenation (·), Kleene star (*)
+            </div>
+            
+            <h3>Regular Expression Identities</h3>
+            <table>
+                <tr>
+                    <th>Identity</th>
+                    <th>Rule</th>
+                </tr>
+                <tr>
+                    <td>Union Commutativity</td>
+                    <td>R + S = S + R</td>
+                </tr>
+                <tr>
+                    <td>Union Associativity</td>
+                    <td>(R + S) + T = R + (S + T)</td>
+                </tr>
+                <tr>
+                    <td>Concatenation Associativity</td>
+                    <td>(RS)T = R(ST)</td>
+                </tr>
+                <tr>
+                    <td>Distributive</td>
+                    <td>R(S + T) = RS + RT</td>
+                </tr>
+            </table>
+            
+            <h3>Finite Automata ↔ Regular Expressions</h3>
+            <p><strong>RE to FA:</strong> Thompson's construction algorithm</p>
+            <p><strong>FA to RE:</strong> Arden's theorem or state elimination method</p>
+            
+            <div class="definition">
+                <strong>Pumping Lemma for Regular Languages:</strong>
+                For any regular language L, ∃ p (pumping length) such that ∀ s ∈ L with |s| ≥ p,
+                s can be divided into xyz where:
+                <ol>
+                    <li>|xy| ≤ p</li>
+                    <li>|y| ≥ 1</li>
+                    <li>xyⁱz ∈ L for all i ≥ 0</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT IV: Grammars (9 Contact Hours)</h2>
+            
+            <h3>Regular Grammars</h3>
+            <div class="definition">
+                <strong>Right Linear Grammar:</strong> All productions of form:
+                <ul>
+                    <li>A → aB</li>
+                    <li>A → a</li>
+                    <li>A → ε</li>
+                </ul>
+                <strong>Left Linear Grammar:</strong> All productions of form:
+                <ul>
+                    <li>A → Ba</li>
+                    <li>A → a</li>
+                    <li>A → ε</li>
+                </ul>
+            </div>
+            
+            <h3>Context-Free Grammars (CFG)</h3>
+            <div class="definition">
+                <strong>CFG:</strong> 4-tuple (V, Σ, P, S) where:
+                <ul>
+                    <li>V: Finite set of variables</li>
+                    <li>Σ: Finite set of terminals</li>
+                    <li>P: Finite set of productions (A → α)</li>
+                    <li>S: Start variable</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>Derivations</h4>
+                <p><strong>Leftmost derivation:</strong> Always replace leftmost variable first</p>
+                <p><strong>Rightmost derivation:</strong> Always replace rightmost variable first</p>
+                <p><strong>Parse tree:</strong> Graphical representation of derivation</p>
+            </div>
+            
+            <h3>Normal Forms</h3>
+            <div class="comparison">
+                <h4>Chomsky vs Greibach Normal Form</h4>
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Chomsky NF</th>
+                        <th>Greibach NF</th>
+                    </tr>
+                    <tr>
+                        <td>Production forms</td>
+                        <td>A → BC or A → a</td>
+                        <td>A → aα (|α| ≥ 0)</td>
+                    </tr>
+                    <tr>
+                        <td>ε-productions</td>
+                        <td>Only S → ε if ε ∈ L</td>
+                        <td>Only S → ε if ε ∈ L</td>
+                    </tr>
+                    <tr>
+                        <td>Usefulness</td>
+                        <td>CYK algorithm</td>
+                        <td>Easier parsing</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="definition">
+                <strong>Pumping Lemma for CFLs:</strong>
+                For any CFL L, ∃ p such that ∀ s ∈ L with |s| ≥ p,
+                s can be divided into uvxyz where:
+                <ol>
+                    <li>|vxy| ≤ p</li>
+                    <li>|vy| ≥ 1</li>
+                    <li>uvⁱxyⁱz ∈ L for all i ≥ 0</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT V: Push Down Automata (7 Contact Hours)</h2>
+            
+            <div class="definition">
+                <strong>Pushdown Automaton (PDA):</strong> 7-tuple (Q, Σ, Γ, δ, q₀, Z₀, F) where:
+                <ul>
+                    <li>Q: Finite set of states</li>
+                    <li>Σ: Input alphabet</li>
+                    <li>Γ: Stack alphabet</li>
+                    <li>δ: Transition function (Q × (Σ ∪ {ε}) × Γ → finite subsets of Q × Γ*)</li>
+                    <li>q₀: Initial state</li>
+                    <li>Z₀: Initial stack symbol</li>
+                    <li>F: Set of final states</li>
+                </ul>
+            </div>
+            
+            <h3>Acceptance Modes</h3>
+            <ul>
+                <li><strong>Final State Acceptance:</strong> PDA accepts if reaches final state</li>
+                <li><strong>Empty Stack Acceptance:</strong> PDA accepts if empties stack</li>
+            </ul>
+            
+            <div class="example">
+                <h4>Example PDA for aⁿbⁿ</h4>
+                <div class="algorithm">
+                    1. Read a's and push onto stack
+                    2. Read b's and pop a's from stack
+                    3. Accept if stack empty after reading all input
+                </div>
+            </div>
+            
+            <h3>Deterministic PDA</h3>
+            <div class="definition">
+                <strong>Deterministic PDA (DPDA):</strong>
+                <ul>
+                    <li>No ε-transitions that compete with input transitions</li>
+                    <li>Never a choice of moves for any (state, input, stack) combination</li>
+                </ul>
+                <strong>DCFL:</strong> Languages accepted by DPDA with final state acceptance
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT VI: Turing Machine & Computability Theory (8 Contact Hours)</h2>
+            
+            <div class="definition">
+                <strong>Turing Machine (TM):</strong> 7-tuple (Q, Σ, Γ, δ, q₀, B, F) where:
+                <ul>
+                    <li>Q: Finite set of states</li>
+                    <li>Σ: Input alphabet</li>
+                    <li>Γ: Tape alphabet (Σ ⊆ Γ)</li>
+                    <li>δ: Transition function (Q × Γ → Q × Γ × {L, R})</li>
+                    <li>q₀: Initial state</li>
+                    <li>B: Blank symbol (B ∈ Γ, B ∉ Σ)</li>
+                    <li>F: Set of final states</li>
+                </ul>
+            </div>
+            
+            <h3>Language Classes</h3>
+            <table>
+                <tr>
+                    <th>Class</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Recursive</td>
+                    <td>TM always halts (decidable)</td>
+                </tr>
+                <tr>
+                    <td>Recursively Enumerable</td>
+                    <td>TM may not halt for strings not in language (semi-decidable)</td>
+                </tr>
+            </table>
+            
+            <h3>Church-Turing Thesis</h3>
+            <div class="definition">
+                <strong>Church's Hypothesis:</strong> Any function that can be computed by an algorithm can be computed by a Turing machine.
+                <br><strong>Variants:</strong> Multi-tape TM, Non-deterministic TM, etc. are all equivalent in computational power.
+            </div>
+            
+            <h3>Undecidability</h3>
+            <ul>
+                <li><strong>Halting Problem:</strong> Cannot determine if arbitrary TM halts on given input</li>
+                <li><strong>Rice's Theorem:</strong> All non-trivial semantic properties of programs are undecidable</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

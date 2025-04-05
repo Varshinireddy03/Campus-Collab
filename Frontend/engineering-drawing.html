@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Drawing - First Year Engineering</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      background: linear-gradient(135deg, #1a2d83 0%, #3498db 100%);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      background: #1a2d83;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #142363;
+    }
+    .content-section {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+    }
+    h2 {
+      color: #1a2d83;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 0.5rem;
+      margin-top: 2rem;
+    }
+    .unit-card {
+      background: #f1f8fe;
+      border-left: 4px solid #3498db;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .resource-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1rem;
+      transition: transform 0.3s;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .resource-card h3 {
+      margin-top: 0;
+      color: #1a2d83;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #1a2d83;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #142363;
+    }
+    .software-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .software-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      width: calc(33% - 1rem);
+      min-width: 200px;
+    }
+    @media (max-width: 768px) {
+      .resources-grid,
+      .software-list {
+        grid-template-columns: 1fr;
+      }
+      .software-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <h1>Engineering Drawing</h1>
+      <p>First Year | Semester 1 | Core Subject</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <a href="course3.html" class="back-btn">← Back to Roadmap</a>
+
+    <div class="content-section">
+      <h2>Course Description</h2>
+      <p>This course introduces the language of engineers through technical drawing. Students learn to communicate design concepts using both manual drafting techniques and computer-aided design (CAD) tools.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Course Content</h2>
+      
+      <div class="unit-card">
+        <h3>Unit 1: Fundamentals of Engineering Drawing</h3>
+        <ul>
+          <li>Drawing instruments and their uses</li>
+          <li>Lettering and dimensioning standards (BIS/ISO)</li>
+          <li>Geometrical constructions</li>
+          <li>Scales and their applications</li>
+        </ul>
+      </div>
+
+      <div class="unit-card">
+        <h3>Unit 2: Orthographic Projections</h3>
+        <ul>
+          <li>First angle vs third angle projection</li>
+          <li>Multiview drawings</li>
+          <li>Auxiliary views</li>
+          <li>Sectional views</li>
+        </ul>
+      </div>
+
+      <div class="unit-card">
+        <h3>Unit 3: Isometric and Perspective Projections</h3>
+        <ul>
+          <li>Isometric scale and isometric drawings</li>
+          <li>Conversion of orthographic to isometric views</li>
+          <li>Perspective drawing fundamentals</li>
+        </ul>
+      </div>
+
+      <div class="unit-card">
+        <h3>Unit 4: Computer-Aided Drafting (CAD)</h3>
+        <ul>
+          <li>Introduction to AutoCAD</li>
+          <li>Basic 2D commands and tools</li>
+          <li>Layer management</li>
+          <li>Creating and editing technical drawings</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>Recommended Software</h2>
+      <div class="software-list">
+        <div class="software-card">
+          <h3>AutoCAD</h3>
+          <p>Industry-standard CAD software for 2D drafting</p>
+          <a href="https://www.autodesk.com/products/autocad" class="btn" target="_blank">Download</a>
+        </div>
+        <div class="software-card">
+          <h3>DraftSight</h3>
+          <p>Free alternative for 2D CAD drawings</p>
+          <a href="https://www.draftsight.com" class="btn" target="_blank">Download</a>
+        </div>
+        <div class="software-card">
+          <h3>LibreCAD</h3>
+          <p>Open-source 2D CAD application</p>
+          <a href="https://librecad.org" class="btn" target="_blank">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>Learning Resources</h2>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3>Textbook</h3>
+          <p><em>"Engineering Drawing"</em> by N.D. Bhatt</p>
+          <a href="engineering-drawing-textbook.pdf" class="btn">Download PDF</a>
+        </div>
+        <div class="resource-card">
+          <h3>Video Tutorials</h3>
+          <p>Complete AutoCAD tutorial series (15 hours)</p>
+          <a href="https://example.com/cad-tutorials" class="btn" target="_blank">Watch Now</a>
+        </div>
+        <div class="resource-card">
+          <h3>Practice Sheets</h3>
+          <p>50+ drawing exercises with solutions</p>
+          <a href="drawing-practice-sheets.pdf" class="btn">Download</a>
+        </div>
+        <div class="resource-card">
+          <h3>BIS Standards</h3>
+          <p>SP 46:2003 Engineering Drawing Practice</p>
+          <a href="bis-standards.pdf" class="btn">Download</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>Assessment Plan</h2>
+      <table style="width:100%; border-collapse: collapse;">
+        <tr style="background-color: #1a2d83; color: white;">
+          <th style="padding: 10px; text-align: left;">Component</th>
+          <th style="padding: 10px; text-align: left;">Weightage</th>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 10px;">Manual Drawing Submissions</td>
+          <td style="padding: 10px;">30%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 10px;">CAD Assignments</td>
+          <td style="padding: 10px;">25%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 10px;">Midterm Exam</td>
+          <td style="padding: 10px;">20%</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;">Final Exam</td>
+          <td style="padding: 10px;">25%</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="content-section">
+      <h2>Important Tips</h2>
+      <ul>
+        <li>Always use proper drawing instruments (never sketch freehand)</li>
+        <li>Maintain consistent line weights (thick for visible edges, thin for construction)</li>
+        <li>Practice dimensioning standards regularly</li>
+        <li>Start learning AutoCAD shortcuts early</li>
+        <li>Keep your drawing sheets clean and smudge-free</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

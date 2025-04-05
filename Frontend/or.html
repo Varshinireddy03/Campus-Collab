@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations Research - Complete Notes</title>
+    <style>
+        :root {
+            --dark-bg: white;
+            --card-bg: white;
+            --primary: #2962ff;
+            --secondary: #448aff;
+            --text:black;
+            --highlight:black;
+            --border: #030303;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1, h2, h3, h4 {
+            color: var(--primary);
+            margin-top: 25px;
+        }
+        
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            background-color: rgba(41, 98, 255, 0.1);
+            padding: 12px 15px;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .unit {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+        }
+        
+        .topic {
+            margin: 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border);
+        }
+        
+        .definition {
+            background-color: rgba(30, 136, 229, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .method {
+            background-color: rgba(187, 134, 252, 0.1);
+            border-left: 4px solid var(--highlight);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .example {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--card-bg);
+        }
+        
+        th, td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(66, 66, 66, 0.5);
+        }
+        
+        .steps {
+            background-color: rgba(41, 98, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .steps ol {
+            padding-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 8px;
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(66, 66, 66, 0.5);
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        .important {
+            color: var(--highlight);
+            font-weight: bold;
+        }
+        
+        .comparison {
+            background-color: rgba(41, 98, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Operations Research - Complete Notes</h1>
+        
+        <div class="unit">
+            <h2>UNIT I: Introduction to Operations Research (6 Contact Hours)</h2>
+            
+            <div class="topic">
+                <h3>Decision Making in OR</h3>
+                <div class="definition">
+                    <strong>Operations Research (OR):</strong> A scientific approach to decision making that seeks to best design and operate systems under conditions requiring allocation of scarce resources.
+                </div>
+                <p>Key characteristics of OR approach:</p>
+                <ul>
+                    <li>System orientation</li>
+                    <li>Use of interdisciplinary teams</li>
+                    <li>Application of scientific method</li>
+                    <li>Uncovering of new problems</li>
+                    <li>Quantification</li>
+                </ul>
+            </div>
+            
+            <div class="topic">
+                <h3>Development and Scope of OR</h3>
+                <p><strong>Historical Development:</strong></p>
+                <ul>
+                    <li>Originated during World War II for military applications</li>
+                    <li>Post-war expansion to industrial and business problems</li>
+                    <li>Growth with computer technology advancement</li>
+                </ul>
+                
+                <p><strong>Scope of OR:</strong></p>
+                <table>
+                    <tr>
+                        <th>Area</th>
+                        <th>Applications</th>
+                    </tr>
+                    <tr>
+                        <td>Finance</td>
+                        <td>Portfolio optimization, Risk analysis</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing</td>
+                        <td>Media selection, Product mix</td>
+                    </tr>
+                    <tr>
+                        <td>Production</td>
+                        <td>Inventory control, Facility planning</td>
+                    </tr>
+                    <tr>
+                        <td>Personnel</td>
+                        <td>Manpower planning, Staff scheduling</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="topic">
+                <h3>OR Methodology</h3>
+                <div class="steps">
+                    <ol>
+                        <li><strong>Problem Formulation:</strong> Define the problem clearly</li>
+                        <li><strong>Model Construction:</strong> Develop mathematical model</li>
+                        <li><strong>Solution:</strong> Solve using appropriate techniques</li>
+                        <li><strong>Validation:</strong> Test model against real data</li>
+                        <li><strong>Implementation:</strong> Apply solution in real world</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT II: Linear Programming Problems (9 Contact Hours)</h2>
+            
+            <div class="topic">
+                <h3>Introduction to Linear Programming</h3>
+                <div class="definition">
+                    <strong>Linear Programming (LP):</strong> Mathematical technique for maximizing or minimizing a linear function subject to linear constraints.
+                </div>
+                
+                <p>Standard form of LP problem:</p>
+                <div class="formula">
+                    Maximize Z = c₁x₁ + c₂x₂ + ... + cₙxₙ<br>
+                    Subject to:<br>
+                    a₁₁x₁ + a₁₂x₂ + ... + a₁ₙxₙ ≤ b₁<br>
+                    a₂₁x₁ + a₂₂x₂ + ... + a₂ₙxₙ ≤ b₂<br>
+                    ...<br>
+                    x₁, x₂, ..., xₙ ≥ 0
+                </div>
+                
+                <p><strong>Assumptions of LP:</strong></p>
+                <ul>
+                    <li>Proportionality</li>
+                    <li>Additivity</li>
+                    <li>Divisibility</li>
+                    <li>Certainty</li>
+                </ul>
+            </div>
+            
+            <div class="topic">
+                <h3>Graphical Method</h3>
+                <div class="method">
+                    <strong>Steps for Graphical Solution:</strong>
+                    <ol>
+                        <li>Formulate the LP problem</li>
+                        <li>Plot constraints on graph</li>
+                        <li>Identify feasible region</li>
+                        <li>Find corner points of feasible region</li>
+                        <li>Evaluate objective function at each corner point</li>
+                        <li>Select the optimal solution</li>
+                    </ol>
+                </div>
+                
+                <div class="example">
+                    <strong>Example:</strong> Maximize Z = 3x + 5y<br>
+                    Subject to:<br>
+                    x + 2y ≤ 20<br>
+                    3x + y ≤ 30<br>
+                    x, y ≥ 0<br>
+                    <p>Solution: Optimal at (8,6) with Z=54</p>
+                </div>
+            </div>
+            
+            <div class="topic">
+                <h3>Simplex Method</h3>
+                <div class="method">
+                    <strong>Simplex Algorithm Steps:</strong>
+                    <ol>
+                        <li>Convert to standard form</li>
+                        <li>Set up initial simplex tableau</li>
+                        <li>Identify pivot column (most negative coefficient in objective row)</li>
+                        <li>Identify pivot row (minimum ratio test)</li>
+                        <li>Perform pivot operation</li>
+                        <li>Repeat until no negative coefficients in objective row</li>
+                    </ol>
+                </div>
+                
+                <p><strong>Special Cases:</strong></p>
+                <ul>
+                    <li><span class="important">Unboundedness:</span> Solution space is unbounded (no finite optimal solution)</li>
+                    <li><span class="important">Multiple Optima:</span> Alternative optimal solutions exist</li>
+                    <li><span class="important">Degeneracy:</span> Basic variable takes zero value</li>
+                    <li><span class="important">Cycling:</span> Algorithm cycles without reaching optimal solution</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT III: Advanced LP Techniques (9 Contact Hours)</h2>
+            
+            <div class="topic">
+                <h3>Big-M Method</h3>
+                <div class="definition">
+                    <strong>Artificial Variables:</strong> Used when no obvious basic feasible solution exists, especially in ≥ or = constraints.
+                </div>
+                
+                <div class="method">
+                    <strong>Big-M Method Steps:</strong>
+                    <ol>
+                        <li>Add artificial variables to ≥ or = constraints</li>
+                        <li>Assign large penalty M in objective function for artificial variables</li>
+                        <li>Solve modified problem using simplex</li>
+                        <li>If artificial variables remain in basis with positive value → problem is infeasible</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="topic">
+                <h3>Sensitivity Analysis</h3>
+                <p>Examines how changes in parameters affect optimal solution:</p>
+                <ul>
+                    <li><strong>Objective Function Coefficients:</strong> Range of optimality</li>
+                    <li><strong>Right-hand Side Values:</strong> Shadow prices and range of feasibility</li>
+                    <li><strong>Adding New Constraints:</strong> Check if current solution satisfies</li>
+                </ul>
+            </div>
+            
+            <div class="topic">
+                <h3>Duality Theory</h3>
+                <div class="definition">
+                    <strong>Dual Problem:</strong> Every LP problem (primal) has corresponding dual problem with interesting economic interpretations.
+                </div>
+                
+                <table>
+                    <tr>
+                        <th>Primal (Maximization)</th>
+                        <th>Dual (Minimization)</th>
+                    </tr>
+                    <tr>
+                        <td>Objective coefficients</td>
+                        <td>RHS constraints</td>
+                    </tr>
+                    <tr>
+                        <td>RHS constraints</td>
+                        <td>Objective coefficients</td>
+                    </tr>
+                    <tr>
+                        <td>≤ constraints</td>
+                        <td>Non-negative variables</td>
+                    </tr>
+                    <tr>
+                        <td>Unrestricted variables</td>
+                        <td>= constraints</td>
+                    </tr>
+                </table>
+                
+                <p><strong>Economic Interpretation:</strong> Dual variables represent shadow prices - marginal value of resources.</p>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT IV: Transportation and Assignment Problems (9 Contact Hours)</h2>
+            
+            <div class="topic">
+                <h3>Transportation Problem</h3>
+                <div class="definition">
+                    <strong>Transportation Model:</strong> Special LP problem to minimize transportation cost while meeting supply and demand requirements.
+                </div>
+                
+                <p>Standard form:</p>
+                <div class="formula">
+                    Minimize Z = ΣΣ cᵢⱼxᵢⱼ<br>
+                    Subject to:<br>
+                    Σxᵢⱼ = aᵢ (supply constraints)<br>
+                    Σxᵢⱼ = bⱼ (demand constraints)<br>
+                    xᵢⱼ ≥ 0
+                </div>
+                
+                <div class="method">
+                    <strong>Solution Methods:</strong>
+                    <ol>
+                        <li>North-West Corner Rule (initial solution)</li>
+                        <li>Vogel's Approximation Method (better initial solution)</li>
+                        <li>Modified Distribution Method (optimality test)</li>
+                        <li>Stepping Stone Method (optimality test)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="topic">
+                <h3>Assignment Problem</h3>
+                <div class="definition">
+                    <strong>Assignment Model:</strong> Special case of transportation problem where each source is assigned to exactly one destination (one-to-one matching).
+                </div>
+                
+                <div class="method">
+                    <strong>Hungarian Method Steps:</strong>
+                    <ol>
+                        <li>Row reduction: Subtract smallest entry in each row</li>
+                        <li>Column reduction: Subtract smallest entry in each column</li>
+                        <li>Draw minimum lines to cover all zeros</li>
+                        <li>If lines = n, optimal solution exists</li>
+                        <li>Else, modify matrix and repeat</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT V: Queuing Theory (7 Contact Hours)</h2>
+            
+            <div class="topic">
+                <h3>Queuing System Elements</h3>
+                <ul>
+                    <li><strong>Arrival Process:</strong> Poisson distribution (λ = arrival rate)</li>
+                    <li><strong>Service Process:</strong> Exponential distribution (μ = service rate)</li>
+                    <li><strong>Queue Discipline:</strong> FIFO, LIFO, Priority, etc.</li>
+                    <li><strong>System Capacity:</strong> Finite or infinite</li>
+                </ul>
+                
+                <p><strong>Kendall's Notation:</strong> A/B/c/K/m/Z</p>
+                <ul>
+                    <li>A: Arrival process</li>
+                    <li>B: Service time distribution</li>
+                    <li>c: Number of servers</li>
+                    <li>K: System capacity</li>
+                    <li>m: Population size</li>
+                    <li>Z: Service discipline</li>
+                </ul>
+            </div>
+            
+            <div class="topic">
+                <h3>M/M/1 Queue Model</h3>
+                <p>Single server with Poisson arrivals and exponential service times:</p>
+                
+                <div class="formula">
+                    ρ = λ/μ (utilization factor)<br>
+                    P₀ = 1 - ρ (probability of zero customers)<br>
+                    Pₙ = (1 - ρ)ρⁿ (probability of n customers)<br>
+                    L = λ/(μ - λ) (average customers in system)<br>
+                    W = 1/(μ - λ) (average time in system)<br>
+                    Lq = λ²/[μ(μ - λ)] (average queue length)<br>
+                    Wq = λ/[μ(μ - λ)] (average waiting time)
+                </div>
+                
+                <p><strong>Finite Population Models:</strong> Limited customer source affects arrival rate as more customers are in system.</p>
+            </div>
+            
+            <div class="topic">
+                <h3>Queuing Cost Models</h3>
+                <p>Total Cost = Service Cost + Waiting Cost</p>
+                <div class="formula">
+                    TC = cₛ × s + cₙ × L
+                </div>
+                <p>Where:<br>
+                cₛ = cost per server per time<br>
+                s = number of servers<br>
+                cₙ = cost per customer per time in system<br>
+                L = average number in system</p>
+            </div>
+        </div>
+        
+        <div class="unit">
+            <h2>UNIT VI: Inventory Models (7 Contact Hours)</h2>
+            
+            <div class="topic">
+                <h3>Inventory Costs</h3>
+                <ul>
+                    <li><strong>Holding Costs:</strong> Storage, insurance, opportunity cost</li>
+                    <li><strong>Ordering Costs:</strong> Paperwork, delivery, handling</li>
+                    <li><strong>Shortage Costs:</strong> Lost sales, customer goodwill</li>
+                    <li><strong>Purchase Costs:</strong> Per unit cost of items</li>
+                </ul>
+            </div>
+            
+            <div class="topic">
+                <h3>Deterministic Models</h3>
+                <p><strong>EOQ (Economic Order Quantity) Model:</strong></p>
+                <div class="formula">
+                    EOQ = √(2DS/H)<br>
+                    where:<br>
+                    D = Annual demand<br>
+                    S = Ordering cost per order<br>
+                    H = Holding cost per unit per year
+                </div>
+                
+                <p><strong>EPQ (Economic Production Quantity):</strong> Similar to EOQ but considers production rate.</p>
+            </div>
+            
+            <div class="topic">
+                <h3>Stochastic Models</h3>
+                <p>Models with probabilistic demand and/or lead time:</p>
+                <ul>
+                    <li><strong>Single Period Model:</strong> Newsvendor problem</li>
+                    <li><strong>Continuous Review (Q,r) Model:</strong> Order Q when inventory reaches r</li>
+                    <li><strong>Periodic Review (s,S) Model:</strong> Order up to S at fixed intervals if below s</li>
+                </ul>
+                
+                <p><strong>Service Level Measures:</strong></p>
+                <ul>
+                    <li>Probability of no stockout</li>
+                    <li>Fill rate (fraction of demand met from stock)</li>
+                    <li>Cycle service level</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

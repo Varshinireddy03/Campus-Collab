@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Analysis and Design Course Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .unit {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        .topic {
+            background-color: #eaf2f8;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .definition {
+            background-color: #e8f8f5;
+            padding: 10px;
+            border-left: 3px solid #1abc9c;
+            margin: 10px 0;
+        }
+        .algorithm {
+            background-color: #fef9e7;
+            padding: 10px;
+            border-left: 3px solid #f39c12;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Algorithm Analysis and Design Course Notes</h1>
+    
+    <div class="unit">
+        <h2>Unit I: Introduction to Algorithms (8 Contact Hours)</h2>
+        
+        <div class="topic">
+            <h3>Algorithm Fundamentals</h3>
+            <div class="definition">
+                <strong>Algorithm:</strong> A finite set of well-defined instructions to solve a particular problem.
+                <br><strong>Properties:</strong> Input, Output, Definiteness, Finiteness, Effectiveness
+            </div>
+            
+            <h4>Pseudo code</h4>
+            <p>A high-level description of an algorithm that uses the structural conventions of programming languages but is intended for human reading.</p>
+            <div class="algorithm">
+                Example Pseudo code for finding maximum:
+                
+                PROCEDURE findMax(A: array of numbers)
+                    max ← A[0]
+                    FOR i ← 1 TO length[A] - 1
+                        IF A[i] > max THEN
+                            max ← A[i]
+                    RETURN max
+            </div>
+        </div>
+        
+        <div class="topic">
+            <h3>Performance Analysis</h3>
+            <p><strong>Space Complexity:</strong> Amount of memory an algorithm needs to run to completion</p>
+            <p><strong>Time Complexity:</strong> Amount of computer time an algorithm needs to run to completion</p>
+            
+            <h4>Asymptotic Notations</h4>
+            <table>
+                <tr>
+                    <th>Notation</th>
+                    <th>Definition</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Big-Oh (O)</td>
+                    <td>f(n) = O(g(n)) if ∃ c,n₀ > 0 such that 0 ≤ f(n) ≤ c·g(n) ∀ n ≥ n₀</td>
+                    <td>Upper bound</td>
+                </tr>
+                <tr>
+                    <td>Omega (Ω)</td>
+                    <td>f(n) = Ω(g(n)) if ∃ c,n₀ > 0 such that 0 ≤ c·g(n) ≤ f(n) ∀ n ≥ n₀</td>
+                    <td>Lower bound</td>
+                </tr>
+                <tr>
+                    <td>Theta (Θ)</td>
+                    <td>f(n) = Θ(g(n)) if ∃ c₁,c₂,n₀ > 0 such that 0 ≤ c₁·g(n) ≤ f(n) ≤ c₂·g(n) ∀ n ≥ n₀</td>
+                    <td>Tight bound</td>
+                </tr>
+                <tr>
+                    <td>Little-oh (o)</td>
+                    <td>f(n) = o(g(n)) if for any c > 0, ∃ n₀ > 0 such that 0 ≤ f(n) < c·g(n) ∀ n ≥ n₀</td>
+                    <td>Strict upper bound</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="topic">
+            <h3>Advanced Analysis Techniques</h3>
+            <p><strong>Probabilistic Analysis:</strong> Analysis that takes probability distributions into account</p>
+            <p><strong>Amortized Analysis:</strong> Average time per operation over a worst-case sequence of operations</p>
+            
+            <h4>Sorting Algorithm Analysis</h4>
+            <p><strong>Insertion Sort:</strong> O(n²) worst-case, O(n) best-case (already sorted), in-place, stable</p>
+            <p><strong>Heap Sort:</strong> O(n log n) in all cases, in-place, not stable</p>
+        </div>
+    </div>
+    
+    <div class="unit">
+        <h2>Unit II: Divide and Conquer (10 Contact Hours)</h2>
+        
+        <div class="topic">
+            <h3>Divide and Conquer Method</h3>
+            <p><strong>General Method:</strong></p>
+            <ol>
+                <li>Divide the problem into smaller subproblems</li>
+                <li>Conquer subproblems by solving recursively</li>
+                <li>Combine solutions to subproblems to get solution to original problem</li>
+            </ol>
+            
+            <h4>Recurrence Relations</h4>
+            <p>Methods to solve recurrence relations:</p>
+            <div class="definition">
+                <strong>Substitution Method:</strong> Guess the form of the solution and verify by induction
+            </div>
+            <div class="definition">
+                <strong>Recursion Tree Method:</strong> Visualize the recursion as a tree and sum costs at each level
+            </div>
+            <div class="definition">
+                <strong>Master Method:</strong> For recurrences of form T(n) = aT(n/b) + f(n)
+                <p>Three cases based on comparison of f(n) with n<sup>log<sub>b</sub>a</sup></p>
+            </div>
+        </div>
+        
+        <div class="topic">
+            <h3>Applications</h3>
+            
+            <h4>Binary Search</h4>
+            <div class="algorithm">
+                FUNCTION binarySearch(A, key, low, high)
+                    IF low > high THEN RETURN -1
+                    mid ← floor((low + high)/2)
+                    IF A[mid] = key THEN RETURN mid
+                    IF key < A[mid] THEN
+                        RETURN binarySearch(A, key, low, mid-1)
+                    ELSE
+                        RETURN binarySearch(A, key, mid+1, high)
+            </div>
+            <p>Time Complexity: O(log n)</p>
+            
+            <h4>Quick Sort</h4>
+            <div class="algorithm">
+                PROCEDURE quickSort(A, p, r)
+                    IF p < r THEN
+                        q ← partition(A, p, r)
+                        quickSort(A, p, q-1)
+                        quickSort(A, q+1, r)
+                
+                FUNCTION partition(A, p, r)
+                    x ← A[r]
+                    i ← p-1
+                    FOR j ← p TO r-1
+                        IF A[j] ≤ x THEN
+                            i ← i+1
+                            exchange A[i] ↔ A[j]
+                    exchange A[i+1] ↔ A[r]
+                    RETURN i+1
+            </div>
+            <p>Average case: O(n log n), Worst case: O(n²) (when already sorted)</p>
+            
+            <h4>Merge Sort</h4>
+            <div class="algorithm">
+                PROCEDURE mergeSort(A, p, r)
+                    IF p < r THEN
+                        q ← floor((p + r)/2)
+                        mergeSort(A, p, q)
+                        mergeSort(A, q+1, r)
+                        merge(A, p, q, r)
+                
+                PROCEDURE merge(A, p, q, r)
+                    n₁ ← q - p + 1
+                    n₂ ← r - q
+                    create arrays L[1..n₁+1] and R[1..n₂+1]
+                    FOR i ← 1 TO n₁
+                        L[i] ← A[p + i - 1]
+                    FOR j ← 1 TO n₂
+                        R[j] ← A[q + j]
+                    L[n₁ + 1] ← ∞
+                    R[n₂ + 1] ← ∞
+                    i ← 1
+                    j ← 1
+                    FOR k ← p TO r
+                        IF L[i] ≤ R[j] THEN
+                            A[k] ← L[i]
+                            i ← i + 1
+                        ELSE
+                            A[k] ← R[j]
+                            j ← j + 1
+            </div>
+            <p>Time Complexity: O(n log n) in all cases, Space: O(n)</p>
+            
+            <h4>Strassen's Matrix Multiplication</h4>
+            <p>Divides matrices into submatrices and performs multiplication using 7 instead of 8 multiplications</p>
+            <p>Time Complexity: O(n<sup>log<sub>2</sub>7</sup>) ≈ O(n<sup>2.807</sup>)</p>
+        </div>
+    </div>
+    
+    <div class="unit">
+        <h2>Unit III: Greedy Method (10 Contact Hours)</h2>
+        
+        <div class="topic">
+            <h3>Greedy Method</h3>
+            <p><strong>General Method:</strong> Makes the locally optimal choice at each stage with the hope of finding a global optimum</p>
+            <p><strong>Characteristics:</strong></p>
+            <ul>
+                <li>Greedy choice property: Global optimum can be arrived at by selecting local optimum</li>
+                <li>Optimal substructure: Optimal solution contains optimal solutions to subproblems</li>
+            </ul>
+        </div>
+        
+        <div class="topic">
+            <h3>Applications</h3>
+            
+            <h4>Job Sequencing with Deadlines</h4>
+            <p>Problem: Given jobs with deadlines and profits, schedule jobs to maximize profit</p>
+            <div class="algorithm">
+                PROCEDURE jobSequencing(jobs, n)
+                    Sort jobs in decreasing order of profit
+                    Initialize result sequence and time slots
+                    FOR i ← 1 TO n
+                        Find latest possible slot before deadline that's empty
+                        IF found THEN
+                            Allocate job to this slot
+                            Mark slot as filled
+            </div>
+            
+            <h4>0/1 Knapsack Problem</h4>
+            <p>Problem: Given items with weights and values, determine maximum value subset that fits in knapsack of capacity W</p>
+            <p>Greedy approach doesn't always give optimal solution for 0/1 knapsack (but works for fractional knapsack)</p>
+            
+            <h4>Minimum Cost Spanning Trees</h4>
+            <p>Algorithms:</p>
+            <ul>
+                <li><strong>Prim's Algorithm:</strong> Grows tree by adding minimum weight edge from tree to non-tree vertex</li>
+                <li><strong>Kruskal's Algorithm:</strong> Adds edges in increasing order of weight without forming cycles</li>
+            </ul>
+            
+            <h4>Disjoint Set Operations</h4>
+            <p>Operations:</p>
+            <ul>
+                <li>MAKE-SET(x): Creates new set containing x</li>
+                <li>UNION(x, y): Merges sets containing x and y</li>
+                <li>FIND-SET(x): Returns representative of set containing x</li>
+            </ul>
+            <p>Implemented with union by rank and path compression for efficiency</p>
+            
+            <h4>Single Source Shortest Path (Dijkstra's Algorithm)</h4>
+            <div class="algorithm">
+                PROCEDURE Dijkstra(G, w, s)
+                    INITIALIZE-SINGLE-SOURCE(G, s)
+                    S ← ∅
+                    Q ← G.V
+                    WHILE Q ≠ ∅
+                        u ← EXTRACT-MIN(Q)
+                        S ← S ∪ {u}
+                        FOR each vertex v ∈ G.Adj[u]
+                            RELAX(u, v, w)
+            </div>
+            <p>Works for non-negative edge weights, Time: O((V+E) log V) with min-heap</p>
+        </div>
+    </div>
+    
+    <div class="unit">
+        <h2>Unit IV: Dynamic Programming (10 Contact Hours)</h2>
+        
+        <div class="topic">
+            <h3>Dynamic Programming Method</h3>
+            <p><strong>General Method:</strong> Solves problems by combining solutions to overlapping subproblems</p>
+            <p><strong>Characteristics:</strong></p>
+            <ul>
+                <li>Optimal substructure: Solution to problem contains optimal solutions to subproblems</li>
+                <li>Overlapping subproblems: Problem can be broken down into subproblems which are reused</li>
+            </ul>
+            <p><strong>Approach:</strong></p>
+            <ol>
+                <li>Characterize structure of optimal solution</li>
+                <li>Recursively define value of optimal solution</li>
+                <li>Compute value of optimal solution (bottom-up or top-down with memoization)</li>
+                <li>Construct optimal solution from computed information</li>
+            </ol>
+        </div>
+        
+        <div class="topic">
+            <h3>Applications</h3>
+            
+            <h4>Matrix Chain Multiplication</h4>
+            <p>Problem: Find optimal parenthesization of matrix multiplication sequence to minimize operations</p>
+            <div class="algorithm">
+                PROCEDURE MatrixChainOrder(p)
+                    n ← length(p) - 1
+                    Create tables m[1..n,1..n] and s[1..n-1,2..n]
+                    FOR i ← 1 TO n
+                        m[i,i] ← 0
+                    FOR l ← 2 TO n
+                        FOR i ← 1 TO n-l+1
+                            j ← i + l - 1
+                            m[i,j] ← ∞
+                            FOR k ← i TO j-1
+                                q ← m[i,k] + m[k+1,j] + p[i-1]*p[k]*p[j]
+                                IF q < m[i,j] THEN
+                                    m[i,j] ← q
+                                    s[i,j] ← k
+                    RETURN m and s
+            </div>
+            <p>Time: O(n³), Space: O(n²)</p>
+            
+            <h4>Optimal Binary Search Trees</h4>
+            <p>Problem: Arrange keys in BST to minimize expected search cost given access frequencies</p>
+            
+            <h4>0/1 Knapsack Problem</h4>
+            <p>DP solution builds table of maximum value for all capacities up to W</p>
+            
+            <h4>All Pairs Shortest Path (Floyd-Warshall)</h4>
+            <div class="algorithm">
+                PROCEDURE FloydWarshall(W)
+                    n ← rows[W]
+                    D⁽⁰⁾ ← W
+                    FOR k ← 1 TO n
+                        FOR i ← 1 TO n
+                            FOR j ← 1 TO n
+                                dᵢⱼ⁽ᵏ⁾ ← min(dᵢⱼ⁽ᵏ⁻¹⁾, dᵢₖ⁽ᵏ⁻¹⁾ + dₖⱼ⁽ᵏ⁻¹⁾)
+                    RETURN D⁽ⁿ⁾
+            </div>
+            <p>Time: O(n³), Works with negative weights (no negative cycles)</p>
+            
+            <h4>Travelling Salesman Problem</h4>
+            <p>DP solution uses subset representation and memoization</p>
+            
+            <h4>Reliability Design</h4>
+            <p>Problem: Maximize system reliability by choosing components with redundancy</p>
+        </div>
+    </div>
+    
+    <div class="unit">
+        <h2>Unit V: Backtracking and Branch and Bound (12 Contact Hours)</h2>
+        
+        <div class="topic">
+            <h3>Backtracking</h3>
+            <p><strong>General Method:</strong> Systematic way to try different sequences of decisions until solution is found</p>
+            <p><strong>Approach:</strong></p>
+            <ol>
+                <li>Build solution incrementally</li>
+                <li>Abandon partial candidates ("backtrack") as soon as determined they cannot lead to valid solution</li>
+            </ol>
+            
+            <h4>Applications</h4>
+            <p><strong>N-Queens Problem:</strong> Place n queens on n×n chessboard so no two threaten each other</p>
+            <p><strong>Sum of Subsets:</strong> Find subsets that sum to given value</p>
+            <p><strong>Graph Coloring:</strong> Color vertices with m colors such that no adjacent vertices share color</p>
+            <p><strong>Hamiltonian Cycles:</strong> Find cycle that visits each vertex exactly once</p>
+        </div>
+        
+        <div class="topic">
+            <h3>Branch and Bound</h3>
+            <p><strong>General Method:</strong> Systematically enumerates candidate solutions by state space search</p>
+            <p><strong>Key Elements:</strong></p>
+            <ul>
+                <li>Branching: Dividing problem into subproblems</li>
+                <li>Bounding: Calculating upper/lower bounds for optimal solution</li>
+                <li>Pruning: Eliminating subproblems that can't produce better solution than current best</li>
+            </ul>
+            
+            <h4>Applications</h4>
+            <p><strong>Travelling Salesman Problem:</strong> Uses lower bounds from reduced cost matrix</p>
+            <p><strong>0/1 Knapsack Problem:</strong></p>
+            <ul>
+                <li>LC (Least Cost) Branch and Bound: Uses greedy approach for bound</li>
+                <li>FIFO Branch and Bound: Uses queue for node exploration</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="unit">
+        <h2>Unit VI: String Matching and NP-Completeness (10 Contact Hours)</h2>
+        
+        <div class="topic">
+            <h3>String Matching Algorithms</h3>
+            
+            <h4>Naive String Matching</h4>
+            <div class="algorithm">
+                PROCEDURE naiveStringMatch(T, P)
+                    n ← length(T)
+                    m ← length(P)
+                    FOR s ← 0 TO n - m
+                        IF P[1..m] = T[s+1..s+m] THEN
+                            PRINT "Pattern occurs with shift" s
+            </div>
+            <p>Time: O((n-m+1)m) in worst case</p>
+            
+            <h4>Tries</h4>
+            <p>Tree-like data structure for storing strings for fast pattern matching</p>
+            
+            <h4>Rabin-Karp Algorithm</h4>
+            <p>Uses hashing to find any of a set of pattern strings in a text</p>
+            <p>Average time: O(n+m), Worst case: O(nm)</p>
+            
+            <h4>KMP Algorithm</h4>
+            <p>Uses prefix function to avoid re-checking matched characters</p>
+            <p>Time: O(n+m)</p>
+            
+            <h4>Boyer-Moore Algorithm</h4>
+            <p>Uses bad-character heuristic and good-suffix heuristic for skipping alignments</p>
+            <p>Best case: O(n/m), Worst case: O(n+m)</p>
+        </div>
+        
+        <div class="topic">
+            <h3>NP-Hard and NP-Complete Problems</h3>
+            
+            <h4>Basic Concepts</h4>
+            <ul>
+                <li><strong>P:</strong> Problems solvable in polynomial time</li>
+                <li><strong>NP:</strong> Problems verifiable in polynomial time</li>
+                <li><strong>NP-Hard:</strong> At least as hard as hardest problems in NP</li>
+                <li><strong>NP-Complete:</strong> Both NP and NP-Hard</li>
+            </ul>
+            
+            <h4>Non-deterministic Algorithms</h4>
+            <p>Algorithms that can make lucky guesses (non-deterministic steps)</p>
+            
+            <h4>Reducibility</h4>
+            <p>Problem A is reducible to problem B if A can be transformed to B in polynomial time</p>
+            <p>Used to prove NP-Completeness by reducing known NP-Complete problem to new problem</p>
+            
+            <h4>Examples of NP-Complete Problems</h4>
+            <ul>
+                <li>Boolean satisfiability problem (SAT)</li>
+                <li>3-CNF satisfiability (3-SAT)</li>
+                <li>Clique problem</li>
+                <li>Vertex cover problem</li>
+                <li>Hamiltonian cycle problem</li>
+                <li>Travelling salesman problem (decision version)</li>
+                <li>Subset sum problem</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

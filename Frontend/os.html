@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23CS3101 Operating Systems - Lecture Notes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: white; /* Light Blue Background */
+            color: cornflowerblue; /* Dark Blue Text */
+            padding-bottom: 50px; /* Space for footer */
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2, h3 {
+            color: cornflowerblue; /* Medium Blue Headings */
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1976d2; /* Blue Bottom Border */
+            padding-bottom: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        h3 {
+            font-size: 1.6em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: black; /* Slightly Darker Blue Paragraphs */
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: black;
+        }
+
+        code {
+            background-color: #bbdefb; /* Light Blue Code Background */
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .unit {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #90caf9; /* Light Blue Border for Units */
+            border-radius: 8px;
+            background-color: #e3f2fd; /* Very Light Blue Unit Background */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .unit-title {
+            color: #1565c0; /* Strong Blue for Unit Titles */
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #64b5f6;
+        }
+
+        .resource-section {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px dashed #64b5f6;
+        }
+
+        .resource-section h2 {
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .resource-link {
+            display: block;
+            margin-bottom: 10px;
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .resource-link:hover {
+            color: black;
+            text-decoration: underline;
+        }
+
+        .animated-list li {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUp 0.4s ease-out forwards;
+            margin-bottom: 10px;
+        }
+
+        .animated-list li:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+
+        .animated-list li:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1a237e;
+            color: #e0f2f7;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>23CS3101 Operating Systems</h1>
+        
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - I: Basics</h2>
+            <h3>Evaluation, Definition, Operating System Functionalities</h3>
+            <p>An Operating System (OS) is a software that manages computer hardware and software resources and provides common services for computer programs. Its evolution has gone through batch processing, multiprogramming, time-sharing, and modern distributed and real-time systems. Key functionalities include:</p>
+            <ul class="animated-list">
+                <li>Process Management: Creating, scheduling, and terminating processes.</li>
+                <li>Memory Management: Allocating and deallocating memory.</li>
+                <li>File System Management: Organizing and managing files and directories.</li>
+                <li>Device Management: Controlling and interacting with hardware devices.</li>
+                <li>Security: Protecting system resources and user data.</li>
+                <li>User Interface: Providing a way for users to interact with the system.</li>
+            </ul>
+
+            <h3>Types of Operating Systems</h3>
+            <p>Different types of OS are designed for specific purposes:</p>
+            <ul class="animated-list">
+                <li>Batch Operating Systems</li>
+                <li>Multiprogramming Operating Systems</li>
+                <li>Time-Sharing Operating Systems</li>
+                <li>Real-Time Operating Systems</li>
+                <li>Distributed Operating Systems</li>
+                <li>Network Operating Systems</li>
+                <li>Mobile Operating Systems</li>
+            </ul>
+
+            <h3>Computer Architecture Support to Operating Systems: Kernel and User Mode</h3>
+            <p>Modern CPUs provide mechanisms to support the OS, primarily through dual-mode operation:</p>
+            <ul class="animated-list">
+                <li><strong>Kernel Mode (Supervisor Mode, System Mode):</strong> Allows execution of privileged instructions and direct access to hardware. The OS kernel runs in this mode.</li>
+                <li><strong>User Mode:</strong> Limits the instructions that can be executed and restricts direct hardware access. User applications run in this mode.</li>
+                <p>This separation is crucial for system stability and security.</p>
+            </ul>
+
+            <h3>Introduction to Systems Calls</h3>
+            <p>System calls are the interface through which user-level programs request services from the operating system kernel. They provide a controlled way for user programs to access privileged resources and functionalities.</p>
+            <p>Examples include file I/O operations, process creation, and memory allocation.</p>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - II: Process Management</h2>
+            <h3>Definition: Process and PCB, Description, Life Cycle</h3>
+            <p>A <strong>process</strong> is an instance of a computer program that is being executed. It includes the program code and its current activity. Each process is represented by a <strong>Process Control Block (PCB)</strong>, which contains essential information about the process, such as:</p>
+            <ul class="animated-list">
+                <li>Process ID (PID)</li>
+                <li>Program Counter</li>
+                <li>CPU Registers</li>
+                <li>Memory Management Information</li>
+                <li>Accounting Information</li>
+                <li>I/O Status Information</li>
+            </ul>
+            <p>A process goes through various stages in its <strong>life cycle</strong>, typically including: New, Ready, Running, Waiting (Blocked), and Terminated.</p>
+
+            <h3>Process Scheduling: Preemptive and Non-Preemptive</h3>
+            <p><strong>Process Scheduling</strong> is the activity of managing the running and ready processes in the system. Scheduling algorithms determine which process gets to use the CPU at a given time.</p>
+            <ul>
+                <li><strong>Preemptive Scheduling:</strong> The CPU can be taken away from a running process (interrupted) and allocated to another process, often based on priority or time quantum.</li>
+                <li><strong>Non-Preemptive Scheduling:</strong> Once a process starts running, it continues until it completes or voluntarily blocks itself (e.g., for I/O).</li>
+            </ul>
+
+            <h3>Uniprocessor Scheduling Algorithms</h3>
+            <p>Algorithms used to schedule processes on a single-CPU system:</p>
+            <ul class="animated-list">
+                <li><strong>First-In, First-Out (FIFO) / First-Come, First-Served (FCFS):</strong> Processes are executed in the order they arrive in the ready queue (non-preemptive).</li>
+                <li><strong>Shortest-Job-First (SJF):</strong> The process with the shortest estimated execution time is scheduled next (can be preemptive or non-preemptive).</li>
+                <li><strong>Priority Scheduling:</strong> Processes are assigned priorities, and the process with the highest priority is executed (can be preemptive or non-preemptive).</li>
+                <li><strong>Round Robin (RR):</strong> Each process is given a fixed time quantum to run. If the process doesn't finish within the quantum, it's preempted and moved to the back of the ready queue (preemptive).</li>
+            </ul>
+
+            <h3>Multiprocessor and Real-time Scheduling Algorithms</h3>
+            <p>Scheduling becomes more complex with multiple processors and in real-time systems:</p>
+            <ul class="animated-list">
+                <li><strong>Multiprocessor Scheduling:</strong> Deals with allocating processes to multiple CPUs, considering factors like processor affinity and load balancing.</li>
+                <li><strong>Real-Time Scheduling:</strong> Designed for systems where timing constraints are critical. Algorithms prioritize tasks based on deadlines (e.g., Rate Monotonic Scheduling, Earliest Deadline First).</li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - III: Process Synchronization</h2>
+            <h3>Peterson's Solution, Banker’s Algorithm</h3>
+            <p><strong>Process Synchronization</strong> is necessary when multiple processes need to access shared resources concurrently to avoid race conditions and ensure data consistency.</p>
+            <ul class="animated-list">
+                <li><strong>Peterson's Solution:</strong> A classic software-based solution for the critical section problem for two processes.</li>
+                <li><strong>Banker's Algorithm:</strong> A resource allocation and deadlock avoidance algorithm that checks for safe states by simulating resource allocation.</li>
+            </ul>
+
+            <h3>Semaphores, Critical Regions: Producer-Consumer Problems, Readers Writers Problem, Dining Philosophers Problem</h3>
+            <ul class="animated-list">
+                <li><strong>Semaphores:</strong> Integer variables that are used for signaling between processes. They support two atomic operations: <code>wait()</code> (P) and <code>signal()</code> (V).</li>
+                <li><strong>Critical Regions (Critical Sections):</strong> Sections of code where shared resources are accessed. Mutual exclusion is required to ensure that only one process can be inside its critical region at any time.</li>
+                <li><strong>Classic Synchronization Problems:</strong>
+                    <ul>
+                        <li><strong>Producer-Consumer Problem:</strong> Coordinating the production of data by one or more producers and the consumption of data by one or more consumers using a shared buffer.</li>
+                        <li><strong>Readers-Writers Problem:</strong> Allowing multiple readers to access a shared resource concurrently but requiring exclusive access for a writer.</li>
+                        <li><strong>Dining Philosophers Problem:</strong> A classic concurrency problem illustrating the challenges of resource contention and deadlock.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Monitors</h3>
+            <p><strong>Monitors</strong> are a high-level synchronization construct that provides mutual exclusion and condition variables for signaling within the monitor.</p>
+            <p>They encapsulate shared data and the procedures that operate on it, ensuring that only one process can be active within the monitor at any time.</p>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - IV: Deadlocks</h2>
+            <h3>Introduction to Deadlocks, Resource Allocations, Deadlock Conditions</h3>
+            <p>A <strong>deadlock</strong> is a situation where two or more processes are blocked indefinitely, each waiting for a resource held by another process in the set.</p>
+            <p>Deadlocks arise from the allocation of resources to processes. The four necessary conditions for a deadlock to occur are:</p>
+            <ul class="animated-list">
+                <li><strong>Mutual Exclusion:</strong> At least one resource must be held in a non-sharable mode.</li>
+                <li><strong>Hold and Wait:</strong> A process must be holding at least one resource and waiting to acquire additional resources held by other processes.</li>
+                <li><strong>No Preemption:</strong> Resources cannot be forcibly taken away from a process; they must be released voluntarily by the process holding them.</li>
+                <li><strong>Circular Wait:</strong> A set of waiting processes {P1, P2, ..., Pn} exists such that P1 is waiting for a resource held by P2, P2 is waiting for a resource held by P3, ..., and Pn is waiting for a resource held by P1.</li>
+            </ul>
+
+            <h3>Deadlock Prevention, Deadlock Detection - Safe and Unsafe States</h3>
+            <ul class="animated-list">
+                <li><strong>Deadlock Prevention:</strong> Aims to prevent one or more of the four necessary conditions from holding.</li>
+                <li><strong>Deadlock Detection:</strong> Allows deadlocks to occur and then detects their presence.
+                    <ul>
+                        <li><strong>Safe State:</strong> A state where the system can allocate resources to each process in some order and still avoid a deadlock.</li>
+                        <li><strong>Unsafe State:</strong> A state where there is a possibility of a deadlock occurring. Note that an unsafe state does not necessarily mean a deadlock will occur.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Deadlock Avoidance - Banker’s Algorithms, and Recovery</h3>
+            <ul class="animated-list">
+                <li><strong>Deadlock Avoidance:</strong> Uses information about the maximum resource needs of each process to make allocation decisions that will not lead to a deadlock (e.g., Banker's Algorithm).</li>
+                <li><strong>Recovery from Deadlock:</strong> If a deadlock is detected, the system needs to recover. Common techniques include:
+                    <ul>
+                        <li>Process Termination: Aborting one or more deadlocked processes.</li>
+                        <li>Resource Preemption: Forcibly taking away resources from deadlocked processes.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit - V: Memory Management</h2>
+            <h3>Partitioning, Paging and Segmentation and Space Allocation</h3>
+            <p><strong>Memory Management</strong> is the function of an operating system to manage primary memory (RAM). Techniques include:</p>
+            <ul class="animated-list">
+                <li><strong>Partitioning:</strong> Dividing memory into fixed-size or variable-size partitions.
+                    <ul>
+                        <li>Fixed Partitioning</li>
+                        <li>Variable Partitioning</li>
+                    </ul>
+                </li>
+                <li><strong>Paging:</strong> Dividing both physical memory into fixed-size blocks called <strong>frames</strong> and logical memory into fixed-size blocks called <strong>pages</strong>. A page table maps logical addresses to physical addresses.</li>
+                <li><strong>Segmentation:</strong> Dividing logical memory into variable-size segments, each representing a logical unit (e.g., code, data, stack). A segment table maps logical addresses (segment number, offset) to physical addresses.</li>
+                <li><strong>Space Allocation:</strong> Algorithms for allocating memory to processes (e.g., First-Fit, Best-Fit, Worst-Fit).</li>
+            </ul>
+
+            <h3>Page Replacement Algorithms, Analysis of Page Allocation Policies - Working Set, Virtual Memory, Demand Paging</h3>
+            <ul class="animated-list">
+                <li><strong>Page Replacement Algorithms:</strong> Used when a page fault occurs and there are no free frames in memory. Algorithms aim to replace the least useful page (e.g., FIFO, LRU, Optimal).</li>
+                <li><strong>Analysis of Page Allocation Policies:</strong> Determining how many frames to allocate to each process.</li>
+                <li><strong>Working Set:</strong> The set of pages that a process is currently using actively. The working set model suggests allocating enough frames to hold a process's current working set.</li>
+                <li><strong>Virtual Memory:</strong> A memory management technique that allows processes to execute even if they are not entirely in memory. It uses secondary storage (e.g., disk) as an extension of RAM.</li>
+                <li><strong>Demand Paging:</strong> A virtual memory technique where pages are loaded into memory only when they are needed (on demand), resulting in page faults if the required page is not present.</li>
+            </ul>
+        </div>
+
+        <div class="unit">
+            <h2 class="unit-title">Unit – VI: File Systems And Secondary Storage Management</h2>
+            <h3>Free Space Management: Contiguous, Sequential and Indexed Allocation</h3>
+            <p><strong>File System Management</strong> deals with organizing and managing files on secondary storage (e.g., hard disks).</p>
+            <ul class="animated-list">
+                <li><strong>Free Space Management:</strong> Techniques for keeping track of available disk space.
+                    <ul>
+                        <li><strong>Bitmaps (Bit Vectors):</strong> Each block on the disk is represented by a bit in a bitmap. A '0' indicates the block is free, and a '1' indicates it's allocated.</li>
+                        <li><strong>Linked Lists:</strong> Free blocks are linked together in a list. The head of the list points to the first free block.</li>
+                        <li><strong>Counting:</strong> Keeps track of contiguous runs of free blocks and their sizes.</li>
+                    </ul>
+                </li>
+                <li><strong>File Allocation Methods:</strong> How disk blocks are allocated to files.
+                    <ul>
+                        <li><strong>Contiguous Allocation:</strong> Each file occupies a set of contiguous blocks on the disk. Simple to implement but can lead to external fragmentation.</li>
+                        <li><strong>Linked Allocation (Sequential Allocation):</strong> Each file is a linked list of disk blocks. Blocks can be scattered anywhere on the disk. No external fragmentation but requires traversing the links to access blocks sequentially.</li>
+                        <li><strong>Indexed Allocation:</strong> A special block, the index block, contains pointers to all the blocks of a file. Supports both sequential and direct access.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>File system interface, File System implementation</h3>
+            <ul class="animated-list">
+                <li><strong>File System Interface:</strong> The set of system calls provided to users for interacting with the file system (e.g., <code>create</code>, <code>read</code>, <code>write</code>, <code>delete</code>, <code>open</code>, <code>close</code>).</li>
+                <li><strong>File System Implementation:</strong> The internal structure and organization of the file system, including:
+                    <ul>
+                        <li>Directory Structure: Organizing files into a hierarchical structure.</li>
+                        <li>File Metadata: Information about each file (e.g., name, size, permissions, timestamps) stored in data structures like inodes.</li>
+                        <li>Disk Layout: How the file system structures are organized on the disk (e.g., boot block, superblock, inode area, data blocks).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Disk Scheduling</h3>
+            <p><strong>Disk Scheduling</strong> algorithms manage the requests for disk I/O to optimize disk arm movement and improve performance.</p>
+            <ul class="animated-list">
+                <li><strong>First-Come, First-Served (FCFS):</strong> Requests are serviced in the order they arrive.</li>
+                <li><strong>Shortest Seek Time First (SSTF):</strong> The request with the minimum seek time (distance to the current head position) is serviced next. Can lead to starvation.</li>
+                <li><strong>SCAN (Elevator Algorithm):</strong> The disk arm moves in one direction, servicing all requests until it reaches the end of the disk, then reverses direction.</li>
+                <li><strong>C-SCAN (Circular SCAN):</strong> Similar to SCAN, but after reaching one end, the head returns to the beginning of the disk without servicing any requests on the return trip.</li>
+                <li><strong>LOOK and C-LOOK:</strong> Optimizations of SCAN and C-SCAN where the disk arm only goes as far as the last request in each direction.</li>
+            </ul>
+
+            <h3>Device drivers - block and character devices, streams</h3>
+            <ul class="animated-list">
+                <li><strong>Device Drivers:</strong> Software modules that enable the operating system to interact with specific hardware devices.</li>
+                <li><strong>Block Devices:</strong> Devices that transfer data in blocks (e.g., hard disks, SSDs). Device drivers for block devices typically have a buffer cache.</li>
+                <li><strong>Character Devices:</strong> Devices that transfer data character by character (e.g., keyboard, mouse, serial ports).</li>
+                <li><strong>Streams:</strong> A sequence of data elements made available over time. Can be used for both character and block-oriented data transfer.</li>
+            </ul>
+
+            <h3>Character and Block device switch tables</h3>
+            <p>Operating systems often use <strong>device switch tables</strong> (or similar mechanisms) to manage the interface between the kernel and device drivers.</p>
+            <ul>
+                <li><strong>Character Device Switch Table:</strong> Contains pointers to the functions (e.g., open, close, read, write) provided by each character device driver.</li>
+                <li><strong>Block Device Switch Table:</strong> Similarly contains pointers to the functions provided by each block device driver (e.g., open, close, read, write, strategy - for handling block I/O requests).</li>
+            </ul>
+        </div>
+</div>
+</body>
+</html>

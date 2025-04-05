@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Java Learning Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f9ff;
+        }
+        
+        h1 {
+            color: #1a5276;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2874a6;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.1);
+        }
+        
+        .concepts {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .example {
+            background-color: #ebf5fb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 3px solid #3498db;
+        }
+        
+        .resources {
+            background-color: #d4e6f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 40px;
+        }
+        
+        pre {
+            background-color: #2c3e50;
+            color: black;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            tab-size: 4;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc {
+            background-color: #eaf2f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .toc ul {
+            columns: 2;
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .toc li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+        }
+        
+        .note {
+            background-color: #fffde7;
+            border-left: 4px solid #ffd600;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Complete Java Learning Guide</h1>
+    <p style="text-align: center; color: #555;">From Basics to Advanced Concepts with Code Examples</p>
+    
+    <div class="toc">
+        <h2>📜 Table of Contents</h2>
+        <ul>
+            <li><a href="#basics">Java Basics</a></li>
+            <li><a href="#oop">Object-Oriented Programming</a></li>
+            <li><a href="#collections">Java Collections Framework</a></li>
+            <li><a href="#exceptions">Exception Handling</a></li>
+            <li><a href="#multithreading">Multithreading</a></li>
+            <li><a href="#io">Java I/O</a></li>
+            <li><a href="#java8">Java 8+ Features</a></li>
+            <li><a href="#advanced">Advanced Topics</a></li>
+            <li><a href="#resources">Online Resources</a></li>
+        </ul>
+    </div>
+
+    <!-- Java Basics Section -->
+    <div id="basics" class="section">
+        <h2>📘 Java Basics</h2>
+        
+        <div class="concepts">
+            <h3>Core Concepts</h3>
+            <ul>
+                <li><strong>Java Syntax</strong>: Structure of a Java program</li>
+                <li><strong>Variables & Data Types</strong>: <code>int</code>, <code>double</code>, <code>String</code>, etc.</li>
+                <li><strong>Operators</strong>: Arithmetic, logical, comparison</li>
+                <li><strong>Control Flow</strong>: <code>if-else</code>, <code>switch</code>, loops</li>
+                <li><strong>Arrays</strong>: Declaration, initialization, and manipulation</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Hello World</h4>
+            <pre><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Variables & Loops</h4>
+            <pre><code>public class VariablesExample {
+    public static void main(String[] args) {
+        int number = 10;
+        double pi = 3.14;
+        String name = "Java";
+        
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Iteration " + i);
+        }
+        
+        if (number > 5) {
+            System.out.println(name + " is awesome!");
+        }
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- OOP Section -->
+    <div id="oop" class="section">
+        <h2>📘 Object-Oriented Programming</h2>
+        
+        <div class="concepts">
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>Classes and Objects</strong>: Blueprints and instances</li>
+                <li><strong>Inheritance</strong>: <code>extends</code> keyword</li>
+                <li><strong>Polymorphism</strong>: Method overloading and overriding</li>
+                <li><strong>Encapsulation</strong>: Data hiding with access modifiers</li>
+                <li><strong>Abstraction</strong>: Abstract classes and interfaces</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Class and Object</h4>
+            <pre><code>public class Car {
+    // Fields (attributes)
+    String model;
+    int year;
+    
+    // Constructor
+    public Car(String model, int year) {
+        this.model = model;
+        this.year = year;
+    }
+    
+    // Method
+    public void displayInfo() {
+        System.out.println("Model: " + model + ", Year: " + year);
+    }
+    
+    public static void main(String[] args) {
+        Car myCar = new Car("Toyota", 2020);
+        myCar.displayInfo();
+    }
+}</code></pre>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Inheritance</h4>
+            <pre><code>// Parent class
+class Animal {
+    void eat() {
+        System.out.println("Eating...");
+    }
+}
+
+// Child class
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Barking...");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.eat();  // Inherited method
+        myDog.bark(); // Own method
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Collections Section -->
+    <div id="collections" class="section">
+        <h2>📘 Java Collections Framework</h2>
+        
+        <div class="concepts">
+            <h3>Main Interfaces and Classes</h3>
+            <ul>
+                <li><strong>List</strong>: <code>ArrayList</code>, <code>LinkedList</code></li>
+                <li><strong>Set</strong>: <code>HashSet</code>, <code>TreeSet</code></li>
+                <li><strong>Map</strong>: <code>HashMap</code>, <code>TreeMap</code></li>
+                <li><strong>Queue</strong>: <code>PriorityQueue</code></li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: ArrayList</h4>
+            <pre><code>import java.util.ArrayList;
+
+public class ListExample {
+    public static void main(String[] args) {
+        ArrayList&lt;String&gt; fruits = new ArrayList&lt;&gt;();
+        
+        // Adding elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Orange");
+        
+        // Accessing elements
+        System.out.println(fruits.get(1)); // Banana
+        
+        // Iterating
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Exception Handling Section -->
+    <div id="exceptions" class="section">
+        <h2>📘 Exception Handling</h2>
+        
+        <div class="concepts">
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>try-catch</strong>: Handling exceptions</li>
+                <li><strong>finally</strong>: Code that always executes</li>
+                <li><strong>throw</strong>: Manually throwing exceptions</li>
+                <li><strong>throws</strong>: Declaring exceptions</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: try-catch</h4>
+            <pre><code>public class ExceptionExample {
+    public static void main(String[] args) {
+        try {
+            int result = 10 / 0; // ArithmeticException
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero!");
+        } finally {
+            System.out.println("This always executes");
+        }
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Multithreading Section -->
+    <div id="multithreading" class="section">
+        <h2>📘 Multithreading</h2>
+        
+        <div class="concepts">
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>Thread class</strong>: Extending Thread</li>
+                <li><strong>Runnable interface</strong>: Implementing Runnable</li>
+                <li><strong>synchronized</strong>: Thread synchronization</li>
+                <li><strong>Thread pools</strong>: Executor framework</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Creating Threads</h4>
+            <pre><code>class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+public class ThreadExample {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start(); // Starts the thread
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Java I/O Section -->
+    <div id="io" class="section">
+        <h2>📘 Java I/O</h2>
+        
+        <div class="concepts">
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>File handling</strong>: Reading/writing files</li>
+                <li><strong>Streams</strong>: Byte and character streams</li>
+                <li><strong>Serialization</strong>: Object persistence</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: File Reading</h4>
+            <pre><code>import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class FileReadExample {
+    public static void main(String[] args) {
+        try {
+            File file = new File("example.txt");
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                System.out.println(data);
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Java 8+ Features Section -->
+    <div id="java8" class="section">
+        <h2>📘 Java 8+ Features</h2>
+        
+        <div class="concepts">
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Lambda Expressions</strong>: Functional programming</li>
+                <li><strong>Stream API</strong>: Functional operations on collections</li>
+                <li><strong>Optional</strong>: Null-safe containers</li>
+                <li><strong>New Date/Time API</strong>: <code>java.time</code></li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Lambda Expressions</h4>
+            <pre><code>import java.util.Arrays;
+import java.util.List;
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        List&lt;String&gt; languages = Arrays.asList("Java", "Python", "C++");
+        
+        // Using lambda expression
+        languages.forEach(lang -> System.out.println(lang));
+        
+        // Method reference
+        languages.forEach(System.out::println);
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Advanced Topics Section -->
+    <div id="advanced" class="section">
+        <h2>📘 Advanced Topics</h2>
+        
+        <div class="concepts">
+            <h3>Advanced Java Concepts</h3>
+            <ul>
+                <li><strong>Generics</strong>: Type-safe collections</li>
+                <li><strong>Reflection</strong>: Runtime class inspection</li>
+                <li><strong>Annotations</strong>: Metadata for code</li>
+                <li><strong>JVM Internals</strong>: Memory management</li>
+                <li><strong>Design Patterns</strong>: Singleton, Factory, etc.</li>
+            </ul>
+        </div>
+        
+        <div class="example">
+            <h4>Example: Generic Class</h4>
+            <pre><code>class Box&lt;T&gt; {
+    private T content;
+    
+    public void set(T content) {
+        this.content = content;
+    }
+    
+    public T get() {
+        return content;
+    }
+}
+
+public class GenericExample {
+    public static void main(String[] args) {
+        Box&lt;String&gt; stringBox = new Box&lt;&gt;();
+        stringBox.set("Hello Generics");
+        System.out.println(stringBox.get());
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Resources Section -->
+    <div id="resources" class="resources">
+        <h2>🌐 Online Resources</h2>
+        
+        <h3>Recommended Learning Platforms</h3>
+        <ul>
+            <li><a href="https://docs.oracle.com/javase/tutorial/" target="_blank">Official Java Tutorials</a></li>
+            <li><a href="https://www.codecademy.com/learn/learn-java" target="_blank">Codecademy Java Course</a></li>
+            <li><a href="https://www.udemy.com/topic/java/" target="_blank">Udemy Java Courses</a></li>
+            <li><a href="https://www.coursera.org/courses?query=java" target="_blank">Coursera Java Courses</a></li>
+        </ul>
+        
+        <h3>Practice Platforms</h3>
+        <ul>
+            <li><a href="https://leetcode.com/tag/java/" target="_blank">LeetCode Java Problems</a></li>
+            <li><a href="https://www.hackerrank.com/domains/tutorials/10-days-of-java" target="_blank">HackerRank Java</a></li>
+            <li><a href="https://www.codingame.com/start" target="_blank">Codingame</a></li>
+        </ul>
+        
+        <h3>Reference Documentation</h3>
+        <ul>
+            <li><a href="https://docs.oracle.com/en/java/javase/" target="_blank">Java Documentation</a></li>
+            <li><a href="https://www.javatpoint.com/java-tutorial" target="_blank">JavaTpoint</a></li>
+            <li><a href="https://www.geeksforgeeks.org/java/" target="_blank">GeeksforGeeks Java</a></li>
+        </ul>
+        
+        <div class="note">
+            <p><strong>Tip:</strong> Practice regularly by building small projects and solving coding challenges to reinforce your Java skills.</p>
+        </div>
+    </div>
+
+    <footer style="text-align: center; margin-top: 50px; color: #555;">
+        <p>Happy Coding! 🚀</p>
+    </footer>
+</body>
+</html>

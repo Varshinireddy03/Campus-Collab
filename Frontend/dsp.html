@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science with Python | Engineering Course</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: cornflowerblue;
+            --secondary:  rgb(113, 142, 197);
+            --accent: #4895ef;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #adb5bd;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            background-color: #f5f7ff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        .unit-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .unit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .unit-title {
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin: 0;
+        }
+        
+        .contact-hours {
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-top: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .topic-list {
+            columns: 2;
+            column-gap: 2rem;
+            padding-left: 1.5rem;
+        }
+        
+        .topic-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            break-inside: avoid;
+        }
+        
+        .topic-list li:before {
+            content: '▹';
+            color: var(--accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        code {
+            font-family: 'Fira Code', monospace;
+            background: #f1f3ff;
+            color: var(--primary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .code-block {
+            background: #1e1e3f;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .visualization {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .visualization img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .interactive-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .hidden-content {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fe;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .topic-list {
+                columns: 1;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .unit-title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Tabs for different units */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .tab {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0.3rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tab:hover {
+            background: #f1f3ff;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Data Science with Python</h1>
+            <p class="subtitle">Comprehensive Lecture Notes for Engineering Students</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="showUnit(1)">Unit I</button>
+            <button class="tab" onclick="showUnit(2)">Unit II</button>
+            <button class="tab" onclick="showUnit(3)">Unit III</button>
+            <button class="tab" onclick="showUnit(4)">Unit IV</button>
+            <button class="tab" onclick="showUnit(5)">Unit V</button>
+            <button class="tab" onclick="showUnit(6)">Unit VI</button>
+        </div>
+        
+        <!-- Unit 1 -->
+        <div class="unit-card" id="unit-1">
+            <div class="unit-header">
+                <h2 class="unit-title">Python Basics for Data Science</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Introduction to Python for Data Science</li>
+                <li>Data Types, Expressions & Variables</li>
+                <li>String Operations and Manipulation</li>
+                <li>Lists & Tuples - Creation and Operations</li>
+                <li>Sets and Dictionaries</li>
+                <li>Conditions & Branching (if-elif-else)</li>
+                <li>Loops (for, while) and Control Statements</li>
+                <li>Functions and Lambda Expressions</li>
+                <li>Objects & Classes in Python</li>
+            </ul>
+            
+            <h3>Interactive Example</h3>
+            <div class="code-block">
+                <span style="color: #f92672"># Basic Python Data Science Example</span><br>
+                <span style="color: #a6e22e">import</span> numpy <span style="color: #a6e22e">as</span> np<br>
+                <span style="color: #a6e22e">import</span> pandas <span style="color: #a6e22e">as</span> pd<br><br>
+                
+                <span style="color: #f92672"># Create a DataFrame</span><br>
+                data = {<span style="color: #e6db74">'Students'</span>: [<span style="color: #e6db74">'Alice'</span>, <span style="color: #e6db74">'Bob'</span>, <span style="color: #e6db74">'Charlie'</span>],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e6db74">'Scores'</span>: [<span style="color: #ae81ff">85</span>, <span style="color: #ae81ff">92</span>, <span style="color: #ae81ff">78</span>]}<br>
+                df = pd.DataFrame(data)<br><br>
+                
+                <span style="color: #f92672"># Display the DataFrame</span><br>
+                print(df)
+            </div>
+            
+            <button class="interactive-btn" onclick="toggleContent('unit1-example')">Show Output</button>
+            <div class="hidden-content" id="unit1-example">
+                <div class="code-block">
+                    &nbsp;&nbsp;Students&nbsp;&nbsp;Scores<br>
+                    0&nbsp;&nbsp;&nbsp;&nbsp;Alice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;85<br>
+                    1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bob&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;92<br>
+                    2&nbsp;&nbsp;Charlie&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;78
+                </div>
+            </div>
+        </div>
+        
+        <!-- Unit 2 -->
+        <div class="unit-card" id="unit-2" style="display:none">
+            <div class="unit-header">
+                <h2 class="unit-title">Working with Data in Python</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>File Operations (Reading/Writing CSV, Excel, JSON)</li>
+                <li>Regular Expressions for Data Cleaning</li>
+                <li>Pandas for Data Manipulation</li>
+                <li>NumPy for Numerical Computing</li>
+                <li>Web Scraping with BeautifulSoup</li>
+            </ul>
+            
+            <h3>Data Loading Example</h3>
+            <div class="code-block">
+                <span style="color: #a6e22e">import</span> pandas <span style="color: #a6e22e">as</span> pd<br><br>
+                
+                <span style="color: #f92672"># Load dataset from CSV</span><br>
+                data = pd.read_csv(<span style="color: #e6db74">'sales_data.csv'</span>)<br><br>
+                
+                <span style="color: #f92672"># Display first 5 rows</span><br>
+                print(data.head())<br><br>
+                
+                <span style="color: #f92672"># Basic statistics</span><br>
+                print(data.describe())
+            </div>
+            
+            <div class="visualization">
+                <h3>Pandas DataFrame Visualization</h3>
+                <img src="https://pandas.pydata.org/docs/_images/01_table_dataframe.svg" alt="Pandas DataFrame">
+                <p>Pandas provides powerful data structures for working with structured data.</p>
+            </div>
+        </div>
+        
+        <!-- Unit 3 -->
+        <div class="unit-card" id="unit-3" style="display:none">
+            <div class="unit-header">
+                <h2 class="unit-title">Data Processing</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Importing DataSets from various sources</li>
+                <li>Cleaning & Preparing Data</li>
+                <li>Handling Missing Values (imputation, deletion)</li>
+                <li>Data Formatting and Normalization</li>
+                <li>Binning and Discretization</li>
+                <li>Summarizing the Data Frame</li>
+                <li>Descriptive Statistics (mean, median, mode)</li>
+                <li>Grouping and Aggregation</li>
+                <li>ANOVA and Correlation Analysis</li>
+            </ul>
+            
+            <h3>Data Cleaning Example</h3>
+            <div class="code-block">
+                <span style="color: #f92672"># Handling missing data</span><br>
+                <span style="color: #a6e22e">import</span> pandas <span style="color: #a6e22e">as</span> pd<br>
+                <span style="color: #a6e22e">import</span> numpy <span style="color: #a6e22e">as</span> np<br><br>
+                
+                <span style="color: #f92672"># Create sample data with missing values</span><br>
+                data = pd.DataFrame({<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e6db74">'A'</span>: [<span style="color: #ae81ff">1</span>, <span style="color: #ae81ff">2</span>, np.nan, <span style="color: #ae81ff">4</span>],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e6db74">'B'</span>: [<span style="color: #ae81ff">5</span>, np.nan, np.nan, <span style="color: #ae81ff">8</span>],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #e6db74">'C'</span>: [<span style="color: #ae81ff">10</span>, <span style="color: #ae81ff">20</span>, <span style="color: #ae81ff">30</span>, <span style="color: #ae81ff">40</span>]<br>
+                })<br><br>
+                
+                <span style="color: #f92672"># Fill missing values with column mean</span><br>
+                data.fillna(data.mean(), inplace=<span style="color: #66d9ef">True</span>)
+            </div>
+        </div>
+        
+        <!-- Unit 4 -->
+        <div class="unit-card" id="unit-4" style="display:none">
+            <div class="unit-header">
+                <h2 class="unit-title">Data Analysis</h2>
+                <span class="contact-hours">8 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Model Development: Simple & Multiple Linear Regression</li>
+                <li>Model Evaluation using Visualization</li>
+                <li>Polynomial Regression for Non-linear Relationships</li>
+                <li>Understanding Overfitting and Underfitting</li>
+                <li>Model Selection Techniques</li>
+                <li>Ridge Regression for Regularization</li>
+                <li>Model Refinement and Optimization</li>
+            </ul>
+            
+            <div class="visualization">
+                <h3>Regression Analysis</h3>
+                <img src="https://scikit-learn.org/stable/_images/sphx_glr_plot_ols_001.png" alt="Linear Regression">
+                <p>Linear regression helps understand relationships between variables.</p>
+            </div>
+            
+            <h3>Regression Example</h3>
+            <div class="code-block">
+                <span style="color: #a6e22e">from</span> sklearn.linear_model <span style="color: #a6e22e">import</span> LinearRegression<br>
+                <span style="color: #a6e22e">from</span> sklearn.model_selection <span style="color: #a6e22e">import</span> train_test_split<br><br>
+                
+                <span style="color: #f92672"># Prepare data</span><br>
+                X = df[[<span style="color: #e6db74">'feature1'</span>, <span style="color: #e6db74">'feature2'</span>]]<br>
+                y = df[<span style="color: #e6db74">'target'</span>]<br><br>
+                
+                <span style="color: #f92672"># Split data</span><br>
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span style="color: #ae81ff">0.2</span>)<br><br>
+                
+                <span style="color: #f92672"># Create and train model</span><br>
+                model = LinearRegression()<br>
+                model.fit(X_train, y_train)<br><br>
+                
+                <span style="color: #f92672"># Evaluate model</span><br>
+                score = model.score(X_test, y_test)<br>
+                print(<span style="color: #e6db74">f"Model R² score: </span>{score:<span style="color: #ae81ff">.2f</span>}<span style="color: #e6db74">"</span>)
+            </div>
+        </div>
+        
+        <!-- Unit 5 -->
+        <div class="unit-card" id="unit-5" style="display:none">
+            <div class="unit-header">
+                <h2 class="unit-title">Data Visualization</h2>
+                <span class="contact-hours">9 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Introduction to Visualization Tools (Matplotlib, Seaborn)</li>
+                <li>Line Plots and Area Plots for Trends</li>
+                <li>Histograms for Distribution Analysis</li>
+                <li>Bar Charts and Pie Charts for Categorical Data</li>
+                <li>Box Plots for Outlier Detection</li>
+                <li>Scatter Plots and Bubble Plots for Relationships</li>
+                <li>Advanced Visualization: Waffle Charts, Word Clouds</li>
+                <li>Seaborn for Statistical Visualization</li>
+                <li>Regression Plots and Heatmaps</li>
+                <li>Geospatial Data Visualization with Folium</li>
+                <li>Creating Maps with Markers and Choropleth Maps</li>
+            </ul>
+            
+            <div class="visualization">
+                <h3>Example Visualizations</h3>
+                <img src="https://matplotlib.org/stable/_images/sphx_glr_plot_types_python_001.png" alt="Matplotlib Visualization Examples">
+                <p>Matplotlib provides a wide variety of visualization options.</p>
+            </div>
+            
+            <h3>Visualization Code Example</h3>
+            <div class="code-block">
+                <span style="color: #a6e22e">import</span> matplotlib.pyplot <span style="color: #a6e22e">as</span> plt<br>
+                <span style="color: #a6e22e">import</span> seaborn <span style="color: #a6e22e">as</span> sns<br><br>
+                
+                <span style="color: #f92672"># Set style</span><br>
+                sns.set_style(<span style="color: #e6db74">'whitegrid'</span>)<br><br>
+                
+                <span style="color: #f92672"># Create figure</span><br>
+                plt.figure(figsize=(<span style="color: #ae81ff">10</span>, <span style="color: #ae81ff">6</span>))<br><br>
+                
+                <span style="color: #f92672"># Scatter plot with regression line</span><br>
+                sns.regplot(x=<span style="color: #e6db74">'engine_size'</span>, y=<span style="color: #e6db74">'co2_emissions'</span>, data=df)<br>
+                plt.title(<span style="color: #e6db74">'Engine Size vs CO2 Emissions'</span>)<br>
+                plt.xlabel(<span style="color: #e6db74">'Engine Size (L)'</span>)<br>
+                plt.ylabel(<span style="color: #e6db74">'CO2 Emissions (g/km)'</span>)<br>
+                plt.show()
+            </div>
+        </div>
+        
+        <!-- Unit 6 -->
+        <div class="unit-card" id="unit-6" style="display:none">
+            <div class="unit-header">
+                <h2 class="unit-title">Machine Learning using Python</h2>
+                <span class="contact-hours">7 Contact Hours</span>
+            </div>
+            
+            <h3>Core Concepts</h3>
+            <ul class="topic-list">
+                <li>Introduction to Machine Learning</li>
+                <li>Supervised vs Unsupervised Learning</li>
+                <li>Python Libraries for Machine Learning (scikit-learn)</li>
+                <li>Regression Algorithms</li>
+                <li>Classification Techniques</li>
+                <li>Unsupervised Learning (Clustering)</li>
+                <li>Recommender Systems</li>
+            </ul>
+            
+            <div class="visualization">
+                <h3>Machine Learning Workflow</h3>
+                <img src="https://scikit-learn.org/stable/_static/ml_map.png" alt="scikit-learn Algorithm Cheat Sheet">
+                <p>scikit-learn provides a comprehensive toolkit for machine learning.</p>
+            </div>
+            
+            <h3>Classification Example</h3>
+            <div class="code-block">
+                <span style="color: #a6e22e">from</span> sklearn <span style="color: #a6e22e">import</span> datasets<br>
+                <span style="color: #a6e22e">from</span> sklearn.model_selection <span style="color: #a6e22e">import</span> train_test_split<br>
+                <span style="color: #a6e22e">from</span> sklearn.ensemble <span style="color: #a6e22e">import</span> RandomForestClassifier<br>
+                <span style="color: #a6e22e">from</span> sklearn.metrics <span style="color: #a6e22e">import</span> accuracy_score<br><br>
+                
+                <span style="color: #f92672"># Load dataset</span><br>
+                iris = datasets.load_iris()<br>
+                X = iris.data<br>
+                y = iris.target<br><br>
+                
+                <span style="color: #f92672"># Split data</span><br>
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span style="color: #ae81ff">0.3</span>)<br><br>
+                
+                <span style="color: #f92672"># Create and train model</span><br>
+                clf = RandomForestClassifier(n_estimators=<span style="color: #ae81ff">100</span>)<br>
+                clf.fit(X_train, y_train)<br><br>
+                
+                <span style="color: #f92672"># Make predictions</span><br>
+                y_pred = clf.predict(X_test)<br><br>
+                
+                <span style="color: #f92672"># Evaluate model</span><br>
+                print(<span style="color: #e6db74">f"Accuracy: </span>{accuracy_score(y_test, y_pred):<span style="color: #ae81ff">.2f</span>}<span style="color: #e6db74">"</span>)
+            </div>
+        </div>
+    </div>
+    
+    <div class="fab" onclick="scrollToTop()">↑</div>
+    
+    <script>
+        // Show specific unit and hide others
+        function showUnit(unitNumber) {
+            // Hide all units
+            document.querySelectorAll('.unit-card').forEach(unit => {
+                unit.style.display = 'none';
+            });
+            
+            // Show selected unit
+            document.getElementById(`unit-${unitNumber}`).style.display = 'block';
+            
+            // Update tab styling
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab')[unitNumber-1].classList.add('active');
+        }
+        
+        // Toggle hidden content
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Show/hide floating action button based on scroll
+        window.addEventListener('scroll', function() {
+            const fab = document.querySelector('.fab');
+            if (window.pageYOffset > 300) {
+                fab.style.display = 'flex';
+            } else {
+                fab.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

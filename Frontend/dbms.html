@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Management Systems - Complete Course Notes</title>
+    <style>
+        :root {
+            --primary-blue: #1a5276;
+            --secondary-blue: #2874a6;
+            --accent-blue: #3498db;
+            --light-blue: #ebf5fb;
+            --background: #f5f9ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background);
+        }
+        
+        h1 {
+            color: var(--primary-blue);
+            text-align: center;
+            border-bottom: 3px solid var(--accent-blue);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--secondary-blue);
+            margin-top: 40px;
+            border-left: 5px solid var(--accent-blue);
+            padding-left: 15px;
+            background-color: rgba(52, 152, 219, 0.05);
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            color: var(--secondary-blue);
+            margin-top: 25px;
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+            border: 1px solid #d6eaf8;
+        }
+        
+        .objective {
+            background-color: var(--light-blue);
+            padding: 18px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-blue);
+            font-weight: 500;
+        }
+        
+        .concept-section {
+            margin: 20px 0;
+        }
+        
+        .concept {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px dotted #aed6f1;
+        }
+        
+        .sub-concept {
+            margin-left: 20px;
+            margin-top: 8px;
+            color: #555;
+        }
+        
+        .resource-box {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px solid #bbdefb;
+        }
+        
+        .resource-title {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+        
+        .resource-title:before {
+            content: "🔗";
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+        
+        .video-title:before {
+            content: "🎥";
+        }
+        
+        .book-title:before {
+            content: "📚";
+        }
+        
+        .practice-title:before {
+            content: "💻";
+        }
+        
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #1a5276;
+            text-decoration: underline;
+        }
+        
+        ul, ol {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background-color: var(--secondary-blue);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f9ff;
+        }
+        
+        .important {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+        
+        .definition {
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-left: 3px solid #6c757d;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Database Management Systems (DBMS)</h1>
+    
+    <div class="module">
+        <h2>Module 1: Introduction to DBMS</h2>
+        <div class="objective">
+            <strong>Learning Objectives:</strong> Understand fundamental database concepts, compare DBMS with file systems, and explore database architecture.
+        </div>
+        
+        <div class="concept-section">
+            <h3>1.1 What is a Database?</h3>
+            <div class="definition">
+                A database is an organized collection of interrelated data stored with minimal redundancy and accessed by multiple users simultaneously.
+            </div>
+            
+            <div class="concept">
+                <strong>Key Characteristics:</strong>
+                <ul>
+                    <li>Persistent storage</li>
+                    <li>Self-describing nature (metadata)</li>
+                    <li>Program-data independence</li>
+                    <li>Multiple user interfaces</li>
+                </ul>
+            </div>
+            
+            <div class="concept">
+                <strong>File System vs DBMS:</strong>
+                <div class="sub-concept">
+                    <table>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>File System</th>
+                            <th>DBMS</th>
+                        </tr>
+                        <tr>
+                            <td>Data Redundancy</td>
+                            <td>High</td>
+                            <td>Minimal</td>
+                        </tr>
+                        <tr>
+                            <td>Data Consistency</td>
+                            <td>Poor</td>
+                            <td>Enforced</td>
+                        </tr>
+                        <tr>
+                            <td>Concurrent Access</td>
+                            <td>Difficult</td>
+                            <td>Managed</td>
+                        </tr>
+                        <tr>
+                            <td>Security</td>
+                            <td>Limited</td>
+                            <td>Granular</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept-section">
+            <h3>1.2 DBMS Architecture</h3>
+            <div class="concept">
+                <strong>Three-Schema Architecture:</strong>
+                <ol>
+                    <li><strong>Internal Level:</strong> Physical storage (files, indexes)</li>
+                    <li><strong>Conceptual Level:</strong> Logical structure (tables, relationships)</li>
+                    <li><strong>External Level:</strong> User views (customized presentations)</li>
+                </ol>
+            </div>
+            
+            <div class="important">
+                <strong>Data Independence:</strong> The ability to modify one level without affecting others:
+                <ul>
+                    <li><strong>Physical:</strong> Change storage without changing schema</li>
+                    <li><strong>Logical:</strong> Change schema without changing applications</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="resource-box">
+            <div class="resource-title video-title">Lecture Videos:</div>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=FR4QIeZaPeM" target="_blank">DBMS Introduction (Neso Academy)</a></li>
+                <li><a href="https://www.youtube.com/watch?v=kKwsfjHrjio" target="_blank">Three Schema Architecture (Gate Smashers)</a></li>
+            </ul>
+            
+            <div class="resource-title book-title">Reading Materials:</div>
+            <ul>
+                <li>Chapter 1 - Database System Concepts (Silberschatz)</li>
+                <li><a href="https://www.javatpoint.com/dbms-tutorial" target="_blank">DBMS Tutorial (JavaTpoint)</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="module">
+        <h2>Module 2: Data Models & Relational Databases</h2>
+        <div class="objective">
+            <strong>Learning Objectives:</strong> Understand different data models, master relational model concepts, and learn ER modeling.
+        </div>
+        
+        <div class="concept-section">
+            <h3>2.1 Data Models Overview</h3>
+            <div class="concept">
+                <strong>Types of Data Models:</strong>
+                <ul>
+                    <li><strong>Hierarchical:</strong> Tree structure (parent-child)</li>
+                    <li><strong>Network:</strong> Graph structure</li>
+                    <li><strong>Relational:</strong> Tables with relationships</li>
+                    <li><strong>Entity-Relationship:</strong> Conceptual modeling</li>
+                    <li><strong>Object-oriented:</strong> Objects with attributes/methods</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="concept-section">
+            <h3>2.2 Relational Model</h3>
+            <div class="concept">
+                <strong>Core Concepts:</strong>
+                <ul>
+                    <li><strong>Relation:</strong> Table with rows and columns</li>
+                    <li><strong>Tuple:</strong> Row/record</li>
+                    <li><strong>Attribute:</strong> Column/field</li>
+                    <li><strong>Domain:</strong> Set of allowable values</li>
+                    <li><strong>Key Constraints:</strong> Primary, foreign, candidate keys</li>
+                </ul>
+            </div>
+            
+            <div class="concept">
+                <strong>Relational Algebra Operations:</strong>
+                <div class="sub-concept">
+                    <table>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Symbol</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>Selection</td>
+                            <td>σ</td>
+                            <td>Filter rows</td>
+                        </tr>
+                        <tr>
+                            <td>Projection</td>
+                            <td>π</td>
+                            <td>Select columns</td>
+                        </tr>
+                        <tr>
+                            <td>Join</td>
+                            <td>⋈</td>
+                            <td>Combine relations</td>
+                        </tr>
+                        <tr>
+                            <td>Union</td>
+                            <td>∪</td>
+                            <td>Merge relations</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resource-box">
+            <div class="resource-title video-title">Lecture Videos:</div>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=4Z9KEBexzcM" target="_blank">Relational Model (University Academy)</a></li>
+                <li><a href="https://www.youtube.com/watch?v=6q1aL8VQKls" target="_blank">Relational Algebra (Easy Engineering)</a></li>
+            </ul>
+            
+            <div class="resource-title practice-title">Practice Resources:</div>
+            <ul>
+                <li><a href="https://www.w3schools.com/sql/" target="_blank">SQL Tutorial (W3Schools)</a></li>
+                <li><a href="https://sqlzoo.net/" target="_blank">Interactive SQL Practice (SQLZoo)</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="module">
+        <h2>Module 3: Database Design & Normalization</h2>
+        <div class="objective">
+            <strong>Learning Objectives:</strong> Master ER modeling, understand functional dependencies, and apply normalization techniques.
+        </div>
+        
+        <!-- Additional modules would continue here -->
+        
+        <div class="resource-box">
+            <div class="resource-title">Additional Resources:</div>
+            <ul>
+                <li><a href="https://www.db-book.com/" target="_blank">Database System Concepts Textbook (Free Access)</a></li>
+                <li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-830-database-systems-fall-2010/" target="_blank">MIT DBMS Course Materials</a></li>
+                <li><a href="https://www.coursera.org/specializations/database-systems" target="_blank">Database Systems Specialization (Coursera)</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

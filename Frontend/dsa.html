@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures Study Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f9ff;
+        }
+        
+        h1 {
+            color: #1a5276;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2874a6;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        
+        h3 {
+            color: #2980b9;
+        }
+        
+        .unit {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.1);
+        }
+        
+        .topic-list {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .problem {
+            background-color: #ebf5fb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 3px solid #3498db;
+        }
+        
+        .resources {
+            background-color: #d4e6f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            tab-size: 4;
+        }
+        
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .blue-accent {
+            color: #3498db;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Data Structures Study Guide</h1>
+        <p>A comprehensive guide to linear and non-linear data structures with problems and solutions</p>
+    </div>
+
+    <div class="unit">
+        <h2>📘 Unit-I: Linked Lists</h2>
+        <div class="topic-list">
+            <h3>Topics:</h3>
+            <ul>
+                <li>Singly Linked Lists (Insertion, Deletion, Searching, Concatenation)</li>
+                <li>Circular Linked Lists (Operations)</li>
+                <li>Doubly Linked Lists (Insertion, Deletion, Searching)</li>
+            </ul>
+        </div>
+
+        <div class="problem">
+            <h3>🔹 Basic Problems & Solutions</h3>
+            <h4>1. Insert a Node at the Beginning of a Singly Linked List</h4>
+            <pre><code>void insertAtStart(struct Node** head, int data) {  
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  
+    newNode->data = data;  
+    newNode->next = *head;  
+    *head = newNode;  
+}</code></pre>
+
+            <h4>2. Delete a Node from a Doubly Linked List</h4>
+            <pre><code>void deleteNode(struct Node** head, struct Node* delNode) {  
+    if (*head == NULL || delNode == NULL) return;  
+    if (*head == delNode) *head = delNode->next;  
+    if (delNode->next != NULL) delNode->next->prev = delNode->prev;  
+    if (delNode->prev != NULL) delNode->prev->next = delNode->next;  
+    free(delNode);  
+}</code></pre>
+        </div>
+
+        <div class="resources">
+            <h3>🔷 Online Resources:</h3>
+            <ul>
+                <li><a href="https://www.geeksforgeeks.org/data-structures/linked-list/" target="_blank">GeeksforGeeks - Linked Lists</a></li>
+                <li><a href="https://visualgo.net/en/list" target="_blank">Visualgo - Linked List Visualization</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="unit">
+        <h2>📘 Unit-II: Stacks & Queues</h2>
+        <div class="topic-list">
+            <h3>Topics:</h3>
+            <ul>
+                <li>Stack ADT (Array & Linked List Implementation)</li>
+                <li>Applications (Infix → Postfix, Postfix Evaluation, Recursion)</li>
+                <li>Queue ADT (Array & Linked List Implementation)</li>
+                <li>Circular Queue & Deque</li>
+            </ul>
+        </div>
+
+        <div class="problem">
+            <h3>🔹 Basic Problems & Solutions</h3>
+            <h4>1. Stack Implementation using Array</h4>
+            <pre><code>#define MAX 100  
+int stack[MAX], top = -1;  
+
+void push(int data) {  
+    if (top >= MAX-1) printf("Stack Overflow");  
+    else stack[++top] = data;  
+}  
+
+int pop() {  
+    if (top < 0) printf("Stack Underflow");  
+    else return stack[top--];  
+}</code></pre>
+
+            <h4>2. Circular Queue Insertion</h4>
+            <pre><code>#define SIZE 5  
+int queue[SIZE], front = -1, rear = -1;  
+
+void enqueue(int data) {  
+    if ((front == 0 && rear == SIZE-1) || (rear == (front-1) % (SIZE-1)))  
+        printf("Queue Full");  
+    else {  
+        if (front == -1) front = 0;  
+        rear = (rear + 1) % SIZE;  
+        queue[rear] = data;  
+    }  
+}</code></pre>
+        </div>
+
+        <div class="resources">
+            <h3>🔷 Online Resources:</h3>
+            <ul>
+                <li><a href="https://www.tutorialspoint.com/data_structures_algorithms/stack_algorithm.htm" target="_blank">Tutorialspoint - Stacks & Queues</a></li>
+                <li><a href="https://leetcode.com/tag/stack/" target="_blank">LeetCode Stack Problems</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="unit">
+        <h2>📘 Unit-III: Sorting & Searching</h2>
+        <div class="topic-list">
+            <h3>Topics:</h3>
+            <ul>
+                <li>Sorting (Insertion, Selection, Merge, Quick, Heap, Radix, Counting, Shell)</li>
+                <li>Searching (Linear, Binary)</li>
+                <li>Hashing (Collision Handling, Open Addressing, Chaining)</li>
+            </ul>
+        </div>
+
+        <div class="problem">
+            <h3>🔹 Basic Problems & Solutions</h3>
+            <h4>1. Quick Sort Implementation</h4>
+            <pre><code>void swap(int* a, int* b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = (low - 1);
+    
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}</code></pre>
+        </div>
+
+        <div class="resources">
+            <h3>🔷 Online Resources:</h3>
+            <ul>
+                <li><a href="https://www.geeksforgeeks.org/sorting-algorithms/" target="_blank">GeeksforGeeks - Sorting Algorithms</a></li>
+                <li><a href="https://www.hackerearth.com/practice/algorithms/searching/binary-search/tutorial/" target="_blank">HackerEarth - Binary Search</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="unit">
+        <h2>📘 Unit-IV: Trees</h2>
+        <div class="topic-list">
+            <h3>Topics:</h3>
+            <ul>
+                <li>Trees – Terminology, Representation of Trees</li>
+                <li>Binary tree ADT, Properties of Binary Trees</li>
+                <li>Binary Tree Representations (array and linked representations)</li>
+                <li>Binary Tree traversals</li>
+                <li>Max Priority Queue ADT, Max Heap Operations</li>
+            </ul>
+        </div>
+
+        <div class="problem">
+            <h3>🔹 Basic Problems & Solutions</h3>
+            <h4>1. Inorder Tree Traversal (Recursive)</h4>
+            <pre><code>void inorder(struct Node* node) {
+    if (node == NULL) return;
+    
+    inorder(node->left);
+    printf("%d ", node->data);
+    inorder(node->right);
+}</code></pre>
+        </div>
+
+        <div class="resources">
+            <h3>🔷 Online Resources:</h3>
+            <ul>
+                <li><a href="https://www.geeksforgeeks.org/binary-tree-data-structure/" target="_blank">GeeksforGeeks - Binary Tree</a></li>
+                <li><a href="https://visualgo.net/en/bst" target="_blank">Visualgo - BST Visualization</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="unit">
+        <h2>📘 Unit-V: Search Trees</h2>
+        <div class="topic-list">
+            <h3>Topics:</h3>
+            <ul>
+                <li>Binary Search Trees (Searching, Insertion and Deletion)</li>
+                <li>AVL Trees (Definition and operations)</li>
+                <li>Red Black Trees</li>
+                <li>Trie Tree</li>
+                <li>B and B+ Trees</li>
+            </ul>
+        </div>
+
+        <div class="resources">
+            <h3>🔷 Online Resources:</h3>
+            <ul>
+                <li><a href="https://www.geeksforgeeks.org/binary-search-tree-data-structure/" target="_blank">GeeksforGeeks - BST</a></li>
+                <li><a href="https://www.cs.usfca.edu/~galles/visualization/AVLtree.html" target="_blank">AVL Tree Visualization</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="unit">
+        <h2>📘 Unit-VI: Graphs</h2>
+        <div class="topic-list">
+            <h3>Topics:</h3>
+            <ul>
+                <li>Graphs – Introduction, Definition, Terminology</li>
+                <li>Graph ADT</li>
+                <li>Graph Representations (Adjacency matrix, Adjacency lists)</li>
+                <li>Graph traversals – DFS and BFS</li>
+                <li>Applications of DFS and BFS (Connected Components, Topological sort)</li>
+            </ul>
+        </div>
+
+        <div class="problem">
+            <h3>🔹 Basic Problems & Solutions</h3>
+            <h4>1. BFS Implementation (Adjacency List)</h4>
+            <pre><code>void BFS(int start, vector<int> adj[], int n) {
+    vector<bool> visited(n, false);
+    queue<int> q;
+    
+    visited[start] = true;
+    q.push(start);
+    
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+        cout << v << " ";
+        
+        for (int u : adj[v]) {
+            if (!visited[u]) {
+                visited[u] = true;
+                q.push(u);
+            }
+        }
+    }
+}</code></pre>
+        </div>
+
+        <div class="resources">
+            <h3>🔷 Online Resources:</h3>
+            <ul>
+                <li><a href="https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/" target="_blank">GeeksforGeeks - Graph</a></li>
+                <li><a href="https://visualgo.net/en/dfsbfs" target="_blank">Visualgo - Graph Traversals</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; color: #2874a6;">
+        <p>Happy Learning! 🚀</p>
+    </div>
+</body>
+</html>

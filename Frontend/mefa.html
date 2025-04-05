@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managerial Economics & Financial Accounting Guide</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark-text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin-top: 30px;
+        }
+        
+        h4 {
+            color: var(--accent);
+            margin-top: 25px;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .concept-box {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .example-box {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px dashed var(--secondary);
+        }
+        
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 1.1em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .resources {
+            background-color: #e8f4f8;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+        
+        .toc {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            column-count: 2;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .toc li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+        
+        .case-study {
+            background-color: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .lecture-card {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .lecture-card img {
+            width: 60px;
+            margin-right: 15px;
+        }
+        
+        .lecture-info {
+            flex-grow: 1;
+        }
+        
+        .lecture-card a {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Managerial Economics & Financial Accounting Guide</h1>
+    <p style="text-align: center; color: var(--light-text);">Comprehensive resource for business decision-making and financial analysis</p>
+    
+    <div class="toc">
+        <h2>📜 Table of Contents</h2>
+        <ul>
+            <li><a href="#managerial-economics">Managerial Economics</a></li>
+            <li><a href="#demand-supply">Demand & Supply Analysis</a></li>
+            <li><a href="#cost-theory">Cost & Production Theory</a></li>
+            <li><a href="#market-structures">Market Structures</a></li>
+            <li><a href="#financial-accounting">Financial Accounting</a></li>
+            <li><a href="#accounting-principles">Accounting Principles</a></li>
+            <li><a href="#financial-statements">Financial Statements</a></li>
+            <li><a href="#ratio-analysis">Ratio Analysis</a></li>
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#online-resources">Online Resources</a></li>
+        </ul>
+    </div>
+
+    <!-- Managerial Economics Section -->
+    <div id="managerial-economics" class="section">
+        <h2>📊 Managerial Economics</h2>
+        <p>Managerial economics applies economic theory and quantitative methods to business decision-making. It bridges economic theory and practice in business management.</p>
+        
+        <div id="demand-supply" class="concept-box">
+            <h3>1. Demand & Supply Analysis</h3>
+            <p>The fundamental concept that examines the relationship between price and quantity in markets.</p>
+            
+            <h4>Key Concepts:</h4>
+            <ul>
+                <li><strong>Demand Function</strong>: Q<sub>d</sub> = a - bP (where Q<sub>d</sub> is quantity demanded, P is price)</li>
+                <li><strong>Supply Function</strong>: Q<sub>s</sub> = c + dP (where Q<sub>s</sub> is quantity supplied)</li>
+                <li><strong>Market Equilibrium</strong>: Where Q<sub>d</sub> = Q<sub>s</sub></li>
+            </ul>
+            
+            <div class="formula">
+                Price Elasticity of Demand (E<sub>d</sub>) = (%ΔQ<sub>d</sub>) / (%ΔP)
+            </div>
+            
+            <div class="example-box">
+                <h4>Practical Example: Smartphone Pricing</h4>
+                <p>A company reduces smartphone prices by 10%, leading to a 15% increase in sales:</p>
+                <div class="formula">
+                    E<sub>d</sub> = 15% / 10% = 1.5 (Elastic Demand)
+                </div>
+                <p><strong>Interpretation:</strong> The 1.5 elasticity means demand is responsive to price changes. A 1% price decrease leads to a 1.5% increase in quantity demanded.</p>
+            </div>
+            
+            <h4>Factors Affecting Elasticity:</h4>
+            <table>
+                <tr>
+                    <th>Factor</th>
+                    <th>Impact on Elasticity</th>
+                </tr>
+                <tr>
+                    <td>Availability of substitutes</td>
+                    <td>More substitutes → More elastic</td>
+                </tr>
+                <tr>
+                    <td>Necessity vs luxury</td>
+                    <td>Luxuries → More elastic</td>
+                </tr>
+                <tr>
+                    <td>Time horizon</td>
+                    <td>Longer time → More elastic</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="cost-theory" class="concept-box">
+            <h3>2. Cost & Production Theory</h3>
+            <p>Understanding how production costs behave at different output levels is crucial for pricing and output decisions.</p>
+            
+            <h4>Cost Types:</h4>
+            <table>
+                <tr>
+                    <th>Cost Type</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>Fixed Costs (FC)</td>
+                    <td>Don't vary with output</td>
+                    <td>Rent, salaries</td>
+                </tr>
+                <tr>
+                    <td>Variable Costs (VC)</td>
+                    <td>Vary with output</td>
+                    <td>Raw materials</td>
+                </tr>
+                <tr>
+                    <td>Marginal Cost (MC)</td>
+                    <td>Cost of one more unit</td>
+                    <td>MC = ΔTC/ΔQ</td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <h4>Break-even Analysis Example</h4>
+                <p>A bakery has:</p>
+                <ul>
+                    <li>Fixed costs: $10,000/month</li>
+                    <li>Variable cost per cake: $5</li>
+                    <li>Selling price per cake: $15</li>
+                </ul>
+                
+                <div class="formula">
+                    Break-even Quantity = FC / (P - VC) = 10,000 / (15 - 5) = 1,000 cakes/month
+                </div>
+                
+                <p><strong>Interpretation:</strong> The bakery must sell 1,000 cakes each month to cover all costs.</p>
+            </div>
+            
+            <h4>Cost Curves Visualization:</h4>
+            <img src="https://www.economicshelp.org/wp-content/uploads/2019/05/cost-curves.png" alt="Cost Curves" style="max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1px solid #ddd;">
+            <p style="text-align: center; font-size: 0.9em; color: var(--light-text);">Typical short-run cost curves showing ATC, AVC, AFC, and MC relationships</p>
+        </div>
+        
+        <div id="market-structures" class="concept-box">
+            <h3>3. Market Structures</h3>
+            <p>Different market environments require different managerial strategies.</p>
+            
+            <table>
+                <tr>
+                    <th>Market Type</th>
+                    <th>Characteristics</th>
+                    <th>Pricing Power</th>
+                    <th>Examples</th>
+                </tr>
+                <tr>
+                    <td>Perfect Competition</td>
+                    <td>Many firms, identical products</td>
+                    <td>None (price taker)</td>
+                    <td>Agricultural commodities</td>
+                </tr>
+                <tr>
+                    <td>Monopolistic Competition</td>
+                    <td>Many firms, differentiated products</td>
+                    <td>Some</td>
+                    <td>Restaurants, clothing</td>
+                </tr>
+                <tr>
+                    <td>Oligopoly</td>
+                    <td>Few dominant firms</td>
+                    <td>Significant</td>
+                    <td>Automobiles, airlines</td>
+                </tr>
+                <tr>
+                    <td>Monopoly</td>
+                    <td>Single seller</td>
+                    <td>Substantial</td>
+                    <td>Utilities, patents</td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <h4>Pricing Strategy in Oligopoly: Game Theory</h4>
+                <p>The prisoner's dilemma applied to airline pricing:</p>
+                <table>
+                    <tr>
+                        <th rowspan="2">Airline B</th>
+                        <th colspan="2">Airline A</th>
+                    </tr>
+                    <tr>
+                        <th>High Price</th>
+                        <th>Low Price</th>
+                    </tr>
+                    <tr>
+                        <td>High Price</td>
+                        <td>A: $10m, B: $10m</td>
+                        <td>A: $15m, B: $2m</td>
+                    </tr>
+                    <tr>
+                        <td>Low Price</td>
+                        <td>A: $2m, B: $15m</td>
+                        <td>A: $5m, B: $5m</td>
+                    </tr>
+                </table>
+                <p><strong>Nash Equilibrium:</strong> Both airlines choose low prices despite better collective outcome with high prices.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Accounting Section -->
+    <div id="financial-accounting" class="section">
+        <h2>📈 Financial Accounting</h2>
+        <p>The systematic recording, reporting, and analysis of financial transactions of a business.</p>
+        
+        <div id="accounting-principles" class="concept-box">
+            <h3>1. Accounting Principles</h3>
+            <p>The foundation of all financial reporting and analysis.</p>
+            
+            <h4>GAAP Principles:</h4>
+            <table>
+                <tr>
+                    <th>Principle</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Revenue Recognition</td>
+                    <td>Record revenue when earned</td>
+                </tr>
+                <tr>
+                    <td>Matching</td>
+                    <td>Match expenses to related revenues</td>
+                </tr>
+                <tr>
+                    <td>Consistency</td>
+                    <td>Use same methods period to period</td>
+                </tr>
+                <tr>
+                    <td>Materiality</td>
+                    <td>Only record significant items</td>
+                </tr>
+            </table>
+            
+            <h4>Accounting Equation:</h4>
+            <div class="formula">
+                Assets = Liabilities + Owner's Equity
+            </div>
+            
+            <div class="example-box">
+                <h4>Transaction Analysis Example</h4>
+                <p><strong>Transaction:</strong> Company purchases $5,000 equipment with $2,000 cash and $3,000 loan.</p>
+                <table>
+                    <tr>
+                        <th>Account</th>
+                        <th>Change</th>
+                    </tr>
+                    <tr>
+                        <td>Equipment (Asset)</td>
+                        <td>+$5,000</td>
+                    </tr>
+                    <tr>
+                        <td>Cash (Asset)</td>
+                        <td>-$2,000</td>
+                    </tr>
+                    <tr>
+                        <td>Loans Payable (Liability)</td>
+                        <td>+$3,000</td>
+                    </tr>
+                </table>
+                <p><strong>Equation remains balanced:</strong> +$5,000 = +$3,000 + $2,000 (from reduced cash)</p>
+            </div>
+        </div>
+        
+        <div id="financial-statements" class="concept-box">
+            <h3>2. Financial Statements</h3>
+            <p>The three core reports that communicate financial information.</p>
+            
+            <h4>1. Balance Sheet</h4>
+            <p>Snapshot of financial position at a point in time.</p>
+            <table>
+                <tr>
+                    <th>Assets</th>
+                    <th>Amount</th>
+                    <th>Liabilities & Equity</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>Cash</td>
+                    <td>$50,000</td>
+                    <td>Accounts Payable</td>
+                    <td>$20,000</td>
+                </tr>
+                <tr>
+                    <td>Inventory</td>
+                    <td>$30,000</td>
+                    <td>Long-term Debt</td>
+                    <td>$100,000</td>
+                </tr>
+                <tr>
+                    <td>Equipment</td>
+                    <td>$120,000</td>
+                    <td>Owner's Equity</td>
+                    <td>$80,000</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Assets</strong></td>
+                    <td><strong>$200,000</strong></td>
+                    <td><strong>Total L + E</strong></td>
+                    <td><strong>$200,000</strong></td>
+                </tr>
+            </table>
+            
+            <h4>2. Income Statement</h4>
+            <p>Financial performance over a period.</p>
+            <table>
+                <tr>
+                    <td>Revenue</td>
+                    <td>$500,000</td>
+                </tr>
+                <tr>
+                    <td>Cost of Goods Sold</td>
+                    <td>($300,000)</td>
+                </tr>
+                <tr>
+                    <td><strong>Gross Profit</strong></td>
+                    <td><strong>$200,000</strong></td>
+                </tr>
+                <tr>
+                    <td>Operating Expenses</td>
+                    <td>($100,000)</td>
+                </tr>
+                <tr>
+                    <td><strong>Net Income</strong></td>
+                    <td><strong>$100,000</strong></td>
+                </tr>
+            </table>
+            
+            <h4>3. Cash Flow Statement</h4>
+            <p>Shows cash inflows and outflows from operations, investing, and financing.</p>
+        </div>
+        
+        <div id="ratio-analysis" class="concept-box">
+            <h3>3. Ratio Analysis</h3>
+            <p>Key metrics to assess financial health and performance.</p>
+            
+            <table>
+                <tr>
+                    <th>Ratio Category</th>
+                    <th>Key Ratios</th>
+                    <th>Formula</th>
+                    <th>Ideal Range</th>
+                </tr>
+                <tr>
+                    <td>Liquidity</td>
+                    <td>Current Ratio</td>
+                    <td>Current Assets / Current Liabilities</td>
+                    <td>1.5-3.0</td>
+                </tr>
+                <tr>
+                    <td>Profitability</td>
+                    <td>Net Profit Margin</td>
+                    <td>Net Income / Revenue</td>
+                    <td>Industry dependent</td>
+                </tr>
+                <tr>
+                    <td>Leverage</td>
+                    <td>Debt-to-Equity</td>
+                    <td>Total Debt / Total Equity</td>
+                    <td>&lt; 2.0</td>
+                </tr>
+                <tr>
+                    <td>Efficiency</td>
+                    <td>Inventory Turnover</td>
+                    <td>COGS / Average Inventory</td>
+                    <td>Higher is better</td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <h4>Ratio Analysis Example</h4>
+                <p>Company XYZ has:</p>
+                <ul>
+                    <li>Current Assets: $150,000</li>
+                    <li>Current Liabilities: $75,000</li>
+                    <li>Net Income: $50,000</li>
+                    <li>Revenue: $500,000</li>
+                </ul>
+                
+                <div class="formula">
+                    Current Ratio = $150,000 / $75,000 = 2.0 (Healthy liquidity position)
+                </div>
+                <div class="formula">
+                    Net Profit Margin = $50,000 / $500,000 = 10% (For comparison with industry average)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Studies Section -->
+    <div id="case-studies" class="section">
+        <h2>📚 Case Studies & Applications</h2>
+        
+        <div class="case-study">
+            <h3>Case Study 1: Pricing Strategy at Apple</h3>
+            <p><strong>Situation:</strong> Apple's premium pricing strategy for iPhones</p>
+            <p><strong>Analysis:</strong></p>
+            <ul>
+                <li>Price elasticity analysis shows inelastic demand among loyal customers</li>
+                <li>Skimming pricing strategy for new models</li>
+                <li>Psychological pricing at $999 instead of $1000</li>
+            </ul>
+            <p><strong>Result:</strong> Maintained high profit margins despite competition</p>
+        </div>
+        
+        <div class="case-study">
+            <h3>Case Study 2: Cost Accounting at Toyota</h3>
+            <p><strong>Situation:</strong> Implementing lean manufacturing principles</p>
+            <p><strong>Analysis:</strong></p>
+            <ul>
+                <li>Activity-based costing to identify waste</li>
+                <li>Just-in-time inventory management</li>
+                <li>Kaizen continuous improvement</li>
+            </ul>
+            <p><strong>Result:</strong> Reduced production costs by 15% over 3 years</p>
+        </div>
+    </div>
+
+    <!-- Online Resources Section -->
+    <div id="online-resources" class="resources">
+        <h2>🌐 Online Lectures & Resources</h2>
+        
+        <h3>Recommended Video Lectures</h3>
+        
+        <div class="lecture-card">
+            <img src="https://i.ytimg.com/vi/VaR9Xs6Mw_8/maxresdefault.jpg" alt="Managerial Economics">
+            <div class="lecture-info">
+                <a href="https://www.youtube.com/watch?v=VaR9Xs6Mw_8" target="_blank">MIT - Managerial Economics Complete Course</a>
+                <p>15-hour comprehensive course covering all key concepts</p>
+            </div>
+        </div>
+        
+        <div class="lecture-card">
+            <img src="https://i.ytimg.com/vi/mFymEWH2JvQ/maxresdefault.jpg" alt="Financial Accounting">
+            <div class="lecture-info">
+                <a href="https://www.youtube.com/watch?v=mFymEWH2JvQ" target="_blank">Financial Accounting Fundamentals</a>
+                <p>University of Virginia course on Coursera</p>
+            </div>
+        </div>
+        
+        <h3>Interactive Learning Platforms</h3>
+        <ul>
+            <li><a href="https://www.khanacademy.org/economics-finance-domain/core-finance" target="_blank">Khan Academy - Finance & Capital Markets</a></li>
+            <li><a href="https://www.coursera.org/learn/financial-accounting" target="_blank">Coursera - Introduction to Financial Accounting</a></li>
+            <li><a href="https://www.edx.org/course/managerial-economics" target="_blank">edX - Managerial Economics and Business Analysis</a></li>
+        </ul>
+        
+        <h3>Reference Materials</h3>
+        <ul>
+            <li><a href="https://www.accountingcoach.com/" target="_blank">AccountingCoach</a> - Free accounting tutorials</li>
+            <li><a href="https://www.investopedia.com/" target="_blank">Investopedia</a> - Financial and economic terms</li>
+            <li><a href="https://corporatefinanceinstitute.com/" target="_blank">Corporate Finance Institute</a> - Free resources</li>
+        </ul>
+        
+        <div class="note">
+            <p><strong>Pro Tip:</strong> Combine theoretical learning with practical applications using financial statement analysis of real companies (e.g., through Yahoo Finance or company annual reports).</p>
+        </div>
+    </div>
+
+    <footer style="text-align: center; margin-top: 50px; padding: 20px; color: var(--light-text);">
+        <p>© 2023 Managerial Economics & Financial Accounting Guide | Last updated: June 2023</p>
+    </footer>
+</body>
+</html>

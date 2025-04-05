@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Lecture Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            margin: 1.5rem auto;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding-left: 50px;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+        
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 2rem;
+        }
+        
+        .subject-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .subject-image {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .subject-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+        }
+        
+        .subject-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .subject-content {
+            padding: 20px;
+        }
+        
+        .subject-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .subject-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .badge-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .badge-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .badge-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.4s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .topic-list {
+            list-style-type: none;
+        }
+        
+        .topic-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+        
+        .topic-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .topic-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .topic-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .resource-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        
+        .book-card {
+            display: flex;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .book-cover {
+            width: 80px;
+            height: 110px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .book-info {
+            padding: 10px 15px;
+            flex-grow: 1;
+        }
+        
+        .book-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .book-author {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .book-desc {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .tab-container {
+            margin-top: 20px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: var(--secondary);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Engineering Lecture Hub</h1>
+            <p class="subtitle">Comprehensive resources for computer science students</p>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search subjects, topics or resources...">
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="subject-grid">
+            <!-- C Programming Card -->
+            <div class="subject-card" onclick="openModal('c-programming')">
+                <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                    <h3 class="subject-title">C Programming</h3>
+                </div>
+                <div class="subject-content">
+                    <p class="subject-description">Master the fundamentals of procedural programming with C language, from basic syntax to advanced concepts.</p>
+                    <div class="subject-meta">
+                        <span><i class="far fa-file-alt"></i> 12 Modules</span>
+                        <span><i class="far fa-bookmark"></i> Core Subject</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Structures Card -->
+            <div class="subject-card" onclick="openModal('data-structures')">
+                <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                    <h3 class="subject-title">Data Structures</h3>
+                </div>
+                <div class="subject-content">
+                    <p class="subject-description">Learn about arrays, linked lists, trees, graphs and algorithms to efficiently organize and manipulate data.</p>
+                    <div class="subject-meta">
+                        <span><i class="far fa-file-alt"></i> 15 Modules</span>
+                        <span><i class="far fa-bookmark"></i> Core Subject</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Java Programming Card -->
+            <div class="subject-card" onclick="openModal('java')">
+                <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1544256718-3bcf237f3974?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                    <h3 class="subject-title">Java Programming</h3>
+                </div>
+                <div class="subject-content">
+                    <p class="subject-description">Object-oriented programming with Java, covering classes, inheritance, polymorphism, and exception handling.</p>
+                    <div class="subject-meta">
+                        <span><i class="far fa-file-alt"></i> 10 Modules</span>
+                        <span><i class="far fa-bookmark"></i> Core Subject</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Python Programming Card -->
+            <div class="subject-card" onclick="openModal('python')">
+                <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1526379095098-d400fd0bf935?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                    <h3 class="subject-title">Python Programming</h3>
+                </div>
+                <div class="subject-content">
+                    <p class="subject-description">Learn Python from basics to advanced concepts including data science and machine learning applications.</p>
+                    <div class="subject-meta">
+                        <span><i class="far fa-file-alt"></i> 8 Modules</span>
+                        <span><i class="far fa-bookmark"></i> Core Subject</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Design Analysis & Algorithms Card -->
+            <div class="subject-card" onclick="openModal('daa')">
+                <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                    <h3 class="subject-title">Design Analysis & Algorithms</h3>
+                </div>
+                <div class="subject-content">
+                    <p class="subject-description">Study algorithm design techniques, complexity analysis, and problem-solving strategies.</p>
+                    <div class="subject-meta">
+                        <span><i class="far fa-file-alt"></i> 14 Modules</span>
+                        <span><i class="far fa-bookmark"></i> Core Subject</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Web Development Card -->
+            <div class="subject-card" onclick="openModal('web-dev')">
+                <div class="subject-image" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                    <h3 class="subject-title">Web Development</h3>
+                </div>
+                <div class="subject-content">
+                    <p class="subject-description">Full-stack web development covering HTML, CSS, JavaScript, and modern frameworks.</p>
+                    <div class="subject-meta">
+                        <span><i class="far fa-file-alt"></i> 16 Modules</span>
+                        <span><i class="far fa-bookmark"></i> Elective</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- C Programming Modal -->
+    <div id="c-programming" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">C Programming</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'topics-c')">Topics</button>
+                        <button class="tab-btn" onclick="openTab(event, 'resources-c')">Resources</button>
+                        <button class="tab-btn" onclick="openTab(event, 'books-c')">Reference Books</button>
+                    </div>
+                    
+                    <div id="topics-c" class="tab-content active">
+                        <ul class="topic-list">
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Introduction to C</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">History, features, structure of C program, compilation process</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Data Types & Operators</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Variables, constants, primitive data types, operators and expressions</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Control Structures</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Conditional statements, loops, break and continue</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Functions</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Function declaration, definition, parameters, return values, recursion</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">                               
+                               
+                               <span>Arrays & Strings</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Single and multi-dimensional arrays, string handling functions</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Pointers</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Pointer arithmetic, arrays and pointers, dynamic memory allocation</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Structures & Unions</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Defining structures, nested structures, unions, typedef</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>File Handling</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">File operations, sequential and random access, error handling</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="resources-c" class="tab-content">
+                        <div class="resource-item">
+                            <div class="resource-title">Complete C Programming Notes</div>
+                            <p>Comprehensive PDF covering all topics with examples and exercises.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 2.4MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">C Programming Cheat Sheet</div>
+                            <p>Quick reference for syntax, operators, and standard library functions.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 450KB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Practice Problems Collection</div>
+                            <p>100+ solved problems with explanations for each topic.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (ZIP, 1.1MB)</a>
+                        </div>
+                    </div>
+                    
+                    <div id="books-c" class="tab-content">
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/41BKx1AxQWL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">The C Programming Language</div>
+                                <div class="book-author">Brian W. Kernighan, Dennis M. Ritchie</div>
+                                <div class="book-desc">The definitive reference book on C by its creators.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51ZU%2BCvkTyL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">C Programming Absolute Beginner's Guide</div>
+                                <div class="book-author">Greg Perry, Dean Miller</div>
+                                <div class="book-desc">Excellent for beginners with practical examples.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51Hbk3d0OIL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Expert C Programming</div>
+                                <div class="book-author">Peter van der Linden</div>
+                                <div class="book-desc">Deep C secrets and advanced techniques.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Data Structures Modal -->
+    <div id="data-structures" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Data Structures</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'topics-ds')">Topics</button>
+                        <button class="tab-btn" onclick="openTab(event, 'resources-ds')">Resources</button>
+                        <button class="tab-btn" onclick="openTab(event, 'books-ds')">Reference Books</button>
+                    </div>
+                    
+                    <div id="topics-ds" class="tab-content active">
+                        <ul class="topic-list">
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Arrays & Linked Lists</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Single/multi-dimensional arrays, singly/doubly linked lists</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Stacks & Queues</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Implementation using arrays and linked lists, applications</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Trees</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Binary trees, BST, AVL trees, traversal algorithms</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Graphs</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Representation, BFS, DFS, shortest path algorithms</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Sorting Algorithms</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Bubble, selection, insertion, merge, quick, heap sorts</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Searching Algorithms</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Linear search, binary search, hashing techniques</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Advanced Data Structures</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">B-trees, red-black trees, tries, skip lists</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="resources-ds" class="tab-content">
+                        <div class="resource-item">
+                            <div class="resource-title">Data Structures Visual Guide</div>
+                            <p>Illustrated PDF with animations of all major data structures.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 3.2MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Algorithm Complexity Cheat Sheet</div>
+                            <p>Time and space complexity for all common operations.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 780KB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Implementation Examples</div>
+                            <p>Complete C implementations of all data structures.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (ZIP, 1.8MB)</a>
+                        </div>
+                    </div>
+                    
+                    <div id="books-ds" class="tab-content">
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/61HgMeG5RLL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Introduction to Algorithms</div>
+                                <div class="book-author">Thomas H. Cormen, Charles E. Leiserson</div>
+                                <div class="book-desc">The definitive guide to algorithms and data structures.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51NAPFUvHVL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Data Structures and Algorithms Made Easy</div>
+                                <div class="book-author">Narasimha Karumanchi</div>
+                                <div class="book-desc">Excellent for interview preparation with practical examples.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/41H5Z5qS9BL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Algorithms</div>
+                                <div class="book-author">Robert Sedgewick, Kevin Wayne</div>
+                                <div class="book-desc">Comprehensive coverage with Java implementations.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Java Modal -->
+    <div id="java" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Java Programming</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'topics-java')">Topics</button>
+                        <button class="tab-btn" onclick="openTab(event, 'resources-java')">Resources</button>
+                        <button class="tab-btn" onclick="openTab(event, 'books-java')">Reference Books</button>
+                    </div>
+                    
+                    <div id="topics-java" class="tab-content active">
+                        <ul class="topic-list">
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Java Fundamentals</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">JVM architecture, data types, operators, control flow</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>OOP Concepts</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Classes, objects, inheritance, polymorphism, abstraction</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Exception Handling</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Try-catch-finally, custom exceptions, exception hierarchy</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Collections Framework</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">List, Set, Map interfaces and implementations</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Multithreading</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">Thread lifecycle, synchronization, thread pools</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>JDBC</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Database connectivity, CRUD operations, transactions</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Java 8 Features</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">Lambdas, streams, functional interfaces, method references</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="resources-java" class="tab-content">
+                        <div class="resource-item">
+                            <div class="resource-title">Java Programming Complete Notes</div>
+                            <p>Detailed PDF covering core Java concepts with examples.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 3.1MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Java Collections Cheat Sheet</div>
+                            <p>Quick reference for all collection classes and interfaces.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 620KB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Java Project Ideas</div>
+                            <p>50+ project ideas with difficulty levels and requirements.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 890KB)</a>
+                        </div>
+                    </div>
+                    
+                    <div id="books-java" class="tab-content">
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/41RjD9s+q1L._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Effective Java</div>
+                                <div class="book-author">Joshua Bloch</div>
+                                <div class="book-desc">Best practices and design patterns for Java.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51S8VRHA2FL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Head First Java</div>
+                                <div class="book-author">Kathy Sierra, Bert Bates</div>
+                                <div class="book-desc">Engaging introduction to Java programming.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51Ity9NtXhL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Java: The Complete Reference</div>
+                                <div class="book-author">Herbert Schildt</div>
+                                <div class="book-desc">Comprehensive reference for Java SE.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Python Modal -->
+    <div id="python" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Python Programming</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'topics-py')">Topics</button>
+                        <button class="tab-btn" onclick="openTab(event, 'resources-py')">Resources</button>
+                        <button class="tab-btn" onclick="openTab(event, 'books-py')">Reference Books</button>
+                    </div>
+                    
+                    <div id="topics-py" class="tab-content active">
+                        <ul class="topic-list">
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Python Basics</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Syntax, data types, operators, control flow, functions</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Data Structures</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Lists, tuples, dictionaries, sets, comprehensions</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>OOP in Python</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Classes, inheritance, polymorphism, magic methods</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>File Handling</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Reading/writing files, working with CSV/JSON</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Modules & Packages</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Import system, creating packages, virtual environments</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Exception Handling</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Try-except blocks, custom exceptions, context managers</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Popular Libraries</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">NumPy, Pandas, Matplotlib, Requests, Flask/Django</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="resources-py" class="tab-content">
+                        <div class="resource-item">
+                            <div class="resource-title">Python Crash Course</div>
+                            <p>Quick-start guide covering all fundamental concepts.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 1.8MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Python Cheat Sheet</div>
+                            <p>Syntax reference for all common operations.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 520KB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Python Projects Collection</div>
+                            <p>30+ project ideas with sample code and explanations.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (ZIP, 2.4MB)</a>
+                        </div>
+                    </div>
+                    
+                    <div id="books-py" class="tab-content">
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51K0swUvlvL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Python Crash Course</div>
+                                <div class="book-author">Eric Matthes</div>
+                                <div class="book-desc">Hands-on introduction to Python programming.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51xwGncXgxL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Fluent Python</div>
+                                <div class="book-author">Luciano Ramalho</div>
+                                <div class="book-desc">Clear and practical guide to Pythonic programming.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51ePeKJSpRL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Automate the Boring Stuff with Python</div>
+                                <div class="book-author">Al Sweigart</div>
+                                <div class="book-desc">Practical programming for total beginners.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Design Analysis & Algorithms Modal -->
+    <div id="daa" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Design Analysis & Algorithms</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'topics-daa')">Topics</button>
+                        <button class="tab-btn" onclick="openTab(event, 'resources-daa')">Resources</button>
+                        <button class="tab-btn" onclick="openTab(event, 'books-daa')">Reference Books</button>
+                    </div>
+                    
+                    <div id="topics-daa" class="tab-content active">
+                        <ul class="topic-list">
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Algorithm Analysis</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Asymptotic notation, time/space complexity analysis</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Divide & Conquer</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Merge sort, quick sort, binary search, matrix multiplication</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Greedy Algorithms</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Activity selection, Huffman coding, Dijkstra's algorithm</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Dynamic Programming</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">Fibonacci, knapsack, matrix chain multiplication, Floyd-Warshall</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Backtracking</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">N-queens, graph coloring, Hamiltonian cycle</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>NP-Completeness</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">P vs NP, reduction techniques, approximation algorithms</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="resources-daa" class="tab-content">
+                        <div class="resource-item">
+                            <div class="resource-title">Algorithm Design Manual Notes</div>
+                            <p>Comprehensive notes based on Steven Skiena's famous book.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 2.9MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Algorithm Complexity Cheat Sheet</div>
+                            <p>Quick reference for time/space complexity of common algorithms.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 680KB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Practice Problems Collection</div>
+                            <p>150+ algorithm problems with solutions and explanations.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (ZIP, 3.2MB)</a>
+                        </div>
+                    </div>
+                    
+                    <div id="books-daa" class="tab-content">
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/61PgD8k3yAL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">The Algorithm Design Manual</div>
+                                <div class="book-author">Steven S. Skiena</div>
+                                <div class="book-desc">Practical guide with "war stories" from industry.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51Z8K1Q+QQL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Grokking Algorithms</div>
+                                <div class="book-author">Aditya Bhargava</div>
+                                <div class="book-desc">Illustrated guide for beginners.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/41VQ9uLIzVL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Algorithms Unlocked</div>
+                                <div class="book-author">Thomas H. Cormen</div>
+                                <div class="book-desc">Gentle introduction to algorithms.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Web Development Modal -->
+    <div id="web-dev" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Web Development</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="openTab(event, 'topics-web')">Topics</button>
+                        <button class="tab-btn" onclick="openTab(event, 'resources-web')">Resources</button>
+                        <button class="tab-btn" onclick="openTab(event, 'books-web')">Reference Books</button>
+                    </div>
+                    
+                    <div id="topics-web" class="tab-content active">
+                        <ul class="topic-list">
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>HTML5 & CSS3</span>
+                                    <span class="badge badge-primary">Basic</span>
+                                </div>
+                                <p class="topic-desc">Semantic HTML, CSS selectors, flexbox, grid, responsive design</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>JavaScript</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">ES6+, DOM manipulation, event handling, async programming</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Frontend Frameworks</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">React, Angular, or Vue.js fundamentals</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Backend Development</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">Node.js, Express, RESTful APIs, authentication</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Databases</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">SQL (MySQL/PostgreSQL) and NoSQL (MongoDB)</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Web Security</span>
+                                    <span class="badge badge-success">Advanced</span>
+                                </div>
+                                <p class="topic-desc">HTTPS, CORS, XSS, CSRF, SQL injection prevention</p>
+                            </li>
+                            <li class="topic-item">
+                                <div class="topic-title">
+                                    <span>Deployment</span>
+                                    <span class="badge badge-warning">Intermediate</span>
+                                </div>
+                                <p class="topic-desc">Docker, CI/CD, cloud platforms (AWS, Heroku)</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="resources-web" class="tab-content">
+                        <div class="resource-item">
+                            <div class="resource-title">Web Development Roadmap</div>
+                            <p>Step-by-step guide to becoming a full-stack developer.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 1.5MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">HTML/CSS/JS Cheat Sheets</div>
+                            <p>Quick reference for all essential syntax and APIs.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (PDF, 1.1MB)</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-title">Full-Stack Project Templates</div>
+                            <p>Starter templates for various web applications.</p>
+                            <a href="#" class="download-btn"><i class="fas fa-download"></i> Download (ZIP, 4.3MB)</a>
+                        </div>
+                    </div>
+                    
+                    <div id="books-web" class="tab-content">
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51W1SBPO7tL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">Eloquent JavaScript</div>
+                                <div class="book-author">Marijn Haverbeke</div>
+                                <div class="book-desc">Modern introduction to programming with JavaScript.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51qRrQ9n0AL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">You Don't Know JS</div>
+                                <div class="book-author">Kyle Simpson</div>
+                                <div class="book-desc">Deep dive into JavaScript core mechanisms.</div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-cover" style="background-image: url('https://m.media-amazon.com/images/I/51sN2ZRYVnL._SY425_.jpg');"></div>
+                            <div class="book-info">
+                                <div class="book-title">The Road to React</div>
+                                <div class="book-author">Robin Wieruch</div>
+                                <div class="book-desc">Hands-on guide to modern React development.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Engineering Lecture Hub | Computer Science Resources</p>
+            <p>Designed for students by educators</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Tab functionality
+        function openTab(evt, tabId) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        }
+        
+        // Search functionality
+        document.querySelector('.search-bar input').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm) {
+                    alert(`Search functionality would show results for: ${searchTerm}\nThis is a demo - actual search would filter content.`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

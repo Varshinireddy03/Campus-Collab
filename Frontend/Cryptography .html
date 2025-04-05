@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptography and Network Security</title>
+    <style>
+        :root {
+            --primary: #4169e1; /* cornflower blue */
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            animation: headerSlide 1s ease-out;
+        }
+        
+        @keyframes headerSlide {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .course-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .info-box {
+            background-color: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background-color: var(--light);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            color: var(--dark);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .unit-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .unit-title {
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 2px dashed var(--light);
+            padding-bottom: 10px;
+        }
+        
+        .topic {
+            margin-bottom: 20px;
+        }
+        
+        .topic h3 {
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .topic h3::before {
+            content: "•";
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .interactive-box {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .interactive-title {
+            color: var(--accent);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .interactive-title::after {
+            content: "▼";
+            margin-left: auto;
+            transition: transform 0.3s;
+        }
+        
+        .interactive-title.collapsed::after {
+            transform: rotate(-90deg);
+        }
+        
+        .interactive-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .interactive-content.collapsed {
+            max-height: 0 !important;
+        }
+        
+        .animation-box {
+            width: 100%;
+            height: 200px;
+            background-color: var(--light);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cipher-animation {
+            width: 80%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cipher-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            transition: all 0.5s;
+        }
+        
+        .cipher-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .cipher-btn {
+            padding: 8px 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cipher-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .resources {
+            background-color: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .resource-category {
+            margin-bottom: 25px;
+        }
+        
+        .resource-category h3 {
+            color: var(--secondary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        
+        .resource-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .resource-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .resource-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .resource-list a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .resource-list a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .course-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Cryptography and Network Security</h1>
+            <div class="course-info">
+                <div class="info-box">Course Code: PCC</div>
+                <div class="info-box">Credits: 4</div>
+                <div class="info-box">L-T-P: 3-1-0</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="objectives">Course Objectives</button>
+            <button class="tab-btn" data-tab="unit1">Unit I</button>
+            <button class="tab-btn" data-tab="unit2">Unit II</button>
+            <button class="tab-btn" data-tab="unit3">Unit III</button>
+            <button class="tab-btn" data-tab="unit4">Unit IV</button>
+            <button class="tab-btn" data-tab="unit5">Unit V</button>
+            <button class="tab-btn" data-tab="unit6">Unit VI</button>
+            <button class="tab-btn" data-tab="resources">Resources</button>
+        </div>
+        
+        <div id="objectives" class="tab-content active">
+            <div class="unit-card">
+                <h2 class="unit-title">Course Learning Objectives</h2>
+                <div class="topic">
+                    <h3>Understanding Cryptography Fundamentals</h3>
+                    <p>Gain a solid foundation in cryptographic principles, algorithms, and their mathematical underpinnings.</p>
+                </div>
+                <div class="topic">
+                    <h3>Secure Communication</h3>
+                    <p>Learn techniques to secure messages over insecure channels using various cryptographic methods.</p>
+                </div>
+                <div class="topic">
+                    <h3>CIA Triad</h3>
+                    <p>Understand how to maintain Confidentiality, Integrity, and Availability (CIA) of data in networked systems.</p>
+                </div>
+                <div class="topic">
+                    <h3>Network Security Protocols</h3>
+                    <p>Study various protocols designed to protect against network threats and vulnerabilities.</p>
+                </div>
+                
+                <div class="interactive-box">
+                    <h3 class="interactive-title">Why Cryptography Matters</h3>
+                    <div class="interactive-content">
+                        <p>Cryptography is essential for:</p>
+                        <ul>
+                            <li>Protecting sensitive information (banking, healthcare, government)</li>
+                            <li>Ensuring privacy in digital communications</li>
+                            <li>Verifying authenticity of digital documents</li>
+                            <li>Securing online transactions</li>
+                            <li>Protecting against identity theft</li>
+                        </ul>
+                        <div class="animation-box">
+                            <div class="cipher-animation">
+                                <div class="cipher-text" id="cipherDemo">HELLO WORLD</div>
+                                <div class="cipher-controls">
+                                    <button class="cipher-btn" onclick="encryptText()">Encrypt</button>
+                                    <button class="cipher-btn" onclick="decryptText()">Decrypt</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unit1" class="tab-content">
+            <div class="unit-card">
+                <h2 class="unit-title">Unit I: Introduction to Cryptography (12 Contact Hours)</h2>
+                
+                <div class="topic">
+                    <h3>Security Attacks, Services and Mechanisms</h3>
+                    <p>Understanding different types of security attacks (passive, active), security services (authentication, access control), and security mechanisms (encryption, digital signatures).</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Conventional Encryption</h3>
+                    <p>Study of symmetric encryption model where the same key is used for encryption and decryption.</p>
+                    <div class="interactive-box">
+                        <h3 class="interactive-title collapsed">Symmetric Encryption Demo</h3>
+                        <div class="interactive-content collapsed" style="max-height: 0;">
+                            <p>Symmetric encryption uses the same key for both encryption and decryption:</p>
+                            <pre>
+Plaintext → [Encryption] → Ciphertext → [Decryption] → Plaintext
+               ↑                    ↑
+               Key                  Key
+                            </pre>
+                            <p>Common symmetric algorithms: AES, DES, 3DES, Blowfish</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <h3>Classical Encryption Techniques</h3>
+                    <p>Substitution ciphers (Caesar, monoalphabetic, polyalphabetic) and transposition ciphers (rail fence, columnar).</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Modern Block Ciphers</h3>
+                    <p>Principles of block ciphers, Shannon's theory of confusion and diffusion, Feistel structure.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>DES and AES</h3>
+                    <p>Detailed study of Data Encryption Standard (DES) and Advanced Encryption Standard (AES).</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unit2" class="tab-content">
+            <div class="unit-card">
+                <h2 class="unit-title">Unit II: Confidentiality and Number Theory (8 Contact Hours)</h2>
+                
+                <div class="topic">
+                    <h3>Confidentiality Using Conventional Encryption</h3>
+                    <p>Techniques to maintain confidentiality using symmetric encryption, including traffic confidentiality and key distribution challenges.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Random Number Generation</h3>
+                    <p>Importance of random numbers in cryptography and methods for generating cryptographically secure random numbers.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Mathematical Foundations</h3>
+                    <p>Introduction to groups, rings, and fields; prime and relative prime numbers; modular arithmetic.</p>
+                    <div class="interactive-box">
+                        <h3 class="interactive-title collapsed">Modular Arithmetic Calculator</h3>
+                        <div class="interactive-content collapsed" style="max-height: 0;">
+                            <div>
+                                <label for="modNum1">Number:</label>
+                                <input type="number" id="modNum1">
+                            </div>
+                            <div>
+                                <label for="modNum2">Modulus:</label>
+                                <input type="number" id="modNum2">
+                            </div>
+                            <button class="cipher-btn" onclick="calculateMod()">Calculate</button>
+                            <div id="modResult" style="margin-top: 10px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <h3>Number Theoretic Algorithms</h3>
+                    <p>Fermat's and Euler's theorems, primality testing, Euclid's Algorithm, Chinese Remainder theorem, discrete logarithms.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unit3" class="tab-content">
+            <div class="unit-card">
+                <h2 class="unit-title">Unit III: Public Key Cryptography (11 Contact Hours)</h2>
+                
+                <div class="topic">
+                    <h3>Principles of Public Key Cryptosystems</h3>
+                    <p>Concept of asymmetric cryptography with public and private key pairs.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>RSA Algorithm</h3>
+                    <p>Detailed study of the RSA algorithm including key generation, encryption, and decryption processes.</p>
+                    <div class="interactive-box">
+                        <h3 class="interactive-title collapsed">RSA Key Generation Steps</h3>
+                        <div class="interactive-content collapsed" style="max-height: 0;">
+                            <ol>
+                                <li>Choose two large prime numbers p and q</li>
+                                <li>Compute n = p × q</li>
+                                <li>Compute φ(n) = (p-1)(q-1)</li>
+                                <li>Choose e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1</li>
+                                <li>Compute d such that d × e ≡ 1 mod φ(n)</li>
+                                <li>Public key: (e, n), Private key: (d, n)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="topic">
+                    <h3>Diffie-Hellman Key Exchange</h3>
+                    <p>Method for securely exchanging cryptographic keys over a public channel.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Elliptic Curve Cryptography</h3>
+                    <p>Introduction to ECC and its advantages over traditional public key systems.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Message Authentication and Hash Functions</h3>
+                    <p>Authentication requirements, functions, MAC, hash functions, and security considerations.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unit4" class="tab-content">
+            <div class="unit-card">
+                <h2 class="unit-title">Unit IV: Hash Algorithms and Digital Signatures (11 Contact Hours)</h2>
+                
+                <div class="topic">
+                    <h3>MD5 and SHA</h3>
+                    <p>Study of MD5 message digest algorithm and Secure Hash Algorithm (SHA) family.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Digital Signatures</h3>
+                    <p>Concept of digital signatures, authentication protocols, and Digital Signature Standard (DSS).</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Authentication Applications</h3>
+                    <p>Kerberos authentication system and X.509 directory authentication service.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Email Security</h3>
+                    <p>Pretty Good Privacy (PGP) and S/MIME standards for secure email communication.</p>
+                    <div class="interactive-box">
+                        <h3 class="interactive-title collapsed">PGP Encryption Process</h3>
+                        <div class="interactive-content collapsed" style="max-height: 0;">
+                            <ol>
+                                <li>Sender creates a random session key</li>
+                                <li>Message is encrypted with the session key using symmetric encryption</li>
+                                <li>Session key is encrypted with recipient's public key</li>
+                                <li>Encrypted message and encrypted session key are sent together</li>
+                                <li>Recipient decrypts session key with their private key</li>
+                                <li>Message is decrypted with the session key</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unit5" class="tab-content">
+            <div class="unit-card">
+                <h2 class="unit-title">Unit V: IP Security (9 Contact Hours)</h2>
+                
+                <div class="topic">
+                    <h3>IPSec Architecture</h3>
+                    <p>Overview of IPSec framework for securing Internet Protocol communications.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Authentication Header and ESP</h3>
+                    <p>Detailed study of Authentication Header (AH) and Encapsulating Security Payloads (ESP).</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Security Associations</h3>
+                    <p>Combining security associations for comprehensive protection.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Key Management</h3>
+                    <p>Internet Key Exchange (IKE) protocol for managing cryptographic keys.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="unit6" class="tab-content">
+            <div class="unit-card">
+                <h2 class="unit-title">Unit VI: Web and System Security (9 Contact Hours)</h2>
+                
+                <div class="topic">
+                    <h3>Web Security</h3>
+                    <p>Secure Socket Layer (SSL) and Transport Layer Security (TLS) protocols.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>Secure Electronic Transaction</h3>
+                    <p>SET protocol for secure credit card transactions over the Internet.</p>
+                </div>
+                
+                <div class="topic">
+                    <h3>System Security</h3>
+                    <p>Intruders, viruses, worms, trojans, and intrusion detection systems (IDS).</p>
+                    <div class="interactive-box">
+                        <h3 class="interactive-title collapsed">Types of Malware</h3>
+                        <div class="interactive-content collapsed" style="max-height: 0;">
+                            <ul>
+                                <li><strong>Virus:</strong> Self-replicating code that attaches to clean files</li>
+                                <li><strong>Worm:</strong> Standalone malware that replicates to spread</li>
+                                <li><strong>Trojan:</strong> Disguised as legitimate software</li>
+                                <li><strong>Ransomware:</strong> Encrypts files and demands payment</li>
+                                <li><strong>Spyware:</strong> Secretly monitors user activity</li>
+                                <li><strong>Adware:</strong> Displays unwanted advertisements</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="resources" class="tab-content">
+            <div class="resources">
+                <h2>Online Resources</h2>
+                
+                <div class="resource-category">
+                    <h3>Interactive Learning Platforms</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://www.coursera.org/learn/crypto" target="_blank">Coursera - Cryptography I (Stanford University)</a></li>
+                        <li><a href="https://www.cryptopals.com/" target="_blank">Cryptopals Crypto Challenges</a></li>
+                        <li><a href="https://www.edx.org/course/introduction-to-cybersecurity" target="_blank">edX - Introduction to Cybersecurity</a></li>
+                        <li><a href="https://www.khanacademy.org/computing/computer-science/cryptography" target="_blank">Khan Academy - Cryptography</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3>Cryptography Tools & Simulations</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://cryptii.com/" target="_blank">Cryptii - Cryptography playground</a></li>
+                        <li><a href="https://www.csfieldguide.org.nz/en/interactives/" target="_blank">CS Field Guide - Cryptography interactives</a></li>
+                        <li><a href="https://asecuritysite.com/encryption" target="_blank">Asecuritysite - Encryption demonstrations</a></li>
+                        <li><a href="https://www.dcode.fr/tools-list#cryptography" target="_blank">dCode - Cryptography tools</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3>Reference Materials</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf" target="_blank">NIST - Advanced Encryption Standard (AES)</a></li>
+                        <li><a href="https://tools.ietf.org/html/rfc5246" target="_blank">IETF - TLS 1.2 Protocol Specification</a></li>
+                        <li><a href="https://www.schneier.com/books/applied_cryptography/" target="_blank">Applied Cryptography by Bruce Schneier</a></li>
+                        <li><a href="https://www.ietf.org/rfc/rfc2313.txt" target="_blank">RFC 2313 - PKCS #1: RSA Encryption</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3>Security News & Blogs</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://www.schneier.com/" target="_blank">Schneier on Security</a></li>
+                        <li><a href="https://krebsonsecurity.com/" target="_blank">Krebs on Security</a></li>
+                        <li><a href="https://thehackernews.com/" target="_blank">The Hacker News</a></li>
+                        <li><a href="https://www.darkreading.com/" target="_blank">Dark Reading</a></li>
+                    </ul>
+                </div>
+                
+                <div class="resource-category">
+                    <h3>Practice & Challenges</h3>
+                    <ul class="resource-list">
+                        <li><a href="https://cryptohack.org/" target="_blank">CryptoHack - Cryptography challenges</a></li>
+                        <li><a href="https://www.hackthebox.com/" target="_blank">Hack The Box - Cybersecurity training</a></li>
+                        <li><a href="https://overthewire.org/wargames/" target="_blank">OverTheWire - Security wargames</a></li>
+                        <li><a href="https://www.root-me.org/?lang=en" target="_blank">Root Me - Security challenges</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Cryptography and Network Security Lecture Notes | © 2023</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Interactive box functionality
+        const interactiveTitles = document.querySelectorAll('.interactive-title');
+        
+        interactiveTitles.forEach(title => {
+            title.addEventListener('click', () => {
+                const content = title.nextElementSibling;
+                title.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+                
+                if (content.classList.contains('collapsed')) {
+                    content.style.maxHeight = '0';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+        
+        // Cipher animation
+        function encryptText() {
+            const textElement = document.getElementById('cipherDemo');
+            let text = textElement.textContent;
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                if (text[i] === ' ') {
+                    result += ' ';
+                } else {
+                    let charCode = text.charCodeAt(i);
+                    // Simple Caesar cipher shift of 3
+                    charCode = ((charCode - 65 + 3) % 26) + 65;
+                    result += String.fromCharCode(charCode);
+                }
+            }
+            
+            textElement.textContent = result;
+            textElement.style.color = '#e74c3c';
+            setTimeout(() => { textElement.style.color = ''; }, 500);
+        }
+        
+        function decryptText() {
+            const textElement = document.getElementById('cipherDemo');
+            let text = textElement.textContent;
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                if (text[i] === ' ') {
+                    result += ' ';
+                } else {
+                    let charCode = text.charCodeAt(i);
+                    // Reverse Caesar cipher shift of 3
+                    charCode = ((charCode - 65 - 3 + 26) % 26) + 65;
+                    result += String.fromCharCode(charCode);
+                }
+            }
+            
+            textElement.textContent = result;
+            textElement.style.color = '#2ecc71';
+            setTimeout(() => { textElement.style.color = ''; }, 500);
+        }
+        
+        // Modular arithmetic calculator
+        function calculateMod() {
+            const num1 = parseInt(document.getElementById('modNum1').value);
+            const num2 = parseInt(document.getElementById('modNum2').value);
+            
+            if (isNaN(num1)) {
+                document.getElementById('modResult').textContent = 'Please enter a valid number';
+                return;
+            }
+            
+            if (isNaN(num2) || num2 === 0) {
+                document.getElementById('modResult').textContent = 'Please enter a valid modulus';
+                return;
+            }
+            
+            const result = ((num1 % num2) + num2) % num2;
+            document.getElementById('modResult').textContent = `${num1} mod ${num2} = ${result}`;
+        }
+    </script>
+</body>
+</html>

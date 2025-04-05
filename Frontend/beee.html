@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23EE1109 - Basic Electrical & Electronics Engineering</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2980b9;
+            --accent: #e74c3c;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: var(--secondary);
+            background-color: #eaf2f8;
+            padding: 12px;
+            border-left: 5px solid var(--primary);
+            margin-top: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h2::after {
+            content: "+";
+            font-size: 1.5em;
+        }
+        h2.active::after {
+            content: "-";
+        }
+        .unit-content {
+            display: none;
+            padding: 15px;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .video-container {
+            margin: 20px 0;
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 8px;
+        }
+        .simulation {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .sim-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .quiz {
+            background: #f5eef8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .tab-container {
+            display: flex;
+            margin: 20px 0;
+        }
+        .tab-btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab-btn.active {
+            background: var(--secondary);
+        }
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .formula-box {
+            background: #fff8e1;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>23EE1109 - Basic Electrical & Electronics Engineering</h1>
+        
+        <!-- Unit I -->
+        <h2 onclick="toggleUnit('unit1')">UNIT I: DC Circuits (13 Hours)</h2>
+        <div id="unit1" class="unit-content">
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="openTab('unit1', 'theory')">Theory</button>
+                <button class="tab-btn" onclick="openTab('unit1', 'simulations')">Simulations</button>
+                <button class="tab-btn" onclick="openTab('unit1', 'problems')">Problems</button>
+            </div>
+            
+            <div id="unit1-theory" class="tab-content active">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/8qOZQeZ4W7c" allowfullscreen></iframe>
+                    <p><a href="https://youtu.be/8qOZQeZ4W7c" target="_blank">NPTEL: DC Circuit Analysis (IIT Madras)</a></p>
+                </div>
+                
+                <div class="formula-box">
+                    <h3>Key Formulas:</h3>
+                    <p><strong>Ohm's Law:</strong> V = IR</p>
+                    <p><strong>Thevenin's Theorem:</strong> V<sub>th</sub> = Open circuit voltage, R<sub>th</sub> = Equivalent resistance</p>
+                </div>
+            </div>
+            
+            <div id="unit1-simulations" class="tab-content">
+                <div class="simulation">
+                    <h3>Circuit Simulator:</h3>
+                    <p>Practice DC circuit analysis with this interactive tool:</p>
+                    <a href="https://www.falstad.com/circuit/" target="_blank" class="sim-btn">Open Circuit Simulator</a>
+                </div>
+            </div>
+            
+            <div id="unit1-problems" class="tab-content">
+                <div class="quiz">
+                    <h3>Practice Problem:</h3>
+                    <p>Calculate Thevenin equivalent for a circuit with 10Ω and 20Ω resistors in parallel with a 12V source.</p>
+                    <button class="sim-btn" onclick="showAnswer('thevenin-ans')">Show Solution</button>
+                    <div id="thevenin-ans" style="display:none;">
+                        <p>V<sub>th</sub> = 12V, R<sub>th</sub> = (10×20)/(10+20) = 6.67Ω</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit II -->
+        <h2 onclick="toggleUnit('unit2')">UNIT II: AC Circuits (7 Hours)</h2>
+        <div id="unit2" class="unit-content">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/3yGt8W4K5l0" allowfullscreen></iframe>
+                <p><a href="https://youtu.be/3yGt8W4K5l0" target="_blank">AC Circuit Fundamentals (NPTEL)</a></p>
+            </div>
+            
+            <div class="simulation">
+                <h3>Phasor Diagram Simulator:</h3>
+                <a href="https://www.desmos.com/calculator/emj0jwexwz" target="_blank" class="sim-btn">Interactive Phasor Tool</a>
+            </div>
+        </div>
+
+        <!-- Unit III -->
+        <h2 onclick="toggleUnit('unit3')">UNIT III: DC Machines (9 Hours)</h2>
+        <div id="unit3" class="unit-content">
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/6XwEIjCQl1w" allowfullscreen></iframe>
+                <p><a href="https://youtu.be/6XwEIjCQl1w" target="_blank">DC Motor Working Principle</a></p>
+            </div>
+            
+            <div class="formula-box">
+                <h3>EMF Equation:</h3>
+                <p>E = (PφNZ)/(60A)</p>
+                <p>Where P = number of poles, φ = flux per pole, N = speed in RPM</p>
+            </div>
+        </div>
+
+        <!-- Unit IV-VI content similarly structured -->
+
+        <!-- Resources Section -->
+        <h2 onclick="toggleUnit('resources')">Learning Resources</h2>
+        <div id="resources" class="unit-content">
+            <div class="tab-container">
+                <button class="tab-btn active" onclick="openTab('resources', 'textbooks')">Textbooks</button>
+                <button class="tab-btn" onclick="openTab('resources', 'websites')">Websites</button>
+            </div>
+            
+            <div id="resources-textbooks" class="tab-content active">
+                <h3>Recommended Textbooks:</h3>
+                <ul>
+                    <li><strong>Primary:</strong> <em>Basic Electrical and Electronics Engineering</em> by Kothari and Nagarath (TMH)</li>
+                    <li><strong>Reference:</strong> <em>Principles of Electrical and Electronics Engineering</em> by V.K.Mehta</li>
+                </ul>
+            </div>
+            
+            <div id="resources-websites" class="tab-content">
+                <h3>Online Resources:</h3>
+                <ul>
+                    <li><a href="https://nptel.ac.in/courses/122106025" target="_blank">NPTEL: Basic Electronics (IIT Madras)</a></li>
+                    <li><a href="http://nptel.ac.in/courses/108108076" target="_blank">Basic Electrical Technology (IISc)</a></li>
+                    <li><a href="https://www.circuitlab.com/" target="_blank">CircuitLab (Online Simulator)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle unit content
+        function toggleUnit(unitId) {
+            const unit = document.getElementById(unitId);
+            const header = unit.previousElementSibling;
+            
+            unit.style.display = unit.style.display === 'block' ? 'none' : 'block';
+            header.classList.toggle('active');
+        }
+
+        // Tab system
+        function openTab(unitId, tabName) {
+            // Hide all tabs in this unit
+            document.querySelectorAll(`#${unitId} .tab-content`).forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all buttons in this unit
+            document.querySelectorAll(`#${unitId} .tab-btn`).forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(`${unitId}-${tabName}`).classList.add('active');
+            
+            // Activate clicked button
+            event.currentTarget.classList.add('active');
+        }
+
+        // Quiz functions
+        function showAnswer(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        // Open first unit by default
+        window.onload = () => {
+            toggleUnit('unit1');
+        };
+    </script>
+</body>
+</html>
