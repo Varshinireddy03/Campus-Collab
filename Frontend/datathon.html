@@ -15,6 +15,10 @@
             --prize-silver: #c0c0c0;
             --prize-bronze: #cd7f32;
             --prize-special: #a8ff78;
+            --light: #f8f9fa; /* default light */
+            --dark: #212529; /* default dark */
+            --primary: #4361ee; /* default blue */
+            --base-font-size: 16px;
         }
 
         * {
@@ -25,8 +29,9 @@
         }
 
         body {
-            background-color: var(--ds-dark);
-            color: var(--ds-light);
+            background-color: var(--light);
+            color: var(--dark);
+            font-size: var(--base-font-size);
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -1203,5 +1208,6 @@
             });
         });
     </script>
+    <script src="js/settings.js"></script>
 </body>
 </html>

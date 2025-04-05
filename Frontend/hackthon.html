@@ -9,6 +9,7 @@
             --accent: #62bfeb;
             --light: #f8f9fa;
             --dark: #212529;
+            --base-font-size: 16px;
         }
         
         * {
@@ -19,8 +20,9 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: var(--light);
             color: var(--dark);
+            font-size: var(--base-font-size);
             min-height: 100vh;
         }
         
@@ -857,5 +859,6 @@
             });
         });
     </script>
+    <script src="js/settings.js"></script>
 </body>
 </html>
