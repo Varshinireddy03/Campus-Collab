@@ -12,13 +12,15 @@
             --light-color: #ecf0f1;
             --dark-color: #2c3e50;
             --success-color: #27ae60;
+            --base-font-size: 16px;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f5f7fa;
+            background-color: var(--light);
+    color: var(--dark);
+    font-size: var(--base-font-size);
             margin: 0;
             padding: 0;
         }
@@ -951,5 +953,6 @@ plt.show()</code></pre>
             });
         });
     </script>
+    <script src="js/settings.js"></script>
 </body>
 </html>

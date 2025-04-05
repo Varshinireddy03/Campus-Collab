@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Lecture Guide - Campus Collab</title>
   <style>
+    :root {
+    --light: #f8f9fa; /* default light */
+    --dark: #212529; /* default dark */
+    --primary: #4361ee; /* default blue */
+    --base-font-size: 16px;
+    }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
@@ -12,7 +18,9 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 20px;
-      background-color: #ffffff;
+      background-color: var(--light);
+      color: var(--dark);
+      font-size: var(--base-font-size);
     }
     .header {
       background-color: cornflowerblue;
@@ -212,5 +220,6 @@
   <script>
     document.getElementById('date').textContent = new Date().toLocaleDateString();
   </script>
+  <script src="js/settings.js"></script>
 </body>
 </html>
