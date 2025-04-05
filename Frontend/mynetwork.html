@@ -1,108 +1,656 @@
 <!DOCTYPE html>
-<html  lang="en" >
-    <head>
-        <title>My Network</title>
-        <meta charset="UTF-8" >
-        <meta name="viewport" content="width=device-width, intial-scale=1.0" >
-        <link rel="stylesheet" href="styles/mynetwork.css" >
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" >
-
-    </head>
-    <body>
-        <div class="mynetwork" >
-            <!-- My Network Header -->
-            <div class="mynetwork-header" >
-                <div class="mynetwork-title" >My Network</div>
-                <div class="mynetwork-search" >
-                    <input type="text" name="search" placeholder="Search by Name" >
+<html lang="en">
+<head>
+    <title>My Network | Campus-Collab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4d44db;
+            --dark: #2a2a72;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .network-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Header Styles */
+        .network-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .network-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .network-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .network-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .action-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        }
+        
+        /* Search and Filter Section */
+        .network-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease 0.1s forwards;
+            opacity: 0;
+        }
+        
+        .search-container {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border: 2px solid var(--gray);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        }
+        
+        .search-container::before {
+            content: '\f002';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-gray);
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            background: var(--gray);
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-tab.active, .filter-tab:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Connection Grid */
+        .connections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .connection-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.5s forwards;
+        }
+        
+        @for $i from 1 through 12 {
+            .connection-card:nth-child(#{$i}) {
+                animation-delay: $i * 0.1s;
+            }
+        }
+        
+        .connection-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .connection-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .connection-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        
+        .connection-card:hover .connection-avatar {
+            transform: scale(1.1);
+        }
+        
+        .connection-info {
+            flex: 1;
+        }
+        
+        .connection-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.2rem;
+        }
+        
+        .connection-title {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #28a745;
+        }
+        
+        .status-indicator.offline {
+            background: #6c757d;
+        }
+        
+        .connection-bio {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--dark);
+            line-height: 1.5;
+        }
+        
+        .connection-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-tag {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .connection-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .connection-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .primary-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .outline-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .outline-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+        
+        /* Stats Section */
+        .network-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .network-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .network-title {
+                font-size: 1.8rem;
+            }
+            
+            .network-tools {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .connections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .network-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="network-container">
+        <!-- Network Header -->
+        <div class="network-header">
+            <div>
+                <h1 class="network-title">My Network</h1>
+            </div>
+            <div class="network-actions">
+                <button class="action-btn">
+                    <i class="fas fa-user-plus"></i> Add Connection
+                </button>
+            </div>
+        </div>
+        
+        <!-- Network Stats -->
+        <div class="network-stats">
+            <div class="stat-item">
+                <div class="stat-number">128</div>
+                <div class="stat-label">Total Connections</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24</div>
+                <div class="stat-label">New This Month</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Mutual Interests</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Online Now</div>
+            </div>
+        </div>
+        
+        <!-- Search and Filter -->
+        <div class="network-tools">
+            <div class="search-container">
+                <input type="text" placeholder="Search connections...">
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active">All</button>
+                <button class="filter-tab">Online</button>
+                <button class="filter-tab">Recently Added</button>
+                <button class="filter-tab">Same Field</button>
+                <button class="filter-tab">Alumni</button>
+            </div>
+        </div>
+        
+        <!-- Connections Grid -->
+        <div class="connections-grid">
+            <!-- Connection 1 -->
+            <div class="connection-card" style="--delay: 0">
+                <div class="connection-header">
+                    <div class="connection-avatar">T</div>
+                    <div class="connection-info">
+                        <div class="connection-name">Thomas</div>
+                        <div class="connection-title">Data Scientist</div>
+                        <div class="connection-status">
+                            <div class="status-indicator"></div>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="connection-bio">
+                    Computer Science Undergraduate passionate about machine learning and AI applications.
+                </div>
+                <div class="connection-skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">Data Analysis</span>
+                </div>
+                <div class="connection-actions">
+                    <button class="connection-btn outline-btn">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="connection-btn primary-btn">
+                        <i class="fas fa-user-check"></i> Connected
+                    </button>
                 </div>
             </div>
-            <!-- My Network Connections -->
-            <div class="mynetwork-connections" >
-                <!-- Connection-01 -->
-                <div class="connection" style="--delay: 0" >
-                    <div class="profile-pic" ></div>
-                    <div class="profile-features" >
-                        <div class="profile-about" >
-                            <p class="username" ><a href="myprofile.html" target="_self" >Thomas</a></p>
-                            <p class="user-bio" >Computer Science Undergraduate || Data Scientist </p>
-                        </div>
-                        <div class="profile-message" >
-                            <button class="message-btn" ><a href="#" >Message</a></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Connection-02 -->
-                <div class="connection" style="--delay: 1" >
-                    <div class="profile-pic" ></div>
-                    <div class="profile-features" >
-                        <div class="profile-about" >
-                            <p class="username" ><a href="myprofile.html" target="_self" >Emily</a></p>
-                            <p class="user-bio" >Computer Science Undergraduate || Cyber Security Enthusiast </p>
-                        </div>
-                        <div class="profile-message" >
-                            <button class="message-btn" ><a href="#" >Message</a></button>
+            
+            <!-- Connection 2 -->
+            <div class="connection-card" style="--delay: 1">
+                <div class="connection-header">
+                    <div class="connection-avatar">E</div>
+                    <div class="connection-info">
+                        <div class="connection-name">Emily</div>
+                        <div class="connection-title">Security Analyst</div>
+                        <div class="connection-status">
+                            <div class="status-indicator offline"></div>
+                            <span>Offline</span>
                         </div>
                     </div>
                 </div>
-                <!-- Connection-03 -->
-                <div class="connection" style="--delay: 2" >
-                    <div class="profile-pic" ></div>
-                    <div class="profile-features" >
-                        <div class="profile-about" >
-                            <p class="username" ><a href="myprofile.html" target="_self" >David</a></p>
-                            <p class="user-bio" >Computer Science Undergraduate || Cloud Computing </p>
-                        </div>
-                        <div class="profile-message" >
-                            <button class="message-btn" ><a href="#" >Message</a></button>
+                <div class="connection-bio">
+                    Cyber Security Enthusiast with experience in ethical hacking and network security.
+                </div>
+                <div class="connection-skills">
+                    <span class="skill-tag">Cybersecurity</span>
+                    <span class="skill-tag">Ethical Hacking</span>
+                    <span class="skill-tag">Network Security</span>
+                </div>
+                <div class="connection-actions">
+                    <button class="connection-btn outline-btn">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="connection-btn primary-btn">
+                        <i class="fas fa-user-check"></i> Connected
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Connection 3 -->
+            <div class="connection-card" style="--delay: 2">
+                <div class="connection-header">
+                    <div class="connection-avatar">D</div>
+                    <div class="connection-info">
+                        <div class="connection-name">David</div>
+                        <div class="connection-title">Cloud Architect</div>
+                        <div class="connection-status">
+                            <div class="status-indicator"></div>
+                            <span>Online</span>
                         </div>
                     </div>
                 </div>
-                <!-- Connection-04 -->
-                <div class="connection" style="--delay: 3" >
-                    <div class="profile-pic" ></div>
-                    <div class="profile-features" >
-                        <div class="profile-about" >
-                            <p class="username" ><a href="myprofile.html" target="_self" >Mia</a></p>
-                            <p class="user-bio" >Computer Science Undergraduate || Machine Learning Enthusiast </p>
-                        </div>
-                        <div class="profile-message" >
-                            <button class="message-btn" ><a href="myprofile.html" target="_self" >Message</a></button>
+                <div class="connection-bio">
+                    Specializes in cloud computing solutions and distributed systems architecture.
+                </div>
+                <div class="connection-skills">
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Azure</span>
+                    <span class="skill-tag">DevOps</span>
+                </div>
+                <div class="connection-actions">
+                    <button class="connection-btn outline-btn">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="connection-btn primary-btn">
+                        <i class="fas fa-user-check"></i> Connected
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Connection 4 -->
+            <div class="connection-card" style="--delay: 3">
+                <div class="connection-header">
+                    <div class="connection-avatar">M</div>
+                    <div class="connection-info">
+                        <div class="connection-name">Mia</div>
+                        <div class="connection-title">ML Engineer</div>
+                        <div class="connection-status">
+                            <div class="status-indicator"></div>
+                            <span>Online</span>
                         </div>
                     </div>
                 </div>
-                <!-- Connection-05 -->
-                <div class="connection" style="--delay: 4" >
-                    <div class="profile-pic" ></div>
-                    <div class="profile-features" >
-                        <div class="profile-about" >
-                            <p class="username" ><a href="myprofile.html" target="_self" >Samuel</a></p>
-                            <p class="user-bio" >Computer Science Undergraduate || Excited in Human-Interacted Operarting System </p>
-                        </div>
-                        <div class="profile-message" >
-                            <button class="message-btn" ><a href="#" >Message</a></button>
+                <div class="connection-bio">
+                    Machine Learning enthusiast with publications in neural networks and deep learning.
+                </div>
+                <div class="connection-skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">NLP</span>
+                </div>
+                <div class="connection-actions">
+                    <button class="connection-btn outline-btn">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="connection-btn primary-btn">
+                        <i class="fas fa-user-check"></i> Connected
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Connection 5 -->
+            <div class="connection-card" style="--delay: 4">
+                <div class="connection-header">
+                    <div class="connection-avatar">S</div>
+                    <div class="connection-info">
+                        <div class="connection-name">Samuel</div>
+                        <div class="connection-title">OS Developer</div>
+                        <div class="connection-status">
+                            <div class="status-indicator offline"></div>
+                            <span>Offline</span>
                         </div>
                     </div>
                 </div>
-                <!-- Connection-06 -->
-                <div class="connection" style="--delay: 5" >
-                    <div class="profile-pic" ></div>
-                    <div class="profile-features" >
-                        <div class="profile-about" >
-                            <p class="username" ><a href="myprofile.html" target="_self" >Lily</a></p>
-                            <p class="user-bio" >Computer Science Undergraduate || Passionate on  Computer Graphics and Animation </p>
-                        </div>
-                        <div class="profile-message" >
-                            <button class="message-btn" ><a href="#" >Message</a></button>
+                <div class="connection-bio">
+                    Focused on human-interactive operating systems and low-level programming.
+                </div>
+                <div class="connection-skills">
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Kernel</span>
+                    <span class="skill-tag">Linux</span>
+                </div>
+                <div class="connection-actions">
+                    <button class="connection-btn outline-btn">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="connection-btn primary-btn">
+                        <i class="fas fa-user-check"></i> Connected
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Connection 6 -->
+            <div class="connection-card" style="--delay: 5">
+                <div class="connection-header">
+                    <div class="connection-avatar">L</div>
+                    <div class="connection-info">
+                        <div class="connection-name">Lily</div>
+                        <div class="connection-title">Graphics Designer</div>
+                        <div class="connection-status">
+                            <div class="status-indicator"></div>
+                            <span>Online</span>
                         </div>
                     </div>
+                </div>
+                <div class="connection-bio">
+                    Passionate about computer graphics, animation, and game development technologies.
+                </div>
+                <div class="connection-skills">
+                    <span class="skill-tag">OpenGL</span>
+                    <span class="skill-tag">Blender</span>
+                    <span class="skill-tag">Unity</span>
+                </div>
+                <div class="connection-actions">
+                    <button class="connection-btn outline-btn">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="connection-btn primary-btn">
+                        <i class="fas fa-user-check"></i> Connected
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- Floating Action Button -->
-        <button class="fab" id="fabBtn">
-            <i class="fas fa-plus"></i>
-        </button>
-    </body>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter tabs functionality
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    // Here you would add filtering logic
+                });
+            });
+            
+            // Connection card hover effects
+            const connectionCards = document.querySelectorAll('.connection-card');
+            connectionCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Add connection button functionality
+            const addConnectionBtn = document.querySelector('.action-btn');
+            addConnectionBtn.addEventListener('click', function() {
+                // In a real app, this would open the add connection modal
+                alert('Add Connection feature would open here');
+            });
+        });
+    </script>
+</body>
 </html>

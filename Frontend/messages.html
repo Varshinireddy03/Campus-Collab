@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Messages | Campus-Collab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4d44db;
+            --dark: #2a2a72;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .messages-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 1.5rem;
+        }
+        
+        /* Header Styles */
+        .messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            grid-column: 1 / -1;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .messages-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .messages-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .messages-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .action-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        }
+        
+        /* Conversations List */
+        .conversations-list {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            animation: fadeInLeft 0.5s ease;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 3rem;
+            border: 2px solid var(--gray);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        }
+        
+        .search-container::before {
+            content: '\f002';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-gray);
+        }
+        
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 0.5rem;
+        }
+        
+        .conversation-item:hover, .conversation-item.active {
+            background: rgba(108, 99, 255, 0.1);
+        }
+        
+        .conversation-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .conversation-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+        
+        .conversation-name {
+            font-weight: 600;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .conversation-time {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            flex-shrink: 0;
+        }
+        
+        .conversation-preview {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .unread-badge {
+            background: var(--primary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+        
+        /* Chat Area */
+        .chat-area {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 200px);
+            animation: fadeInRight 0.5s ease;
+        }
+        
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-user {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .chat-user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .chat-user-info {
+            flex: 1;
+        }
+        
+        .chat-user-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .chat-user-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #28a745;
+        }
+        
+        .chat-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .chat-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gray);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .chat-action-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .messages-container {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .incoming {
+            align-self: flex-start;
+            background: var(--gray);
+            border-top-left-radius: 4px;
+        }
+        
+        .outgoing {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-top-right-radius: 4px;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .incoming .message-time {
+            color: var(--dark-gray);
+        }
+        
+        .message-input-container {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray);
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid var(--gray);
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .send-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 2rem;
+            color: var(--dark-gray);
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .messages-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .conversations-list {
+                height: auto;
+                max-height: 400px;
+            }
+            
+            .chat-area {
+                height: 500px;
+                margin-top: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .messages-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .messages-title {
+                font-size: 1.8rem;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="messages-container">
+        <!-- Header -->
+        <div class="messages-header">
+            <div>
+                <h1 class="messages-title">Messages</h1>
+            </div>
+            <div class="messages-actions">
+                <button class="action-btn">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+            </div>
+        </div>
+        
+        <!-- Conversations List -->
+        <div class="conversations-list">
+            <div class="search-container">
+                <input type="text" placeholder="Search messages...">
+            </div>
+            
+            <!-- Conversation 1 -->
+            <div class="conversation-item active">
+                <div class="conversation-avatar">T</div>
+                <div class="conversation-info">
+                    <div class="conversation-header">
+                        <div class="conversation-name">Thomas</div>
+                        <div class="conversation-time">10:30 AM</div>
+                    </div>
+                    <div class="conversation-preview">Hey, about that project we discussed...</div>
+                </div>
+                <div class="unread-badge">3</div>
+            </div>
+            
+            <!-- Conversation 2 -->
+            <div class="conversation-item">
+                <div class="conversation-avatar">E</div>
+                <div class="conversation-info">
+                    <div class="conversation-header">
+                        <div class="conversation-name">Emily</div>
+                        <div class="conversation-time">Yesterday</div>
+                    </div>
+                    <div class="conversation-preview">The security report is ready for review</div>
+                </div>
+            </div>
+            
+            <!-- Conversation 3 -->
+            <div class="conversation-item">
+                <div class="conversation-avatar">D</div>
+                <div class="conversation-info">
+                    <div class="conversation-header">
+                        <div class="conversation-name">David</div>
+                        <div class="conversation-time">Tuesday</div>
+                    </div>
+                    <div class="conversation-preview">Cloud deployment completed successfully</div>
+                </div>
+            </div>
+            
+            <!-- Conversation 4 -->
+            <div class="conversation-item">
+                <div class="conversation-avatar">M</div>
+                <div class="conversation-info">
+                    <div class="conversation-header">
+                        <div class="conversation-name">Mia</div>
+                        <div class="conversation-time">Monday</div>
+                    </div>
+                    <div class="conversation-preview">Let me share those ML resources with you</div>
+                </div>
+                <div class="unread-badge">1</div>
+            </div>
+            
+            <!-- Conversation 5 -->
+            <div class="conversation-item">
+                <div class="conversation-avatar">S</div>
+                <div class="conversation-info">
+                    <div class="conversation-header">
+                        <div class="conversation-name">Samuel</div>
+                        <div class="conversation-time">Last week</div>
+                    </div>
+                    <div class="conversation-preview">Check out this new OS feature I implemented</div>
+                </div>
+            </div>
+            
+            <!-- Conversation 6 -->
+            <div class="conversation-item">
+                <div class="conversation-avatar">L</div>
+                <div class="conversation-info">
+                    <div class="conversation-header">
+                        <div class="conversation-name">Lily</div>
+                        <div class="conversation-time">2 weeks ago</div>
+                    </div>
+                    <div class="conversation-preview">The animation prototype is ready for feedback</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="chat-user">
+                    <div class="chat-user-avatar">T</div>
+                    <div class="chat-user-info">
+                        <div class="chat-user-name">Thomas</div>
+                        <div class="chat-user-status">
+                            <div class="status-indicator"></div>
+                            <span>Online</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="chat-action-btn">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="chat-action-btn">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="chat-action-btn">
+                        <i class="fas fa-ellipsis-vertical"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="messages-container">
+                <!-- Sample conversation -->
+                <div class="message incoming">
+                    Hey HRUTHIKA, do you have time to discuss the project requirements today?
+                    <div class="message-time">10:30 AM</div>
+                </div>
+                
+                <div class="message outgoing">
+                    Sure Thomas, I'm available after 2 PM. What specifically do you want to discuss?
+                    <div class="message-time">10:32 AM</div>
+                </div>
+                
+                <div class="message incoming">
+                    Mostly about the database schema and API endpoints. I've made some changes to the initial design.
+                    <div class="message-time">10:33 AM</div>
+                </div>
+                
+                <div class="message incoming">
+                    Can you review them when you get time?
+                    <div class="message-time">10:33 AM</div>
+                </div>
+                
+                <div class="message outgoing">
+                    Absolutely! Send me the updated documents and I'll go through them before our meeting.
+                    <div class="message-time">10:35 AM</div>
+                </div>
+            </div>
+            
+            <div class="message-input-container">
+                <input type="text" class="message-input" placeholder="Type a message...">
+                <button class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Conversation item click handler
+            const conversationItems = document.querySelectorAll('.conversation-item');
+            conversationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    conversationItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    // Clear unread badge
+                    const badge = this.querySelector('.unread-badge');
+                    if (badge) badge.remove();
+                    // In a real app, this would load the conversation
+                });
+            });
+            
+            // New chat button
+            const newChatBtn = document.querySelector('.action-btn');
+            newChatBtn.addEventListener('click', function() {
+                alert('New chat modal would open here');
+            });
+            
+            // Send message handler
+            const sendBtn = document.querySelector('.send-btn');
+            const messageInput = document.querySelector('.message-input');
+            
+            sendBtn.addEventListener('click', sendMessage);
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            function sendMessage() {
+                const message = messageInput.value.trim();
+                if (message) {
+                    // In a real app, this would send the message
+                    const messagesContainer = document.querySelector('.messages-container');
+                    const newMessage = document.createElement('div');
+                    newMessage.className = 'message outgoing';
+                    newMessage.innerHTML = `
+                        ${message}
+                        <div class="message-time">Just now</div>
+                    `;
+                    messagesContainer.appendChild(newMessage);
+                    messageInput.value = '';
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,49 +1,645 @@
 <!DOCTYPE html>
-<html lang="en" >
-    <head>
-        <title>My Profile</title>
-        <meta charset="UTF-8" >
-        <meta name="viewport" content="width=device-width, intial-scale=1.0" >
-        <link rel="stylesheet" href="styles/myprofile.css" >
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" >
-    </head>
-    <body>
-        <div class="myprofile" >
-            <!-- About Section -->
-            <div class="about" >
-                <section class="profile-pic" ></section>
-                <section class="background-pic" ></section>
-                <section class="details" >
-                    <p class="username" >John Doe</p>
-                    <p class="user-bio" >Computer Science Undergraduate || Full Stack Web Developer</p>
-                    <button class="myNetwork" ><a href="mynetwork.html" target="_blank" >My Network</a></button>
-                </section>
-                
+<html lang="en">
+<head>
+    <title>My Profile | Campus-Collab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4d44db;
+            --dark: #2a2a72;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Header Styles */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .profile-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .profile-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .action-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+        }
+        
+        .action-btn.outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: none;
+        }
+        
+        .action-btn.outline:hover {
+            background: rgba(108, 99, 255, 0.1);
+        }
+        
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.5s ease;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+        }
+        
+        .profile-avatar-container {
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.3);
+            transition: var(--transition);
+        }
+        
+        .profile-avatar:hover {
+            transform: translateY(-5px);
+        }
+        
+        .avatar-edit {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .avatar-edit:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .profile-bio {
+            color: var(--dark-gray);
+            margin: 0.5rem 0;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        /* Profile Sections */
+        .profile-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-edit {
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-edit:hover {
+            color: var(--secondary);
+        }
+        
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .skill-tag {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .project-card {
+            background: var(--gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .project-card:hover {
+            background: #e0e0ff;
+            transform: translateY(-5px);
+        }
+        
+        .project-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .project-description {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .project-skill {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        /* Hidden Sections */
+        .hidden-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-avatar-container {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .profile-stats {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .profile-avatar {
+                width: 150px;
+                height: 150px;
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .profile-title {
+                font-size: 1.8rem;
+            }
+            
+            .profile-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Header -->
+        <div class="profile-header">
+            <div>
+                <h1 class="profile-title">My Profile</h1>
             </div>
-            <!-- Activity Section -->
-            <div class="activity" >
-                <div class="activity-title" >My Activity</div>
-                <div class="projects" >
-                    <ul class="projects-list" >
-                        <li style="--delay: 0" ><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" ><span>Course Recommander</span></a></li>
-                        <li style="--delay: 1" ><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >To-Do List</a></li>
-                        <li style="--delay: 2" ><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self">Basic Calculator</a></li>
-                    </ul>
-                </div>
-                <div class="seeall" ><a href="myactivity.html" target="_blank" ><span>See All Projects  </span><i class="fa-solid fa-arrow-right-long"></i> </a></div>
-            </div>
-            <!-- Skills Section -->
-            <div class="skills" >
-                <div class="skills-title" >Skills</div>
-                <div class="skills-container" >
-                    <ul class="skills-list" >
-                        <li style="-delay: 3" >Javascript</li>
-                        <li style="-delay: 4" >React</li>
-                    </ul>  
-                </div>
-                <div class="seeall" ><a href="myskills.html" target="_blank" ><span>See All Skills  </span><i class="fa-solid fa-arrow-right-long"></i></a></div>
+            <div class="profile-actions">
+                <button class="action-btn outline" id="networkBtn">
+                    <i class="fas fa-users"></i><a href="mynetwork.html" target="_self" style="text-decoration: none; color:var(--primary)">My Network</a> 
+                </button>
+                <button class="action-btn outline">
+                    <i class="fas fa-share-alt"></i> Share Profile
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-pencil-alt"></i> Edit Profile
+                </button>
             </div>
         </div>
-    </body>
+        
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-avatar-container">
+                <div class="profile-avatar">HR</div>
+                <div class="avatar-edit">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <div class="profile-info">
+                <div>
+                    <h2 class="profile-name">HRUTHIKA REDDY</h2>
+                    <div class="profile-title">Full Stack Developer</div>
+                    <div class="profile-bio">
+                        Computer Science Undergraduate passionate about building scalable web applications 
+                        and solving complex problems with elegant solutions.
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">128</div>
+                        <div class="stat-label">Connections</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Skills</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- About Section -->
+        <div class="profile-section">
+            <div class="section-header">
+                <h3 class="section-title">About</h3>
+                <div class="section-edit">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </div>
+            </div>
+            <div class="section-content">
+                <p>
+                    I'm a Computer Science undergraduate with expertise in full stack web development. 
+                    I specialize in JavaScript frameworks like React and Node.js, and have experience 
+                    building scalable applications with modern architectures.
+                </p>
+                <p class="profile-bio" style="margin-top: 1rem;">
+                    Currently looking for opportunities to work on challenging projects that push my 
+                    boundaries and allow me to grow as a developer.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Skills Section -->
+        <div class="profile-section">
+            <div class="section-header">
+                <h3 class="section-title">Skills</h3>
+                <div class="section-edit">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </div>
+            </div>
+            <div class="skills-container">
+                <div class="skill-tag">
+                    <i class="fab fa-js"></i> JavaScript
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-react"></i> React
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-node-js"></i> Node.js
+                </div>
+                <div class="skill-tag">
+                    <i class="fas fa-database"></i> MongoDB
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-html5"></i> HTML5
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-css3-alt"></i> CSS3
+                </div>
+                <div class="skill-tag">
+                    <i class="fab fa-git-alt"></i> Git
+                </div>
+                <div class="skill-tag">
+                    <i class="fas fa-plus"></i> Add Skill
+                </div>
+            </div>
+        </div>
+        
+        <!-- Projects Section -->
+        <div class="profile-section">
+            <div class="section-header">
+                <h3 class="section-title">Projects</h3>
+                <div class="section-edit">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </div>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-title">
+                        <i class="fas fa-code-branch"></i> Course Recommender
+                    </div>
+                    <div class="project-description">
+                        AI-powered course recommendation system for students based on their interests and academic history.
+                    </div>
+                    <div class="project-skills">
+                        <span class="project-skill">React</span>
+                        <span class="project-skill">Node.js</span>
+                        <span class="project-skill">ML</span>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-title">
+                        <i class="fas fa-tasks"></i> To-Do List App
+                    </div>
+                    <div class="project-description">
+                        Full-featured task management application with drag-and-drop functionality and team collaboration.
+                    </div>
+                    <div class="project-skills">
+                        <span class="project-skill">React</span>
+                        <span class="project-skill">Firebase</span>
+                        <span class="project-skill">Redux</span>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-title">
+                        <i class="fas fa-calculator"></i> Advanced Calculator
+                    </div>
+                    <div class="project-description">
+                        Scientific calculator with graphing capabilities and formula recognition.
+                    </div>
+                    <div class="project-skills">
+                        <span class="project-skill">JavaScript</span>
+                        <span class="project-skill">CSS3</span>
+                        <span class="project-skill">Math.js</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- View All Projects (hidden by default) -->
+            <div class="hidden-section" id="allProjects">
+                <div class="projects-grid" style="margin-top: 1.5rem;">
+                    <!-- Additional projects would appear here -->
+                </div>
+            </div>
+            
+            <button class="action-btn outline" style="margin-top: 1.5rem; width: 100%;" id="viewProjectsBtn">
+                <i class="fas fa-arrow-down"></i> View All Projects
+            </button>
+        </div>
+        
+        <!-- Education Section -->
+        <div class="profile-section">
+            <div class="section-header">
+                <h3 class="section-title">Education</h3>
+                <div class="section-edit">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </div>
+            </div>
+            <div class="section-content">
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="width: 60px; height: 60px; background: var(--gray); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-university" style="font-size: 1.5rem; color: var(--primary);"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--dark);">Bachelor of Technology in Computer Science</div>
+                        <div style="color: var(--primary);">RAJIV GANDHI UNIVERSITY OF KNOWLEDGE TECHNOLOGIES</div>
+                        <div style="color: var(--dark-gray); font-size: 0.9rem;">2023 - 2027</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // View All Projects toggle
+            const viewProjectsBtn = document.getElementById('viewProjectsBtn');
+            const allProjects = document.getElementById('allProjects');
+            
+            viewProjectsBtn.addEventListener('click', function() {
+                if (allProjects.style.display === 'block') {
+                    allProjects.style.display = 'none';
+                    this.innerHTML = '<i class="fas fa-arrow-down"></i> View All Projects';
+                } else {
+                    allProjects.style.display = 'block';
+                    this.innerHTML = '<i class="fas fa-arrow-up"></i> Show Less';
+                }
+            });
+            
+            // Edit buttons functionality
+            const editButtons = document.querySelectorAll('.section-edit');
+            editButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const section = this.closest('.profile-section');
+                    alert('Edit functionality for ' + section.querySelector('.section-title').textContent);
+                });
+            });
+            
+            // Avatar edit functionality
+            const avatarEdit = document.querySelector('.avatar-edit');
+            avatarEdit.addEventListener('click', function() {
+                alert('Avatar edit functionality would open here');
+            });
+            
+            // Skill tags functionality
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    if (this.textContent.includes('Add Skill')) {
+                        alert('Add new skill functionality would open here');
+                    } else {
+                        // In a real app, this might filter projects by skill
+                        console.log('Filter by skill: ' + this.textContent.trim());
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>
