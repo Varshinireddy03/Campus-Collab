@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <title>My Activity</title>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, intial-scale=1.0" >
+        <link rel="stylesheet" href="styles/myactivity.css" >
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" >
+        <script>
+            document.addEventListener("click", function(e) {
+                if (e.target.classList.contains("fa-heart")) {
+                    const btn = e.target.closest(".action-btn");
+                    btn.classList.toggle("liked");
+                }
+            });
+        </script>
+
+    </head>
+    <body>
+        <div class="myactivity" >
+            <!-- My Activity Header -->
+            <div class="myactivity-header" >
+                <div class="myactivity-title" >My Activity</div>
+            </div>
+            <!-- My Activity Projects -->
+            <div class="myactivity-projects-grid" >
+                <!-- Project-01 -->
+                <div class="project-card" style="--delay: 0" >
+                    <h3><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >Course Recommender</a></h3>
+                    <p>AI-powered system that suggests courses based on student interests and academic history.</p>
+                    <div class="project-meta">
+                        <div class="project-languages">
+                            <span class="language-tag">Python</span>
+                            <span class="language-tag">TensorFlow</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn"><i class="fas fa-heart"></i></button>
+                            <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project-02 -->
+                <div class="project-card" style="--delay: 1" >
+                    <h3><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >To-Do List</a></h3>
+                    <p>Develop a calculator app with basic operations such as addition, subtraction, multiplication, and division.</p>
+                    <div class="project-meta">
+                        <div class="project-languages">
+                            <span class="language-tag">React</span>
+                            <span class="language-tag">Node.js</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn"><i class="fas fa-heart"></i></button>
+                            <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project-03 -->
+                <div class="project-card" style="--delay: 2" >
+                    <h3><a  href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >Basic Calculator</a></h3>
+                    <p>AI-powered system that suggests courses based on student interests and academic history.</p>
+                    <div class="project-meta">
+                        <div class="project-languages">
+                            <span class="language-tag">HTML</span>
+                            <span class="language-tag">Javascript</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn"><i class="fas fa-heart"></i></button>
+                            <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project-04 -->
+                <div class="project-card" style="--delay: 3" >
+                    <h3><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >Personal Finance Tracker</a></h3>
+                    <p>Create a tool that allows users to input, track their expenses and plan their budget.</p>
+                    <div class="project-meta">
+                        <div class="project-languages">
+                            <span class="language-tag">Python</span>
+                            <span class="language-tag">Java</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn"><i class="fas fa-heart"></i></button>
+                            <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project-05 -->
+                <div class="project-card" style="--delay: 4" >
+                    <h3><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >Student Management System</a></h3>
+                    <p>Create a system where you can add, update, and remove student records.</p>
+                    <div class="project-meta">
+                        <div class="project-languages">
+                            <span class="language-tag">React</span>
+                            <span class="language-tag">Ruby</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn"><i class="fas fa-heart"></i></button>
+                            <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project-06 -->
+                <div class="project-card" style="--delay: 5" >
+                    <h3><a href="https://github.com/Hruthika-Reddy/Campus-Collab.git" target="_self" >Library Management System</a></h3>
+                    <p>Develop a system to manage books in a library. Implement functionalities such as adding, removing, and searching for books, as well as keeping track of borrowed books.</p>
+                    <div class="project-meta">
+                        <div class="project-languages">
+                            <span class="language-tag">Angular</span>
+                            <span class="language-tag">Python</span>
+                        </div>
+                        <div class="project-actions">
+                            <button class="action-btn"><i class="fas fa-heart"></i></button>
+                            <button class="action-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Action Button -->
+        <button class="fab" id="fabBtn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </body>
+</html>

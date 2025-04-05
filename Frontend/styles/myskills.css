@@ -1,0 +1,106 @@
+:root {
+    --primary: #4361ee;
+    --primary-dark: #3a0ca3;
+    --primary-light: #4895ef;
+    --secondary: #4cc9f0;
+    --accent: #f72585;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --light-gray: #f1f3f5;
+    --medium-gray: #dee2e6;
+    --dark-gray: #495057;
+    --white:#FFF;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius: 12px;
+    --sidebar-width: 280px;
+    --navbar-height: 70px;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+body {
+    color: var(--dark);
+    background-color: var(--light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+.myskills {
+    width:95%;
+    margin:auto;
+}
+.myskills-header {
+    width:auto;
+    background-color:#FFF;
+    padding:30px;
+    border-radius:20px;
+    margin:30px 0 30px 0;
+}
+.myskills-title {
+    font-size:200%;
+    padding:10px;
+    color:var(--primary);
+}
+.myskills-container {
+    background-color:#FFF;
+    margin:30px 0 30px 0;
+    border-radius:20px;
+    padding: 20px;
+}
+.skill {
+    border:2px solid var(--primary);
+    border-radius:30px;
+    padding:10px;   
+    margin:10px;
+    margin-left:30px;
+    margin-right:30px;
+    text-align: center;
+    color:var(--primary);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+    animation-delay: calc(var(--delay) * 0.1s);
+    width:50%;
+}
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.skill:hover {
+    border-color:var(--primary-light);
+    background-color:var(--primary-light);
+    color:var(--white);
+    transform: translateY(-2px);
+}
+.fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    z-index: 100;
+}
+.fab:hover {
+    transform: scale(1.1);
+    background: var(--primary-dark);
+    box-shadow: var(--shadow-xl);
+}
