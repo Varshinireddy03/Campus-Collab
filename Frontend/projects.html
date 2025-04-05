@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Collab - Mentorship</title>
+    <title>Campus Collab - Projects</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -255,7 +255,7 @@
             margin-left: var(--sidebar-width);
         }
 
-        /* Mentorship Page Styles */
+        /* Projects Page Styles */
         .headline {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
@@ -291,8 +291,8 @@
             }
         }
 
-        /* Mentorship Tabs */
-        .mentorship-tabs {
+        /* Projects Tabs */
+        .projects-tabs {
             display: flex;
             gap: 0.75rem;
             margin-bottom: 2.5rem;
@@ -301,7 +301,7 @@
             opacity: 0;
         }
 
-        .mentorship-tabs::after {
+        .projects-tabs::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -335,8 +335,8 @@
             color: var(--primary);
         }
 
-        /* Mentorship Container */
-        .mentorship-container {
+        /* Projects Container */
+        .projects-container {
             display: grid;
             grid-template-columns: 1fr;
             gap: 2.5rem;
@@ -380,54 +380,29 @@
             color: var(--primary);
         }
 
-        /* Mentor Cards */
-        .mentorship-section {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 1px solid var(--medium-gray);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards;
-            animation-delay: calc(var(--delay) * 0.15s);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mentorship-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient-primary);
-        }
-
-        .mentorship-cards {
+        /* Stats Cards */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
-        .mentor-card {
+        .stat-card {
             background: white;
             border-radius: var(--border-radius);
-            padding: 1.75rem;
+            padding: 1.5rem;
             box-shadow: var(--shadow-sm);
             transition: var(--transition);
             border: 1px solid var(--medium-gray);
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 0.75rem;
             position: relative;
             overflow: hidden;
-            height: 100%;
         }
 
-        .mentor-card::before {
+        .stat-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -438,66 +413,137 @@
             transition: var(--transition);
         }
 
-        .mentor-card:hover {
+        .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-md);
         }
 
-        .mentor-header {
-            display: flex;
-            gap: 1.25rem;
-            align-items: center;
-        }
-
-        .mentor-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.6rem;
-            flex-shrink: 0;
-            background: var(--gradient-primary);
-            box-shadow: 0 4px 15px rgba(100, 149, 237, 0.3);
-        }
-
-        .mentor-info {
-            flex-grow: 1;
-        }
-
-        .mentor-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .mentor-title {
-            font-size: 0.9rem;
+        .stat-title {
+            font-size: 0.95rem;
             color: var(--dark-gray);
-            margin-bottom: 0.25rem;
         }
 
-        .mentor-rating {
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1;
+        }
+
+        .stat-change {
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
 
-        .mentor-rating i {
-            color: #FFD700;
-            font-size: 0.95rem;
+        .stat-change.positive {
+            color: #28a745;
         }
 
-        .mentor-rating span {
+        .stat-change.negative {
+            color: #dc3545;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--medium-gray);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .project-status {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-active {
+            background-color: #e6f7ee;
+            color: #28a745;
+        }
+
+        .status-completed {
+            background-color: #e6f3ff;
+            color: #17a2b8;
+        }
+
+        .status-paused {
+            background-color: #fff3e6;
+            color: #fd7e14;
+        }
+
+        .project-description {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 0.85rem;
             color: var(--dark-gray);
-            margin-left: 0.25rem;
         }
 
-        .mentor-skills {
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        .project-skills {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
@@ -519,41 +565,46 @@
             color: white;
         }
 
-        .mentor-bio {
+        .project-team {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .team-avatars {
+            display: flex;
+            margin-right: 1rem;
+        }
+
+        .team-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: -10px;
+            border: 2px solid white;
+        }
+
+        .team-avatar:nth-child(2) {
+            background: var(--gradient-secondary);
+        }
+
+        .team-avatar:nth-child(3) {
+            background: var(--gradient-accent);
+        }
+
+        .team-more {
+            font-size: 0.85rem;
             color: var(--dark-gray);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin: 0.5rem 0;
         }
 
-        /* Status Indicators */
-        .status-available {
-            background-color: #e6f7ee;
-            color: #28a745;
-        }
-
-        .status-busy {
-            background-color: #fff3e6;
-            color: #fd7e14;
-        }
-
-        .status-away {
-            background-color: #e6f3ff;
-            color: #17a2b8;
-        }
-
-        .status-pending {
-            background-color: #fff8e6;
-            color: #ffc107;
-        }
-
-        .status-active {
-            background-color: #e6f7ee;
-            color: #28a745;
-        }
-
-        /* Fixed Mentor Footer */
-        .mentor-footer {
+        .project-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -564,15 +615,28 @@
             flex-wrap: wrap;
         }
 
-        .mentor-status {
-            font-size: 0.85rem;
-            padding: 0.35rem 0.85rem;
-            border-radius: 50px;
-            font-weight: 500;
-            white-space: nowrap;
+        .project-progress {
+            width: 100%;
+            height: 6px;
+            background-color: var(--light-gray);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
         }
 
-        .mentor-actions {
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        .project-actions {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
@@ -611,89 +675,6 @@
         .btn-outline:hover {
             border-color: var(--primary);
             color: var(--primary);
-        }
-
-        /* Request Cards */
-        .requests-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .request-card {
-            display: flex;
-            gap: 1.5rem;
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--medium-gray);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s forwards;
-            animation-delay: calc(var(--delay) * 0.15s);
-        }
-
-        .request-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .request-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-
-        .request-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .request-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .request-user {
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .request-time {
-            font-size: 0.85rem;
-            color: var(--dark-gray);
-        }
-
-        .request-message {
-            color: var(--dark-gray);
-            line-height: 1.6;
-        }
-
-        .request-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .request-actions {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 0.5rem;
         }
 
         /* Empty State */
@@ -941,16 +922,12 @@
                 transform: translateX(0);
             }
             
-            .mentorship-cards {
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
             
-            .mentorship-section {
-                padding: 1.5rem;
-            }
-
-            .request-card {
-                flex-direction: column;
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -971,13 +948,17 @@
                 width: 100%;
             }
 
-            .mentorship-tabs {
+            .projects-tabs {
                 flex-wrap: wrap;
             }
 
             .tab-btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -990,11 +971,11 @@
             <span>Campus Collab</span>
         </a>
         
-        <input type="text" class="search-box" placeholder="Search mentors, skills...">
+        <input type="text" class="search-box" placeholder="Search projects, collaborators...">
         
         <div class="nav-actions">
             <button class="create-button" id="openModalBtn">
-                <i class="fas fa-plus"></i> <span>Become Mentor</span>
+                <i class="fas fa-plus"></i> <span>New Project</span>
             </button>
             
             <!-- Profile Dropdown -->
@@ -1010,12 +991,12 @@
     <div class="sidebar" id="sidebar">
         <ul>
             <li><a href="homepage.html"><i class="fas fa-star"></i> <span class="sidebar-text">Featured</span></a></li>
-            <li><a href="projects.html"><i class="fas fa-folder"></i> <span class="sidebar-text">Projects</span></a></li>
+            <li><a href="projects.html" class="active"><i class="fas fa-folder"></i> <span class="sidebar-text">Projects</span></a></li>
             <li><a href="courses.html"><i class="fas fa-book"></i> <span class="sidebar-text">Courses</span></a></li>
             <li><a href="collaborators.html"><i class="fas fa-users"></i> <span class="sidebar-text">Collaborators</span></a></li>
             <li><a href="events.html"><i class="fas fa-calendar-alt"></i> <span class="sidebar-text">Events</span></a></li>
             <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> <span class="sidebar-text">Leaderboard</span></a></li>
-            <li><a href="mentorship.html" class="active"><i class="fas fa-user-tie"></i> <span class="sidebar-text">Mentorship</span></a></li>
+            <li><a href="mentorship.html"><i class="fas fa-user-tie"></i> <span class="sidebar-text">Mentorship</span></a></li>
             <li><a href="tasks.html"><i class="fas fa-tasks"></i> <span class="sidebar-text">Tasks</span></a></li>
             <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="sidebar-text">Settings</span></a></li>
         </ul>
@@ -1023,464 +1004,513 @@
 
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <h1 class="headline">Mentorship Program</h1>
-        <p class="subheadline">Connect with experienced mentors to accelerate your learning, or share your knowledge by becoming a mentor yourself. Our platform facilitates meaningful connections between students across all levels.</p>
+        <h1 class="headline">Projects Hub</h1>
+        <p class="subheadline">Discover, collaborate, and showcase your academic and personal projects. Join existing projects or start your own to build your portfolio and gain practical experience.</p>
         
-        <div class="mentorship-tabs">
-            <button class="tab-btn active" data-tab="find-mentors">Find Mentors</button>
-            <button class="tab-btn" data-tab="my-mentors">My Mentors</button>
-            <button class="tab-btn" data-tab="requests">Requests</button>
-            <button class="tab-btn" data-tab="my-mentees">My Mentees</button>
+        <div class="projects-tabs">
+            <button class="tab-btn active" data-tab="all-projects">All Projects</button>
+            <button class="tab-btn" data-tab="my-projects">My Projects</button>
+            <button class="tab-btn" data-tab="collaborations">Collaborations</button>
+            <button class="tab-btn" data-tab="completed">Completed</button>
         </div>
         
-        <div class="mentorship-container">
-            <!-- Find Mentors Section -->
-            <div class="mentorship-section" style="--delay: 0" id="find-mentors">
+        <div class="projects-container">
+            <!-- Stats Section -->
+            <div class="stats-grid">
+                <div class="stat-card" style="--delay: 1">
+                    <div class="stat-title">Total Projects</div>
+                    <div class="stat-value">127</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 12% from last month
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="--delay: 2">
+                    <div class="stat-title">Active Projects</div>
+                    <div class="stat-value">84</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 8% from last month
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="--delay: 3">
+                    <div class="stat-title">Completed</div>
+                    <div class="stat-value">43</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 15% from last month
+                    </div>
+                </div>
+                
+                <div class="stat-card" style="--delay: 4">
+                    <div class="stat-title">Collaborators</div>
+                    <div class="stat-value">312</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 21% from last month
+                    </div>
+                </div>
+            </div>
+            
+            <!-- All Projects Section -->
+            <div class="projects-section" id="all-projects">
                 <div class="section-header">
-                    <h2 class="section-title">Available Mentors</h2>
+                    <h2 class="section-title">Featured Projects</h2>
                     <div class="section-actions">
                         <button class="action-btn" title="Filters"><i class="fas fa-sliders-h"></i></button>
                         <button class="action-btn" title="Search"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
                 
-                <div class="mentorship-cards">
-                    <!-- Mentor Card 1 -->
-                    <div class="mentor-card" style="--delay: 1">
-                        <div class="mentor-header">
-                            <div class="mentor-avatar">AS</div>
-                            <div class="mentor-info">
-                                <div class="mentor-name">Alex Smith</div>
-                                <div class="mentor-title">Senior Developer, TechCorp</div>
-                                <div class="mentor-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span>(24)</span>
-                                </div>
+                <div class="projects-grid">
+                    <!-- Project Card 1 -->
+                    <div class="project-card" style="--delay: 1">
+                        <div class="project-header">
+                            <h3 class="project-title">Campus Navigation App</h3>
+                            <span class="project-status status-active">Active</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            Developing a mobile app to help students navigate campus buildings with AR features and accessibility options.
+                        </p>
+                        
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i> Due: May 15, 2023
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i> 4 members
                             </div>
                         </div>
                         
-                        <div class="mentor-skills">
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">AWS</span>
-                            <span class="skill-tag">TypeScript</span>
+                        <div class="project-skills">
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">ARCore</span>
+                            <span class="skill-tag">Firebase</span>
                         </div>
                         
-                        <p class="mentor-bio">
-                            Full-stack developer with 8+ years of experience. Specialized in building scalable web applications and mentoring junior developers. Passionate about clean code and best practices.
-                        </p>
+                        <div class="project-team">
+                            <div class="team-avatars">
+                                <div class="team-avatar">JD</div>
+                                <div class="team-avatar">AS</div>
+                                <div class="team-avatar">MJ</div>
+                            </div>
+                            <span class="team-more">+1 more</span>
+                        </div>
                         
-                        <div class="mentor-footer">
-                            <span class="mentor-status status-available">Available</span>
-                            <div class="mentor-actions">
-                                <button class="btn btn-outline"><i class="far fa-envelope"></i> Message</button>
-                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Request</button>
+                        <div class="project-progress">
+                            <div class="progress-bar" style="width: 65%"></div>
+                        </div>
+                        <div class="progress-text">65% completed</div>
+                        
+                        <div class="project-footer">
+                            <div class="project-actions">
+                                <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Join</button>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Mentor Card 2 -->
-                    <div class="mentor-card" style="--delay: 2">
-                        <div class="mentor-header">
-                            <div class="mentor-avatar">MJ</div>
-                            <div class="mentor-info">
-                                <div class="mentor-name">Maria Johnson</div>
-                                <div class="mentor-title">Data Scientist, DataWorks</div>
-                                <div class="mentor-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>(18)</span>
-                                </div>
+                    <!-- Project Card 2 -->
+                    <div class="project-card" style="--delay: 2">
+                        <div class="project-header">
+                            <h3 class="project-title">AI Course Recommender</h3>
+                            <span class="project-status status-active">Active</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            Machine learning system to recommend courses based on student interests, academic history, and career goals.
+                        </p>
+                        
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i> Due: June 30, 2023
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i> 3 members
                             </div>
                         </div>
                         
-                        <div class="mentor-skills">
+                        <div class="project-skills">
                             <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Machine Learning</span>
                             <span class="skill-tag">TensorFlow</span>
-                            <span class="skill-tag">SQL</span>
-                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Flask</span>
                         </div>
                         
-                        <p class="mentor-bio">
-                            Data science professional passionate about teaching ML concepts and helping students break into the field. Former teaching assistant at Stanford with 5 years of industry experience.
-                        </p>
+                        <div class="project-team">
+                            <div class="team-avatars">
+                                <div class="team-avatar">RK</div>
+                                <div class="team-avatar">TL</div>
+                            </div>
+                            <span class="team-more">Looking for 2 more</span>
+                        </div>
                         
-                        <div class="mentor-footer">
-                            <span class="mentor-status status-busy">Busy</span>
-                            <div class="mentor-actions">
-                                <button class="btn btn-outline"><i class="far fa-envelope"></i> Message</button>
-                                <button class="btn btn-primary" disabled><i class="fas fa-user-plus"></i> Request</button>
+                        <div class="project-progress">
+                            <div class="progress-bar" style="width: 30%"></div>
+                        </div>
+                        <div class="progress-text">30% completed</div>
+                        
+                        <div class="project-footer">
+                            <div class="project-actions">
+                                <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Join</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Mentor Card 3 -->
-                    <div class="mentor-card" style="--delay: 3">
-                        <div class="mentor-header">
-                            <div class="mentor-avatar">RK</div>
-                            <div class="mentor-info">
-                                <div class="mentor-name">Raj Kumar</div>
-                                <div class="mentor-title">UX Designer, CreativeMinds</div>
-                                <div class="mentor-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span>(12)</span>
-                                </div>
-                            </div>
+                    <!-- Project Card 3 -->
+                    <div class="project-card" style="--delay: 3">
+                        <div class="project-header">
+                            <h3 class="project-title">Sustainable Energy Dashboard</h3>
+                            <span class="project-status status-completed">Completed</span>
                         </div>
                         
-                        <div class="mentor-skills">
-                            <span class="skill-tag">UI/UX Design</span>
-                            <span class="skill-tag">Figma</span>
-                            <span class="skill-tag">User Research</span>
-                            <span class="skill-tag">Prototyping</span>
-                        </div>
-                        
-                        <p class="mentor-bio">
-                            Senior UX designer with expertise in creating intuitive user experiences. I can help you build your portfolio, prepare for interviews, and understand design thinking methodologies.
+                        <p class="project-description">
+                            Interactive dashboard visualizing campus energy consumption and recommendations for sustainability improvements.
                         </p>
                         
-                        <div class="mentor-footer">
-                            <span class="mentor-status status-available">Available</span>
-                            <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-envelope"></i> Message</button>
-                              <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Request</button>
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="far fa-calendar-alt"></i> Completed: Apr 2, 2023
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i> 5 members
+                            </div>
+                        </div>
+                        <div class="project-skills">
+                          <span class="skill-tag">React</span>
+                          <span class="skill-tag">D3.js</span>
+                          <span class="skill-tag">Node.js</span>
+                      </div>
+                      
+                      <div class="project-team">
+                          <div class="team-avatars">
+                              <div class="team-avatar">CW</div>
+                              <div class="team-avatar">AM</div>
+                              <div class="team-avatar">JP</div>
+                          </div>
+                          <span class="team-more">+2 more</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
                           </div>
                       </div>
                   </div>
 
-                  <!-- Mentor Card 4 -->
-                  <div class="mentor-card" style="--delay: 4">
-                      <div class="mentor-header">
-                          <div class="mentor-avatar">TL</div>
-                          <div class="mentor-info">
-                              <div class="mentor-name">Taylor Lee</div>
-                              <div class="mentor-title">Mobile Developer, AppWorks</div>
-                              <div class="mentor-rating">
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <span>(32)</span>
-                              </div>
+                  <!-- Project Card 4 -->
+                  <div class="project-card" style="--delay: 4">
+                      <div class="project-header">
+                          <h3 class="project-title">Virtual Study Groups Platform</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Web platform for students to form virtual study groups with video chat, shared whiteboard, and document collaboration.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: July 15, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 6 members
                           </div>
                       </div>
                       
-                      <div class="mentor-skills">
-                          <span class="skill-tag">Flutter</span>
-                          <span class="skill-tag">Dart</span>
-                          <span class="skill-tag">Firebase</span>
-                          <span class="skill-tag">iOS</span>
-                          <span class="skill-tag">Android</span>
+                      <div class="project-skills">
+                          <span class="skill-tag">WebRTC</span>
+                          <span class="skill-tag">Socket.io</span>
+                          <span class="skill-tag">MongoDB</span>
                       </div>
                       
-                      <p class="mentor-bio">
-                          Cross-platform mobile developer with expertise in Flutter framework. I can guide you through app development best practices, state management, and publishing to app stores.
-                      </p>
+                      <div class="project-team">
+                          <div class="team-avatars">
+                              <div class="team-avatar">SG</div>
+                              <div class="team-avatar">DK</div>
+                              <div class="team-avatar">AS</div>
+                          </div>
+                          <span class="team-more">+3 more</span>
+                      </div>
                       
-                      <div class="mentor-footer">
-                          <span class="mentor-status status-away">Away</span>
-                          <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-envelope"></i> Message</button>
-                              <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Request</button>
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 45%"></div>
+                      </div>
+                      <div class="progress-text">45% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="far fa-eye"></i> View</button>
+                              <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Join</button>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
           
-          <!-- My Mentors Section (Hidden by default) -->
-          <div class="mentorship-section" style="display: none; --delay: 1" id="my-mentors">
+          <!-- My Projects Section (Hidden by default) -->
+          <div class="projects-section" style="display: none; --delay: 1" id="my-projects">
               <div class="section-header">
-                  <h2 class="section-title">My Mentors</h2>
+                  <h2 class="section-title">My Projects</h2>
                   <div class="section-actions">
                       <button class="action-btn"><i class="fas fa-sliders-h"></i></button>
                   </div>
               </div>
               
-              <div class="mentorship-cards">
-                  <div class="mentor-card" style="--delay: 1">
-                      <div class="mentor-header">
-                          <div class="mentor-avatar">AS</div>
-                          <div class="mentor-info">
-                              <div class="mentor-name">Alex Smith</div>
-                              <div class="mentor-title">Senior Developer, TechCorp</div>
-                              <div class="mentor-rating">
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star-half-alt"></i>
-                                  <span>(24)</span>
-                              </div>
+              <div class="projects-grid">
+                  <div class="project-card" style="--delay: 1">
+                      <div class="project-header">
+                          <h3 class="project-title">Campus Navigation App</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Developing a mobile app to help students navigate campus buildings with AR features.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: May 15, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 4 members
                           </div>
                       </div>
                       
-                      <div class="mentor-skills">
-                          <span class="skill-tag">JavaScript</span>
-                          <span class="skill-tag">React</span>
-                          <span class="skill-tag">Node.js</span>
-                          <span class="skill-tag">AWS</span>
+                      <div class="project-skills">
+                          <span class="skill-tag">Flutter</span>
+                          <span class="skill-tag">ARCore</span>
+                          <span class="skill-tag">Firebase</span>
                       </div>
                       
-                      <p class="mentor-bio">
-                          Full-stack developer with 8+ years of experience. Specialized in building scalable web applications and mentoring junior developers.
-                      </p>
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 65%"></div>
+                      </div>
+                      <div class="progress-text">65% completed</div>
                       
-                      <div class="mentor-footer">
-                          <span class="mentor-status status-available">Available</span>
-                          <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-calendar-alt"></i> Schedule</button>
-                              <button class="btn btn-primary"><i class="fas fa-comments"></i> Chat</button>
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-edit"></i> Edit</button>
+                              <button class="btn btn-primary"><i class="fas fa-tasks"></i> Manage</button>
                           </div>
                       </div>
                   </div>
 
-                  <div class="mentor-card" style="--delay: 2">
-                      <div class="mentor-header">
-                          <div class="mentor-avatar">TL</div>
-                          <div class="mentor-info">
-                              <div class="mentor-name">Taylor Lee</div>
-                              <div class="mentor-title">Mobile Developer, AppWorks</div>
-                              <div class="mentor-rating">
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <span>(32)</span>
-                              </div>
+                  <div class="project-card" style="--delay: 2">
+                      <div class="project-header">
+                          <h3 class="project-title">CS101 Study Portal</h3>
+                          <span class="project-status status-completed">Completed</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Online portal with study materials, practice problems, and discussion forum for CS101 course.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Completed: Mar 10, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 2 members
                           </div>
                       </div>
                       
-                      <div class="mentor-skills">
-                          <span class="skill-tag">Flutter</span>
-                          <span class="skill-tag">Dart</span>
-                          <span class="skill-tag">Firebase</span>
+                      <div class="project-skills">
+                          <span class="skill-tag">PHP</span>
+                          <span class="skill-tag">MySQL</span>
+                          <span class="skill-tag">Bootstrap</span>
                       </div>
                       
-                      <p class="mentor-bio">
-                          Cross-platform mobile developer with expertise in Flutter framework. Currently mentoring me on app architecture and state management.
-                      </p>
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
                       
-                      <div class="mentor-footer">
-                          <span class="mentor-status status-available">Available</span>
-                          <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-calendar-alt"></i> Schedule</button>
-                              <button class="btn btn-primary"><i class="fas fa-comments"></i> Chat</button>
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-chart-line"></i> Analytics</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
           
-          <!-- Requests Section (Hidden by default) -->
-          <div class="mentorship-section" style="display: none; --delay: 2" id="requests">
+          <!-- Collaborations Section (Hidden by default) -->
+          <div class="projects-section" style="display: none; --delay: 2" id="collaborations">
               <div class="section-header">
-                  <h2 class="section-title">Mentorship Requests</h2>
+                  <h2 class="section-title">Collaborations</h2>
                   <div class="section-actions">
                       <button class="action-btn"><i class="fas fa-filter"></i></button>
                   </div>
               </div>
               
-              <div class="requests-list">
-                  <div class="request-card" style="--delay: 1">
-                      <div class="request-avatar">CW</div>
-                      <div class="request-content">
-                          <div class="request-header">
-                              <div class="request-user">Chris Wilson</div>
-                              <div class="request-time">2 hours ago</div>
+              <div class="projects-grid">
+                  <div class="project-card" style="--delay: 1">
+                      <div class="project-header">
+                          <h3 class="project-title">AI Course Recommender</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Machine learning system to recommend courses based on student interests and academic history.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: June 30, 2023
                           </div>
-                          <p class="request-message">
-                              Hi! I'm a sophomore CS student looking for guidance on web development career paths. I've built a few projects with React but want to understand industry expectations better.
-                          </p>
-                          <div class="request-skills">
-                              <span class="skill-tag">Web Development</span>
-                              <span class="skill-tag">Career Advice</span>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 3 members
                           </div>
-                          <div class="request-actions">
-                              <button class="btn btn-outline">Decline</button>
-                              <button class="btn btn-primary">Accept</button>
-                              <span class="request-status status-pending">Pending</span>
+                      </div>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">Python</span>
+                          <span class="skill-tag">TensorFlow</span>
+                          <span class="skill-tag">Flask</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 30%"></div>
+                      </div>
+                      <div class="progress-text">30% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-comments"></i> Discuss</button>
+                              <button class="btn btn-primary"><i class="fas fa-code"></i> Contribute</button>
                           </div>
                       </div>
                   </div>
 
-                  <div class="request-card" style="--delay: 2">
-                      <div class="request-avatar">AM</div>
-                      <div class="request-content">
-                          <div class="request-header">
-                              <div class="request-user">Aisha Mohammed</div>
-                              <div class="request-time">1 day ago</div>
+                  <div class="project-card" style="--delay: 2">
+                      <div class="project-header">
+                          <h3 class="project-title">Library Management System</h3>
+                          <span class="project-status status-active">Active</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Modernizing the campus library system with digital checkouts and inventory management.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Due: Aug 15, 2023
                           </div>
-                          <p class="request-message">
-                              I'm working on a data visualization project using D3.js and would love your guidance on best practices for performance optimization and accessibility.
-                          </p>
-                          <div class="request-skills">
-                              <span class="skill-tag">JavaScript</span>
-                              <span class="skill-tag">D3.js</span>
-                              <span class="skill-tag">Data Visualization</span>
-                          </div>
-                          <div class="request-actions">
-                              <button class="btn btn-outline">Decline</button>
-                              <button class="btn btn-primary">Accept</button>
-                              <span class="request-status status-pending">Pending</span>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 5 members
                           </div>
                       </div>
-                  </div>
-
-                  <div class="request-card" style="--delay: 3">
-                      <div class="request-avatar">JP</div>
-                      <div class="request-content">
-                          <div class="request-header">
-                              <div class="request-user">James Peterson</div>
-                              <div class="request-time">3 days ago</div>
-                          </div>
-                          <p class="request-message">
-                              I saw your profile and would appreciate your mentorship on preparing for technical interviews, particularly system design questions for backend roles.
-                          </p>
-                          <div class="request-skills">
-                              <span class="skill-tag">Interview Prep</span>
-                              <span class="skill-tag">System Design</span>
-                              <span class="skill-tag">Backend</span>
-                          </div>
-                          <div class="request-actions">
-                              <button class="btn btn-outline">Decline</button>
-                              <button class="btn btn-primary">Accept</button>
-                              <span class="request-status status-pending">Pending</span>
+                      
+                      <div class="project-skills">
+                          <span class="skill-tag">Java</span>
+                          <span class="skill-tag">Spring Boot</span>
+                          <span class="skill-tag">React</span>
+                      </div>
+                      
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 55%"></div>
+                      </div>
+                      <div class="progress-text">55% completed</div>
+                      
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-comments"></i> Discuss</button>
+                              <button class="btn btn-primary"><i class="fas fa-code"></i> Contribute</button>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
           
-          <!-- My Mentees Section (Hidden by default) -->
-          <div class="mentorship-section" style="display: none; --delay: 3" id="my-mentees">
+          <!-- Completed Section (Hidden by default) -->
+          <div class="projects-section" style="display: none; --delay: 3" id="completed">
               <div class="section-header">
-                  <h2 class="section-title">My Mentees</h2>
+                  <h2 class="section-title">Completed Projects</h2>
                   <div class="section-actions">
                       <button class="action-btn"><i class="fas fa-sliders-h"></i></button>
                   </div>
               </div>
               
-              <div class="mentorship-cards">
-                  <div class="mentor-card" style="--delay: 1">
-                      <div class="mentor-header">
-                          <div class="mentor-avatar">CW</div>
-                          <div class="mentor-info">
-                              <div class="mentor-name">Chris Wilson</div>
-                              <div class="mentor-title">Sophomore, Computer Science</div>
-                              <div class="mentor-rating">
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <span>(2)</span>
-                              </div>
+              <div class="projects-grid">
+                  <div class="project-card" style="--delay: 1">
+                      <div class="project-header">
+                          <h3 class="project-title">CS101 Study Portal</h3>
+                          <span class="project-status status-completed">Completed</span>
+                      </div>
+                      
+                      <p class="project-description">
+                          Online portal with study materials, practice problems, and discussion forum for CS101 course.
+                      </p>
+                      
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Completed: Mar 10, 2023
+                          </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 2 members
                           </div>
                       </div>
                       
-                      <div class="mentor-skills">
-                          <span class="skill-tag">React</span>
-                          <span class="skill-tag">JavaScript</span>
-                          <span class="skill-tag">HTML/CSS</span>
+                      <div class="project-skills">
+                          <span class="skill-tag">PHP</span>
+                          <span class="skill-tag">MySQL</span>
+                          <span class="skill-tag">Bootstrap</span>
                       </div>
                       
-                      <p class="mentor-bio">
-                          Aspiring frontend developer with 3 personal projects completed. Looking to improve architecture and state management skills.
-                      </p>
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
                       
-                      <div class="mentor-footer">
-                          <span class="mentor-status status-active">Active</span>
-                          <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-calendar-alt"></i> Schedule</button>
-                              <button class="btn btn-primary"><i class="fas fa-comments"></i> Chat</button>
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-chart-line"></i> Analytics</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
                           </div>
                       </div>
                   </div>
 
-                  <div class="mentor-card" style="--delay: 2">
-                      <div class="mentor-header">
-                          <div class="mentor-avatar">SG</div>
-                          <div class="mentor-info">
-                              <div class="mentor-name">Sarah Gonzalez</div>
-                              <div class="mentor-title">Junior, Data Science</div>
-                              <div class="mentor-rating">
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star-half-alt"></i>
-                                  <span>(5)</span>
-                              </div>
-                          </div>
+                  <div class="project-card" style="--delay: 2">
+                      <div class="project-header">
+                          <h3 class="project-title">Student Attendance Tracker</h3>
+                          <span class="project-status status-completed">Completed</span>
                       </div>
                       
-                      <div class="mentor-skills">
-                          <span class="skill-tag">Python</span>
-                          <span class="skill-tag">Pandas</span>
-                          <span class="skill-tag">Data Analysis</span>
-                      </div>
-                      
-                      <p class="mentor-bio">
-                          Working on a research project analyzing climate data. Needs guidance on statistical methods and visualization techniques.
+                      <p class="project-description">
+                          Mobile app for professors to track student attendance using QR codes.
                       </p>
                       
-                      <div class="mentor-footer">
-                          <span class="mentor-status status-active">Active</span>
-                          <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-calendar-alt"></i> Schedule</button>
-                              <button class="btn btn-primary"><i class="fas fa-comments"></i> Chat</button>
+                      <div class="project-meta">
+                          <div class="meta-item">
+                              <i class="far fa-calendar-alt"></i> Completed: Dec 15, 2022
                           </div>
-                      </div>
-                  </div>
-
-                  <div class="mentor-card" style="--delay: 3">
-                      <div class="mentor-header">
-                          <div class="mentor-avatar">DK</div>
-                          <div class="mentor-info">
-                              <div class="mentor-name">David Kim</div>
-                              <div class="mentor-title">Freshman, Computer Engineering</div>
-                              <div class="mentor-rating">
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="fas fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <i class="far fa-star"></i>
-                                  <span>(1)</span>
-                              </div>
+                          <div class="meta-item">
+                              <i class="fas fa-user-friends"></i> 3 members
                           </div>
                       </div>
                       
-                      <div class="mentor-skills">
-                          <span class="skill-tag">C++</span>
-                          <span class="skill-tag">Arduino</span>
-                          <span class="skill-tag">Embedded Systems</span>
+                      <div class="project-skills">
+                          <span class="skill-tag">React Native</span>
+                          <span class="skill-tag">Node.js</span>
+                          <span class="skill-tag">MongoDB</span>
                       </div>
                       
-                      <p class="mentor-bio">
-                          Building a smart home automation system. Needs help with hardware interfacing and optimizing code for microcontrollers.
-                      </p>
+                      <div class="project-progress">
+                          <div class="progress-bar" style="width: 100%"></div>
+                      </div>
+                      <div class="progress-text">100% completed</div>
                       
-                      <div class="mentor-footer">
-                          <span class="mentor-status status-active">Active</span>
-                          <div class="mentor-actions">
-                              <button class="btn btn-outline"><i class="far fa-calendar-alt"></i> Schedule</button>
-                              <button class="btn btn-primary"><i class="fas fa-comments"></i> Chat</button>
+                      <div class="project-footer">
+                          <div class="project-actions">
+                              <button class="btn btn-outline"><i class="fas fa-chart-line"></i> Analytics</button>
+                              <button class="btn btn-primary"><i class="fas fa-code-branch"></i> Fork</button>
                           </div>
                       </div>
                   </div>
@@ -1488,49 +1518,57 @@
           </div>
       </div>
   </div>
-  
-  <!-- Become Mentor Modal -->
+
+  <!-- New Project Modal -->
   <div class="modal-overlay" id="modalOverlay"></div>
-  <div class="modal" id="mentorModal">
+  <div class="modal" id="projectModal">
       <div class="modal-header">
-          <h2>Become a Mentor</h2>
+          <h2>Create New Project</h2>
           <button class="close-modal" id="closeModalBtn">&times;</button>
       </div>
       <div class="modal-content">
-          <form id="mentorForm">
+          <form id="projectForm">
               <div class="form-group">
-                  <label for="mentorExpertise">Areas of Expertise</label>
-                  <input type="text" id="mentorExpertise" required placeholder="e.g. Web Development, Data Science, UX Design">
+                  <label for="projectName">Project Name</label>
+                  <input type="text" id="projectName" required placeholder="e.g. Campus Navigation App">
               </div>
               
               <div class="form-group">
-                  <label for="mentorSkills">Technical Skills</label>
-                  <input type="text" id="mentorSkills" required placeholder="e.g. JavaScript, Python, React, Machine Learning">
+                  <label for="projectDescription">Description</label>
+                  <textarea id="projectDescription" required placeholder="Briefly describe your project..."></textarea>
               </div>
               
               <div class="form-group">
-                  <label for="mentorExperience">Years of Experience</label>
-                  <select id="mentorExperience" required>
-                      <option value="" disabled selected>Select your experience</option>
-                      <option value="1-3">1-3 years</option>
-                      <option value="3-5">3-5 years</option>
-                      <option value="5+">5+ years</option>
+                  <label for="projectSkills">Required Skills</label>
+                  <input type="text" id="projectSkills" required placeholder="e.g. JavaScript, Python, UI Design">
+              </div>
+              
+              <div class="form-group">
+                  <label for="projectCategory">Category</label>
+                  <select id="projectCategory" required>
+                      <option value="" disabled selected>Select category</option>
+                      <option value="web">Web Development</option>
+                      <option value="mobile">Mobile App</option>
+                      <option value="ai">AI/ML</option>
+                      <option value="design">UI/UX Design</option>
+                      <option value="research">Research</option>
+                      <option value="other">Other</option>
                   </select>
               </div>
               
               <div class="form-group">
-                  <label for="mentorBio">Mentor Bio</label>
-                  <textarea id="mentorBio" required placeholder="Tell mentees about your background, expertise, and mentoring approach..."></textarea>
+                  <label for="projectDeadline">Target Deadline</label>
+                  <input type="date" id="projectDeadline">
               </div>
               
               <div class="form-group">
-                  <label for="mentorAvailability">Availability</label>
-                  <input type="text" id="mentorAvailability" placeholder="e.g. Weekdays after 5pm, Weekends">
+                  <label for="projectTeamSize">Team Size</label>
+                  <input type="number" id="projectTeamSize" min="1" max="10" placeholder="How many collaborators needed?">
               </div>
               
               <div class="modal-buttons">
-                  <button type="button" id="cancelMentorBtn">Cancel</button>
-                  <button type="submit" id="submitMentorBtn">Apply to Mentor</button>
+                  <button type="button" id="cancelProjectBtn">Cancel</button>
+                  <button type="submit" id="submitProjectBtn">Create Project</button>
               </div>
           </form>
       </div>
@@ -1556,7 +1594,7 @@
 
           // Tab switching functionality
           const tabButtons = document.querySelectorAll('.tab-btn');
-          const tabSections = document.querySelectorAll('.mentorship-section');
+          const tabSections = document.querySelectorAll('.projects-section');
 
           tabButtons.forEach(button => {
               button.addEventListener('click', () => {
@@ -1578,62 +1616,64 @@
 
           // Modal functionality
           const modalOverlay = document.getElementById('modalOverlay');
-          const mentorModal = document.getElementById('mentorModal');
+          const projectModal = document.getElementById('projectModal');
           const openModalBtn = document.getElementById('openModalBtn');
           const closeModalBtn = document.getElementById('closeModalBtn');
-          const cancelMentorBtn = document.getElementById('cancelMentorBtn');
+          const cancelProjectBtn = document.getElementById('cancelProjectBtn');
 
           function openModal() {
               modalOverlay.classList.add('active');
-              mentorModal.classList.add('active');
+              projectModal.classList.add('active');
               document.body.style.overflow = 'hidden';
           }
 
           function closeModal() {
               modalOverlay.classList.remove('active');
-              mentorModal.classList.remove('active');
+              projectModal.classList.remove('active');
               document.body.style.overflow = 'auto';
           }
 
           openModalBtn.addEventListener('click', openModal);
           closeModalBtn.addEventListener('click', closeModal);
-          cancelMentorBtn.addEventListener('click', closeModal);
+          cancelProjectBtn.addEventListener('click', closeModal);
           modalOverlay.addEventListener('click', closeModal);
 
           // Form submission
-          const mentorForm = document.getElementById('mentorForm');
-          mentorForm.addEventListener('submit', function(e) {
+          const projectForm = document.getElementById('projectForm');
+          projectForm.addEventListener('submit', function(e) {
               e.preventDefault();
               
               // Get form values
-              const expertise = document.getElementById('mentorExpertise').value;
-              const skills = document.getElementById('mentorSkills').value;
-              const experience = document.getElementById('mentorExperience').value;
-              const bio = document.getElementById('mentorBio').value;
-              const availability = document.getElementById('mentorAvailability').value;
+              const name = document.getElementById('projectName').value;
+              const description = document.getElementById('projectDescription').value;
+              const skills = document.getElementById('projectSkills').value;
+              const category = document.getElementById('projectCategory').value;
+              const deadline = document.getElementById('projectDeadline').value;
+              const teamSize = document.getElementById('projectTeamSize').value;
               
               // In a real app, you would send this data to a server
-              console.log('Mentor Application Submitted:', {
-                  expertise,
+              console.log('New Project Created:', {
+                  name,
+                  description,
                   skills,
-                  experience,
-                  bio,
-                  availability
+                  category,
+                  deadline,
+                  teamSize
               });
               
               // Show success message
-              alert('Your mentor application has been submitted successfully! Our team will review it and get back to you soon.');
+              alert('Your project has been created successfully!');
               
               // Close modal
               closeModal();
               
               // Reset form
-              mentorForm.reset();
+              projectForm.reset();
           });
 
           // Animate sections on scroll
           function animateOnScroll() {
-              const sections = document.querySelectorAll('.mentorship-section');
+              const sections = document.querySelectorAll('.projects-section, .stat-card, .project-card');
               
               sections.forEach(section => {
                   const sectionTop = section.getBoundingClientRect().top;
