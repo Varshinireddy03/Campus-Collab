@@ -1,545 +1,1115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TechHack 2024 - Intercollegiate Hackathon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Event 2024</title>
     <style>
-        :root {
-            --primary:cornflowerblue;
-            --secondary: #2575fc;
-            --accent: #62bfeb;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --base-font-size: 16px;
+      
+    :root {
+        --container-white: #FFFFFF;
+        --heading-cornflowerblue: #6495ED;
+        --text-black: #000000;
+        --bg-white: #FFFFFF;
+        --secondary-gray: #708090;
+        --prize-gold: #FFD700;
+        --prize-silver: #C0C0C0;
+        --prize-bronze: #CD7F32;
+        --prize-special: #A8FF78;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-white);
+        color: var(--text-black);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    header {
+        background: linear-gradient(135deg, var(--bg-white), #F5F5F5);
+        min-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+            linear-gradient(rgba(48, 50, 51, 0.9), rgba(87, 85, 85, 0.9)),
+            url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+        z-index: 0;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        margin-bottom: 1.2rem;
+        color: var(--heading-cornflowerblue);
+        position: relative;
+        z-index: 1;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+        0% { text-shadow: 0 0 5px rgba(100, 149, 237, 0.3); }
+        100% { text-shadow: 0 0 15px rgba(100, 149, 237, 0.6); }
+    }
+
+    .tagline {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        margin-bottom: 2rem;
+        max-width: 700px;
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+        font-weight: 300;
+        color: cornflowerblue;
+        animation: fadeIn 2s ease;
+    }
+
+    .date-badge {
+        display: inline-block;
+        background-color: var(--heading-cornflowerblue);
+        color: var(--bg-white);
+        padding: 0.7rem 1.8rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin: 1rem 0;
+        position: relative;
+        z-index: 1;
+        animation: pulse 2s infinite;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        background-color: var(--bg-white);
+    }
+
+    section {
+        margin-bottom: 5rem;
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    section.visible {
+        opacity: 1;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.8rem;
+        color: var(--heading-cornflowerblue);
+        position: relative;
+        display: inline-block;
+        font-weight: 600;
+    }
+
+    h2::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60%;
+        height: 2px;
+        background-color: var(--heading-cornflowerblue);
+        animation: underlineGrow 1s ease forwards;
+    }
+
+    @keyframes underlineGrow {
+        from { width: 0; }
+        to { width: 60%; }
+    }
+
+    p {
+        margin-bottom: 1.2rem;
+        color: var(--text-black);
+        font-size: 1.05rem;
+    }
+
+    ul {
+        margin-left: 1.8rem;
+        margin-bottom: 1.8rem;
+    }
+
+    li {
+        margin-bottom: 0.8rem;
+        color: var(--text-black);
+        position: relative;
+        font-size: 1.05rem;
+    }
+
+    li::before {
+        content: '▹';
+        position: absolute;
+        left: -20px;
+        color: var(--heading-cornflowerblue);
+    }
+
+    /* Enhanced Rules Animation */
+    .rules-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        perspective: 1000px;
+    }
+
+    .rule-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        padding: 1.5rem;
+        border-top: 3px solid var(--heading-cornflowerblue);
+        transform-style: preserve-3d;
+        transform: rotateY(20deg) scale(0.95);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.39, 0.575, 0.565, 1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .rule-card.visible {
+        transform: rotateY(0) scale(1);
+        opacity: 1;
+    }
+
+    .rule-card:nth-child(1) { transition-delay: 0.1s; }
+    .rule-card:nth-child(2) { transition-delay: 0.2s; }
+    .rule-card:nth-child(3) { transition-delay: 0.3s; }
+    .rule-card:nth-child(4) { transition-delay: 0.4s; }
+    .rule-card:nth-child(5) { transition-delay: 0.5s; }
+    .rule-card:nth-child(6) { transition-delay: 0.6s; }
+
+    .rule-icon {
+        font-size: 2rem;
+        color: var(--heading-cornflowerblue);
+        margin-bottom: 1rem;
+    }
+
+    .rule-title {
+        font-size: 1.2rem;
+        color: var(--text-black);
+        margin-bottom: 0.8rem;
+        font-weight: 500;
+    }
+
+    /* Enhanced Schedule Animation */
+    .schedule-container {
+        margin-top: 2rem;
+    }
+
+    .day-group {
+        margin-bottom: 3rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 1.5rem;
+        border-left: 4px solid var(--heading-cornflowerblue);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: clip-path 1s ease-out, transform 0.8s ease, opacity 0.6s ease;
+        transform: translateY(30px);
+        opacity: 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .day-group.visible {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .day-group:nth-child(1) { transition-delay: 0.1s; }
+    .day-group:nth-child(2) { transition-delay: 0.3s; }
+    .day-group:nth-child(3) { transition-delay: 0.5s; }
+
+    .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--heading-cornflowerblue);
+    }
+
+    .day-header h3 {
+        color: var(--text-black);
+        font-size: 1.3rem;
+        margin: 0;
+    }
+
+    .day-tag {
+        background: var(--heading-cornflowerblue);
+        color: var(--bg-white);
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .schedule-card {
+        display: flex;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        transition: all 0.5s ease;
+        transform-origin: left center;
+        transform: scaleX(0);
+        opacity: 0;
+        border-left: 3px solid var(--heading-cornflowerblue);
+    }
+
+    .schedule-card.visible {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+
+    .schedule-card:hover {
+        transform: scaleX(1) translateX(5px);
+        background: rgba(100, 149, 237, 0.1);
+    }
+
+    .schedule-card.highlight {
+        background: rgba(100, 149, 237, 0.1);
+    }
+
+    .time-slot {
+        min-width: 120px;
+        color: var(--heading-cornflowerblue);
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+
+    .event-details {
+        flex: 1;
+    }
+
+    .event-details h4 {
+        color: var(--text-black);
+        margin: 0 0 0.3rem 0;
+        font-size: 1.1rem;
+    }
+
+    .event-details p {
+        color: var(--text-black);
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    /* Enhanced Prizes Animation */
+    .prizes-container {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        perspective: 1200px;
+    }
+
+    .prize-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        width: 220px;
+        min-width: 220px;
+        border: 1px solid var(--heading-cornflowerblue);
+        transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: rotateX(15deg) translateY(50px);
+        opacity: 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .prize-card.visible {
+        transform: rotateX(0) translateY(0);
+        opacity: 1;
+    }
+
+    .prize-card:hover {
+        animation: float 3s ease-in-out infinite;
+        box-shadow: 0 10px 25px rgba(100, 149, 237, 0.2);
+    }
+
+    .prize-card:nth-child(1):hover {
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    }
+    .prize-card:nth-child(2):hover {
+        box-shadow: 0 0 30px rgba(192, 192, 192, 0.4);
+    }
+    .prize-card:nth-child(3):hover {
+        box-shadow: 0 0 30px rgba(205, 127, 50, 0.4);
+    }
+    .prize-card:nth-child(4):hover {
+        box-shadow: 0 0 30px rgba(168, 255, 120, 0.4);
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .prize-card:nth-child(1) { transition-delay: 0.1s; }
+    .prize-card:nth-child(2) { transition-delay: 0.2s; }
+    .prize-card:nth-child(3) { transition-delay: 0.3s; }
+    .prize-card:nth-child(4) { transition-delay: 0.4s; }
+
+    .prize-rank {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+    }
+
+    .prize-card:nth-child(1) .prize-rank {
+        color: var(--prize-gold);
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+    }
+
+    .prize-card:nth-child(2) .prize-rank {
+        color: var(--prize-silver);
+        text-shadow: 0 0 8px rgba(192, 192, 192, 0.3);
+    }
+
+    .prize-card:nth-child(3) .prize-rank {
+        color: var(--prize-bronze);
+        text-shadow: 0 0 8px rgba(205, 127, 50, 0.3);
+    }
+
+    .prize-card:nth-child(4) .prize-rank {
+        color: var(--prize-special);
+        text-shadow: 0 0 8px rgba(168, 255, 120, 0.3);
+    }
+
+    .prize-amount {
+        font-size: 1.8rem;
+        color: var(--text-black);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .prize-card:nth-child(1) .prize-amount {
+        background: linear-gradient(to right, #ffd700, #fff8a0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .prize-card:nth-child(2) .prize-amount {
+        background: linear-gradient(to right, #c0c0c0, #e0e0e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .prize-card:nth-child(3) .prize-amount {
+        background: linear-gradient(to right, #cd7f32, #e6a15c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .prize-card:nth-child(4) .prize-amount {
+        background: linear-gradient(to right, #a8ff78, #64ffda);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .prize-details {
+        color: var(--text-black);
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .prize-details p {
+        margin-bottom: 0.5rem;
+    }
+
+    /* New elegant divider */
+    .section-divider {
+        height: 1px;
+        width: 80%;
+        margin: 4rem auto;
+        background: linear-gradient(90deg, transparent, var(--heading-cornflowerblue), transparent);
+        opacity: 0.3;
+    }
+
+    /* Rest of existing styles remain unchanged */
+    .colleges-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .college-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--heading-cornflowerblue);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        cursor: pointer;
+        width: 300px;
+        opacity: 0;
+        transform: perspective(1000px) rotateY(90deg);
+        transform-origin: left center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .college-card.visible {
+        opacity: 1;
+        transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .college-card:hover {
+        transform: perspective(1000px) rotateY(0deg) translateY(-10px) scale(1.03);
+        box-shadow: 0 15px 30px rgba(100, 149, 237, 0.15);
+    }
+
+    .college-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 1px solid var(--heading-cornflowerblue);
+    }
+
+    .college-info {
+        padding: 1.5rem;
+    }
+
+    .college-name {
+        font-size: 1.3rem;
+        color: var(--heading-cornflowerblue);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .college-location {
+        color: var(--text-black);
+        margin-bottom: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95rem;
+    }
+
+    .apply-btn {
+        display: inline-block;
+        background: transparent;
+        color: var(--heading-cornflowerblue);
+        padding: 0.5rem 1.3rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        border: 1px solid var(--heading-cornflowerblue);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        font-size: 0.95rem;
+    }
+
+    .apply-btn:hover {
+        background: rgba(100, 149, 237, 0.1);
+        box-shadow: 0 0 10px rgba(100, 149, 237, 0.3);
+    }
+
+    .challenge-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .challenge-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        padding: 1.5rem;
+        border-left: 3px solid var(--heading-cornflowerblue);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .challenge-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .challenge-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .challenge-title {
+        font-size: 1.3rem;
+        color: var(--heading-cornflowerblue);
+        margin-bottom: 0.8rem;
+        font-weight: 500;
+    }
+
+    .challenge-difficulty {
+        display: inline-block;
+        padding: 0.2rem 0.8rem;
+        background: rgba(100, 149, 237, 0.1);
+        color: var(--heading-cornflowerblue);
+        border-radius: 50px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        overflow-y: auto;
+    }
+
+    .modal-content {
+        background: var(--bg-white);
+        margin: 3% auto;
+        padding: 2.5rem;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 600px;
+        position: relative;
+        border: 1px solid var(--heading-cornflowerblue);
+        animation: modalFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 1.3rem;
+        right: 1.3rem;
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: var(--heading-cornflowerblue);
+        transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+        transform: rotate(90deg) scale(1.1);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-black);
+        font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--heading-cornflowerblue);
+        border-radius: 4px;
+        color: var(--text-black);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--heading-cornflowerblue);
+        box-shadow: 0 0 0 2px rgba(100, 149, 237, 0.2);
+    }
+
+    .submit-btn {
+        background: var(--heading-cornflowerblue);
+        color: var(--bg-white);
+        border: none;
+        padding: 0.8rem 1.8rem;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .submit-btn:hover {
+        background: #7ea7f0;
+        box-shadow: 0 5px 15px rgba(100, 149, 237, 0.3);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes modalFadeIn {
+        from { 
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        to { 
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
-        
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            font-size: var(--base-font-size);
-            min-height: 100vh;
-        }
-        
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
-            animation: shine 8s infinite linear;
-        }
-        
-        @keyframes shine {
-            0% { transform: rotate(30deg) translate(-10%, -10%); }
-            100% { transform: rotate(30deg) translate(10%, 10%); }
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            position: relative;
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-        
-        .date-badge {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: bold;
-            margin: 1rem 0;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        section {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-        
-        p {
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-        
-        ul {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .colleges-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+        .colleges-container {
+            gap: 1.5rem;
         }
         
         .college-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
+            width: calc(50% - 1rem);
         }
-        
-        .college-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .college-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(106,17,203,0.1), rgba(37,117,252,0.2));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .college-card:hover::before {
-            opacity: 1;
-        }
-        
-        .college-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 3px solid var(--secondary);
-        }
-        
-        .college-info {
-            padding: 1.5rem;
-        }
-        
-        .college-name {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .college-location {
-            color: #666;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .college-location i {
-            margin-right: 0.5rem;
-        }
-        
-        .apply-btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .apply-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-        
-        .modal-content {
-            background-color: white;
-            margin: 5% auto;
-            padding: 2rem;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-            position: relative;
-            animation: modalFadeIn 0.3s;
-        }
-        
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-        }
-        
-        .close-btn:hover {
-            color: var(--accent);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(106,17,203,0.3);
-        }
-        
-        .highlight {
-            background-color: #fffde7;
-            padding: 0.2rem 0.4rem;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-        
-        .prizes {
-            display: flex;
-            justify-content: space-around;
+
+        .prizes-container {
             flex-wrap: wrap;
-            margin: 2rem 0;
+            justify-content: center;
         }
         
         .prize-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            width: 30%;
-            min-width: 250px;
-            margin: 1rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s;
+            width: calc(50% - 1rem);
+            min-width: auto;
+        }
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2.3rem;
+        }
+
+        .college-card {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .container {
+            padding: 3rem 1.5rem;
+        }
+
+        .modal-content {
+            padding: 1.8rem;
+        }
+
+        .schedule-card {
+            flex-direction: column;
         }
         
-        .prize-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .prize-place {
-            font-size: 1.2rem;
-            color: var(--primary);
+        .time-slot {
             margin-bottom: 0.5rem;
         }
-        
-        .prize-amount {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
+
+        .prizes-container {
+            flex-direction: column;
+            align-items: center;
         }
         
-        .schedule {
-            margin: 2rem 0;
+        .prize-card {
+            width: 100%;
+            max-width: 300px;
         }
-        
-        .schedule-item {
-            display: flex;
-            margin-bottom: 1.5rem;
-            align-items: flex-start;
-        }
-        
-        .schedule-time {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: bold;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-        
-        .schedule-details {
-            flex-grow: 1;
-        }
-        
-        @media (max-width: 768px) {
-            .colleges-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .prize-card {
-                width: 100%;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 2% auto;
-            }
-        }
+    }
+
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>TechHack 2K25</h1>
-        <p class="tagline">Innovate. Collaborate. Transform.</p>
-        <div class="date-badge">MAY 5-7, 2025</div>
+        <h1>Hackathon Event 2024</h1>
+        <p class="tagline">Innovate, Build, and Transform the Future</p>
+        <div class="date-badge">NOV 15-17, 2024</div>
     </header>
     
     <div class="container">
         <section id="about">
             <h2>About the Hackathon</h2>
-            <p>TechHack 2024 is an intercollegiate hackathon bringing together the brightest minds from top engineering colleges across India. This 48-hour coding marathon challenges participants to solve real-world problems through innovative technology solutions.</p>
-            <p>With themes ranging from <span class="highlight">AI & Machine Learning</span> to <span class="highlight">Sustainable Tech</span> and <span class="highlight">Healthcare Innovations</span>, TechHack provides a platform for students to showcase their skills, learn from industry experts, and network with peers.</p>
+            <p>The Hackathon Event 2024 is a premier competition where participants create innovative solutions to real-world problems using cutting-edge technologies. This event brings together the brightest minds to test their skills in coding, design, and problem-solving.</p>
+            <p>In our fast-paced digital world, this hackathon provides a platform to develop practical skills through hands-on projects guided by industry leaders and tech experts.</p>
         </section>
         
-        <section id="themes">
-            <h2>Themes & Tracks</h2>
-            <ul>
-                <li><strong>Artificial Intelligence & Machine Learning:</strong> Build intelligent systems that can learn and adapt</li>
-                <li><strong>Blockchain & Web3:</strong> Develop decentralized applications for the future internet</li>
-                <li><strong>Healthcare Technology:</strong> Create solutions to improve medical care and accessibility</li>
-                <li><strong>Sustainable Development:</strong> Innovate for a greener planet with climate tech solutions</li>
-                <li><strong>FinTech Innovations:</strong> Revolutionize financial services with technology</li>
-                <li><strong>Open Innovation:</strong> Any groundbreaking idea that doesn't fit the above categories</li>
-            </ul>
-        </section>
+        <div class="section-divider"></div>
         
-        <section id="prizes">
-            <h2>Prizes & Opportunities</h2>
-            <div class="prizes">
-                <div class="prize-card">
-                    <div class="prize-place">1st Place</div>
-                    <div class="prize-amount">2,00,000</div>
-                    <p>Plus incubation support and mentorship</p>
+        <section id="rules">
+            <h2>Competition Rules</h2>
+            <p>To ensure fair competition and maintain integrity, all participants must follow these guidelines:</p>
+            
+            <div class="rules-container">
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="rule-title">Code Usage</h3>
+                    <p>Only original code may be used. External libraries require approval and proper attribution.</p>
                 </div>
-                <div class="prize-card">
-                    <div class="prize-place">2nd Place</div>
-                    <div class="prize-amount">1,00,000</div>
-                    <p>Plus premium developer tools</p>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="rule-title">Team Composition</h3>
+                    <p>Teams of 2-4 members from the same institution. Cross-institution teams require special permission.</p>
                 </div>
-                <div class="prize-card">
-                    <div class="prize-place">3rd Place</div>
-                    <div class="prize-amount">50,000</div>
-                    <p>Plus exclusive swag</p>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="rule-title">Tools & Technologies</h3>
+                    <p>Open-source tools are encouraged. Commercial software requires prior approval.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="rule-title">Submission Timing</h3>
+                    <p>Projects must be submitted before deadlines. Late submissions will be penalized.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="rule-title">Evaluation Criteria</h3>
+                    <p>Projects judged on innovation, functionality, design, and potential impact.</p>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="rule-title">Original Work</h3>
+                    <p>All submissions must be original work created during the hackathon period.</p>
                 </div>
             </div>
-            <p>Additional prizes include:</p>
-            <ul>
-                <li>Best Women-Led Team Award: ₹25,000</li>
-                <li>Most Innovative Idea Award: ₹25,000</li>
-                <li>Social Impact Award: ₹25,000</li>
-                <li>Internship opportunities with sponsoring companies</li>
-            </ul>
         </section>
+        
+        <div class="section-divider"></div>
         
         <section id="schedule">
             <h2>Event Schedule</h2>
-            <div class="schedule">
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 1: 9 AM</div>
-                    <div class="schedule-details">
-                        <h3>Registration & Opening Ceremony</h3>
-                        <p>Check-in, team formation, and keynote from industry leaders</p>
+            <p>The Hackathon Event 2024 spans three intensive days of coding, designing, and presentations:</p>
+            
+            <div class="schedule-container">
+                <!-- Day 1 -->
+                <div class="day-group">
+                    <div class="day-header">
+                        <h3>Day 1 • November 15</h3>
+                        <div class="day-tag">Opening Day</div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">09:00 - 10:30</div>
+                        <div class="event-details">
+                            <h4>Registration & Orientation</h4>
+                            <p>Check-in and team formation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">10:30 - 12:00</div>
+                        <div class="event-details">
+                            <h4>Keynote: Future of Tech</h4>
+                            <p>Industry leaders discuss emerging technologies</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">12:00 - 13:00</div>
+                        <div class="event-details">
+                            <h4>Challenge Announcement</h4>
+                            <p>Official competition begins</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">13:00 - 18:00</div>
+                        <div class="event-details">
+                            <h4>Ideation & Planning</h4>
+                            <p>Initial brainstorming and project planning</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">18:00 - 19:30</div>
+                        <div class="event-details">
+                            <h4>Dinner & Networking</h4>
+                            <p>Connect with other participants and mentors</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">19:30 - 21:00</div>
+                        <div class="event-details">
+                            <h4>Workshop: Rapid Prototyping</h4>
+                            <p>Learn techniques for quick development</p>
+                        </div>
                     </div>
                 </div>
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 1: 12 PM</div>
-                    <div class="schedule-details">
-                        <h3>Hacking Begins</h3>
-                        <p>Teams start working on their projects</p>
+                
+                <!-- Day 2 -->
+                <div class="day-group">
+                    <div class="day-header">
+                        <h3>Day 2 • November 16</h3>
+                        <div class="day-tag">Development Day</div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">08:00 - 09:00</div>
+                        <div class="event-details">
+                            <h4>Breakfast & Progress Review</h4>
+                            <p>Discuss initial progress with mentors</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">09:00 - 12:00</div>
+                        <div class="event-details">
+                            <h4>Coding Intensive</h4>
+                            <p>Core development time with mentor support</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">12:00 - 13:00</div>
+                        <div class="event-details">
+                            <h4>Lunch & Tech Talks</h4>
+                            <p>Quick presentations from tech experts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">15:00 - 17:00</div>
+                        <div class="event-details">
+                            <h4>Testing Phase</h4>
+                            <p>Test and debug your projects</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">17:00 - 18:30</div>
+                        <div class="event-details">
+                            <h4>Panel: Tech Careers</h4>
+                            <p>Learn about career paths from professionals</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">18:30 - 20:00</div>
+                        <div class="event-details">
+                            <h4>Workshop: UI/UX Design</h4>
+                            <p>Improve your project's user experience</p>
+                        </div>
                     </div>
                 </div>
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 1: 7 PM</div>
-                    <div class="schedule-details">
-                        <h3>Mentorship Sessions</h3>
-                        <p>Get guidance from industry experts and professors</p>
+                
+                <!-- Day 3 -->
+                <div class="day-group">
+                    <div class="day-header">
+                        <h3>Day 3 • November 17</h3>
+                        <div class="day-tag">Final Day</div>
                     </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 2: 12 PM</div>
-                    <div class="schedule-details">
-                        <h3>Midpoint Check-in</h3>
-                        <p>Teams present progress and get feedback</p>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">09:00 - 11:00</div>
+                        <div class="event-details">
+                            <h4>Final Development</h4>
+                            <p>Last optimizations before submission</p>
+                        </div>
                     </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 3: 12 PM</div>
-                    <div class="schedule-details">
-                        <h3>Hacking Ends</h3>
-                        <p>Submission deadline for all projects</p>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">11:00 - 14:00</div>
+                        <div class="event-details">
+                            <h4>Documentation & Demo Prep</h4>
+                            <p>Prepare your final presentations</p>
+                        </div>
                     </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 3: 2 PM</div>
-                    <div class="schedule-details">
-                        <h3>Demo Fair & Judging</h3>
-                        <p>Teams showcase their projects to judges</p>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">14:00</div>
+                        <div class="event-details">
+                            <h4>Submission Deadline</h4>
+                            <p>All projects must be submitted by this time</p>
+                        </div>
                     </div>
-                </div>
-                <div class="schedule-item">
-                    <div class="schedule-time">Day 3: 6 PM</div>
-                    <div class="schedule-details">
-                        <h3>Closing Ceremony & Awards</h3>
-                        <p>Announcement of winners and closing remarks</p>
+                    
+                    <div class="schedule-card">
+                        <div class="time-slot">15:30 - 16:30</div>
+                        <div class="event-details">
+                            <h4>Final Presentations</h4>
+                            <p>Teams present their solutions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card highlight">
+                        <div class="time-slot">16:30 - 17:30</div>
+                        <div class="event-details">
+                            <h4>Awards Ceremony</h4>
+                            <p>Winners announced and prizes awarded</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section id="rules">
-            <h2>Rules & Guidelines</h2>
-            <ul>
-                <li>Teams of 2-4 members from the same or different colleges</li>
-                <li>All code must be written during the hackathon (no pre-written code)</li>
-                <li>Use of open-source libraries and APIs is allowed</li>
-                <li>Projects must be submitted by the deadline to be eligible for prizes</li>
-                <li>All participants must adhere to the code of conduct</li>
-                <li>Judges' decisions are final</li>
-            </ul>
-            <p><strong>Code of Conduct:</strong> We expect all participants to maintain a respectful and inclusive environment. Harassment of any kind will not be tolerated.</p>
+        <div class="section-divider"></div>
+        
+        <section id="prizes">
+            <h2>Prizes & Rewards</h2>
+            <p>Exceptional teams will receive valuable prizes along with career-building opportunities:</p>
+            
+            <div class="prizes-container">
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">1st Place</div>
+                        <div class="prize-amount">$15,000</div>
+                        <div class="prize-details">
+                            <p>Tech gadget package</p>
+                            <p>Tech internship opportunities</p>
+                            <p>Trophy & certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">2nd Place</div>
+                        <div class="prize-amount">$7,500</div>
+                        <div class="prize-details">
+                            <p>Premium software licenses</p>
+                            <p>Mentorship program</p>
+                            <p>Certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">3rd Place</div>
+                        <div class="prize-amount">$3,000</div>
+                        <div class="prize-details">
+                            <p>Online course subscriptions</p>
+                            <p>Tech swag package</p>
+                            <p>Certificates</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prize-card">
+                    <div>
+                        <div class="prize-rank">Special Awards</div>
+                        <div class="prize-amount">$1,500</div>
+                        <div class="prize-details">
+                            <p>Best Design</p>
+                            <p>Most Innovative</p>
+                            <p>Best Student Project</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
+        
+        <div class="section-divider"></div>
+        
+        <section id="challenges">
+            <h2>Challenge Tracks</h2>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Web Development</h3>
+                    <span class="challenge-difficulty">All Levels</span>
+                    <p>Build innovative web applications using modern frameworks and technologies.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Mobile Apps</h3>
+                    <span class="challenge-difficulty">Intermediate</span>
+                    <p>Create cross-platform or native mobile applications solving real problems.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">AI/ML Solutions</h3>
+                    <span class="challenge-difficulty">Advanced</span>
+                    <p>Develop applications leveraging artificial intelligence and machine learning.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">IoT & Hardware</h3>
+                    <span class="challenge-difficulty">Intermediate</span>
+                    <p>Build solutions combining software with hardware components.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Blockchain</h3>
+                    <span class="challenge-difficulty">Advanced</span>
+                    <p>Create decentralized applications using blockchain technologies.</p>
+                </div>
+                <div class="challenge-card">
+                    <h3 class="challenge-title">Social Impact</h3>
+                    <span class="challenge-difficulty">All Levels</span>
+                    <p>Develop solutions addressing social, environmental, or community challenges.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="section-divider"></div>
         
         <section id="apply">
-            <h2>Apply Through Your College</h2>
-            <p>Select your college to access the application form. Limited slots available!</p>
+            <h2>Participating Institutions</h2>
+            <p>Register through your university to compete in this prestigious tech event:</p>
             
-            <div class="colleges-grid">
-                <div class="college-card" onclick="openModal('iiit')">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIIT Hyderabad" class="college-image">
+            <div class="colleges-container">
+                <div class="college-card" onclick="openModal('mit')">
+                    <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="MIT" class="college-image">
                     <div class="college-info">
-                        <h3 class="college-name">IIIT Hyderabad</h3>
+                        <h3 class="college-name">MIT</h3>
                         <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana
+                            <i class="fas fa-map-marker-alt"></i> Cambridge, USA
                         </div>
                         <button class="apply-btn">Apply Now</button>
                     </div>
                 </div>
                 
-                <div class="college-card" onclick="openModal('srm')">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="SRM University" class="college-image">
+                <div class="college-card" onclick="openModal('stanford')">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Stanford" class="college-image">
                     <div class="college-info">
-                        <h3 class="college-name">SRM University</h3>
+                        <h3 class="college-name">Stanford</h3>
                         <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Chennai, Tamil Nadu
-                        </div>
-                        <button class="apply-btn">Apply Now</button>
-                    </div>
-                </div>
-                
-                <div class="college-card" onclick="openModal('malla')">
-                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Malla Reddy College" class="college-image">
-                    <div class="college-info">
-                        <h3 class="college-name">Malla Reddy College</h3>
-                        <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Hyderabad, Telangana
-                        </div>
-                        <button class="apply-btn">Apply Now</button>
-                    </div>
-                </div>
-                
-                <div class="college-card" onclick="openModal('iit')">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="IIT Tirupati" class="college-image">
-                    <div class="college-info">
-                        <h3 class="college-name">IIT Tirupati</h3>
-                        <div class="college-location">
-                            <i class="fas fa-map-marker-alt"></i> Tirupati, Andhra Pradesh
+                            <i class="fas fa-map-marker-alt"></i> Stanford, USA
                         </div>
                         <button class="apply-btn">Apply Now</button>
                     </div>
@@ -548,27 +1118,22 @@
         </section>
     </div>
     
-    
-    <div id="iiit-modal" class="modal">
+    <div id="mit-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('iiit')">&times;</span>
-            <h2>TechHack 2024 Application - IIIT Hyderabad</h2>
-            <form id="iiit-form">
+            <span class="close-btn" onclick="closeModal('mit')">&times;</span>
+            <h2 style="color: var(--heading-blue);">Application - MIT</h2>
+            <form id="mit-form">
                 <div class="form-group">
-                    <label for="iiit-name">Full Name</label>
-                    <input type="text" id="iiit-name" required>
+                    <label for="mit-name">Full Name</label>
+                    <input type="text" id="mit-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="iiit-email">Email</label>
-                    <input type="email" id="iiit-email" required>
+                    <label for="mit-email">Email</label>
+                    <input type="email" id="mit-email" required>
                 </div>
                 <div class="form-group">
-                    <label for="iiit-phone">Phone Number</label>
-                    <input type="tel" id="iiit-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="iiit-year">Year of Study</label>
-                    <select id="iiit-year" required>
+                    <label for="mit-year">Year of Study</label>
+                    <select id="mit-year" required>
                         <option value="">Select Year</option>
                         <option value="1">1st Year</option>
                         <option value="2">2nd Year</option>
@@ -577,59 +1142,39 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="iiit-branch">Branch</label>
-                    <input type="text" id="iiit-branch" required>
-                </div>
-                <div class="form-group">
-                    <label for="iiit-id">Student ID Number</label>
-                    <input type="text" id="iiit-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="iiit-team">Team Members (if any)</label>
-                    <textarea id="iiit-team" placeholder="Name, Email, and Year of each team member"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="iiit-theme">Preferred Theme</label>
-                    <select id="iiit-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
+                    <label for="mit-track">Preferred Track</label>
+                    <select id="mit-track" required>
+                        <option value="">Select Track</option>
+                        <option value="web">Web Development</option>
+                        <option value="mobile">Mobile Apps</option>
+                        <option value="ai">AI/ML Solutions</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="iiit-skills">Technical Skills</label>
-                    <textarea id="iiit-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                    <label for="mit-skills">Technical Skills</label>
+                    <textarea id="mit-skills" placeholder="Describe your technical skills and experience" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
         </div>
     </div>
-    
-    
-    <div id="srm-modal" class="modal">
+
+    <div id="stanford-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('srm')">&times;</span>
-            <h2>TechHack 2024 Application - SRM University</h2>
-            <form id="srm-form">
+            <span class="close-btn" onclick="closeModal('stanford')">&times;</span>
+            <h2 style="color: var(--heading-blue);">Application - Stanford</h2>
+            <form id="stanford-form">
                 <div class="form-group">
-                    <label for="srm-name">Full Name</label>
-                    <input type="text" id="srm-name" required>
+                    <label for="stanford-name">Full Name</label>
+                    <input type="text" id="stanford-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-email">Email</label>
-                    <input type="email" id="srm-email" required>
+                    <label for="stanford-email">Email</label>
+                    <input type="email" id="stanford-email" required>
                 </div>
                 <div class="form-group">
-                    <label for="srm-phone">Phone Number</label>
-                    <input type="tel" id="srm-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="srm-year">Year of Study</label>
-                    <select id="srm-year" required>
+                    <label for="stanford-year">Year of Study</label>
+                    <select id="stanford-year" required>
                         <option value="">Select Year</option>
                         <option value="1">1st Year</option>
                         <option value="2">2nd Year</option>
@@ -638,154 +1183,17 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="srm-branch">Branch</label>
-                    <input type="text" id="srm-branch" required>
-                </div>
-                <div class="form-group">
-                    <label for="srm-id">Student ID Number</label>
-                    <input type="text" id="srm-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="srm-team">Team Members (if any)</label>
-                    <textarea id="srm-team" placeholder="Name, Email, and Year of each team member"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="srm-theme">Preferred Theme</label>
-                    <select id="srm-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
+                    <label for="stanford-track">Preferred Track</label>
+                    <select id="stanford-track" required>
+                        <option value="">Select Track</option>
+                        <option value="web">Web Development</option>
+                        <option value="mobile">Mobile Apps</option>
+                        <option value="ai">AI/ML Solutions</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="srm-skills">Technical Skills</label>
-                    <textarea id="srm-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Submit Application</button>
-            </form>
-        </div>
-    </div>
-    
-    
-    <div id="malla-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('malla')">&times;</span>
-            <h2>TechHack 2024 Application - Malla Reddy College</h2>
-            <form id="malla-form">
-                <div class="form-group">
-                    <label for="malla-name">Full Name</label>
-                    <input type="text" id="malla-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="malla-email">Email</label>
-                    <input type="email" id="malla-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="malla-phone">Phone Number</label>
-                    <input type="tel" id="malla-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="malla-year">Year of Study</label>
-                    <select id="malla-year" required>
-                        <option value="">Select Year</option>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="malla-branch">Branch</label>
-                    <input type="text" id="malla-branch" required>
-                </div>
-                <div class="form-group">
-                    <label for="malla-id">Student ID Number</label>
-                    <input type="text" id="malla-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="malla-team">Team Members (if any)</label>
-                    <textarea id="malla-team" placeholder="Name, Email, and Year of each team member"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="malla-theme">Preferred Theme</label>
-                    <select id="malla-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="malla-skills">Technical Skills</label>
-                    <textarea id="malla-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Submit Application</button>
-            </form>
-        </div>
-    </div>
-    
-    
-    <div id="iit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('iit')">&times;</span>
-            <h2>TechHack 2024 Application - IIT Tirupati</h2>
-            <form id="iit-form">
-                <div class="form-group">
-                    <label for="iit-name">Full Name</label>
-                    <input type="text" id="iit-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-email">Email</label>
-                    <input type="email" id="iit-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-phone">Phone Number</label>
-                    <input type="tel" id="iit-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-year">Year of Study</label>
-                    <select id="iit-year" required>
-                        <option value="">Select Year</option>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="iit-branch">Branch</label>
-                    <input type="text" id="iit-branch" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-id">Student ID Number</label>
-                    <input type="text" id="iit-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="iit-team">Team Members (if any)</label>
-                    <textarea id="iit-team" placeholder="Name, Email, and Year of each team member"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="iit-theme">Preferred Theme</label>
-                    <select id="iit-theme" required>
-                        <option value="">Select Theme</option>
-                        <option value="ai">AI & Machine Learning</option>
-                        <option value="blockchain">Blockchain & Web3</option>
-                        <option value="healthcare">Healthcare Technology</option>
-                        <option value="sustainable">Sustainable Development</option>
-                        <option value="fintech">FinTech Innovations</option>
-                        <option value="open">Open Innovation</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="iit-skills">Technical Skills</label>
-                    <textarea id="iit-skills" placeholder="List your programming languages, frameworks, and other relevant skills" required></textarea>
+                    <label for="stanford-skills">Technical Skills</label>
+                    <textarea id="stanford-skills" placeholder="Describe your technical skills and experience" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Submit Application</button>
             </form>
@@ -793,19 +1201,16 @@
     </div>
     
     <script>
-    
         function openModal(college) {
             document.getElementById(`${college}-modal`).style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
         
-    
         function closeModal(college) {
             document.getElementById(`${college}-modal`).style.display = 'none';
             document.body.style.overflow = 'auto';
         }
         
-    
         window.onclick = function(event) {
             if (event.target.className === 'modal') {
                 event.target.style.display = 'none';
@@ -813,52 +1218,63 @@
             }
         }
         
-        
-        document.getElementById('iiit-form').addEventListener('submit', function(e) {
+        document.getElementById('mit-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Application submitted successfully for IIIT Hyderabad!');
-            closeModal('iiit');
+            alert('Application submitted successfully for MIT!');
+            closeModal('mit');
         });
         
-        document.getElementById('srm-form').addEventListener('submit', function(e) {
+        document.getElementById('stanford-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Application submitted successfully for SRM University!');
-            closeModal('srm');
+            alert('Application submitted successfully for Stanford!');
+            closeModal('stanford');
         });
-        
-        document.getElementById('malla-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Application submitted successfully for Malla Reddy College!');
-            closeModal('malla');
-        });
-        
-        document.getElementById('iit-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Application submitted successfully for IIT Tirupati!');
-            closeModal('iit');
-        });
-        
         
         document.addEventListener('DOMContentLoaded', function() {
-            const collegeCards = document.querySelectorAll('.college-card');
-            
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        // Different delays for different elements
+                        if (entry.target.classList.contains('rule-card')) {
+                            entry.target.style.transitionDelay = `${entry.target.dataset.index * 0.1}s`;
+                        } else if (entry.target.classList.contains('day-group')) {
+                            entry.target.style.transitionDelay = `${entry.target.dataset.index * 0.2 + 0.1}s`;
+                        } else if (entry.target.classList.contains('prize-card')) {
+                            entry.target.style.transitionDelay = `${entry.target.dataset.index * 0.1}s`;
+                        }
+                        entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.1 });
-            
-            collegeCards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(50px)';
-                card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+
+            // Set data-index attributes for staggered animations
+            document.querySelectorAll('.rule-card').forEach((card, index) => {
+                card.dataset.index = index;
                 observer.observe(card);
+            });
+
+            document.querySelectorAll('.day-group').forEach((group, index) => {
+                group.dataset.index = index;
+                observer.observe(group);
+            });
+
+            document.querySelectorAll('.schedule-card').forEach((card) => {
+                observer.observe(card);
+            });
+
+            document.querySelectorAll('.prize-card').forEach((card, index) => {
+                card.dataset.index = index;
+                observer.observe(card);
+            });
+
+            // Observe sections and other elements
+            document.querySelectorAll('section, .college-card, .challenge-card').forEach(el => {
+                observer.observe(el);
             });
         });
     </script>
-    <script src="js/settings.js"></script>
 </body>
 </html>
