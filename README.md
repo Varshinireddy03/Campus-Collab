@@ -46,8 +46,11 @@ Follow these steps to get involved:
 
 ## 👥 Collaborators  
 
-- [Hruthika Reddy](https://github.com/Hruthika-Reddy)  
-- [Varshini Reddy](https://github.com/Varshinireddy03)
+- [Hruthika-Reddy](https://github.com/Hruthika-Reddy)  
+- [Varshinireddy03](https://github.com/Varshinireddy03)  
+- [JyoshnaReddy-123](https://github.com/JyoshnaReddy-123)  
+- [Rishik-sai](https://github.com/Rishik-sai)
+- [Maddana-Gunasekhar](https://github.com/Maddana-Gunasekhar)  
 
 > Want to contribute? Feel free to fork this repo, make changes, and submit a pull request!
 
